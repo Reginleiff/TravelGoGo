@@ -1,0 +1,24 @@
+<div *ngIf="planToView">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">{{planToView.title}}</h3>
+      <p class="card-text">{{planToView.description}}</p>
+      <button (click)="delete(planToView)" class="btn btn-primary btn-sm">Delete Itinerary</button>
+      <ul *ngIf="planToView" class="nav nav-tabs card-header-tabs">
+        <li *ngFor="let dayPlan of itineraryToView, let i = index" class="nav-item">
+          <a (click)="pushToView(i)" class="nav-link">{{dayPlan.day + 1}}</a>
+        </li>
+      </ul>
+    </div>    
+    <div class="card-block">
+      <ul class="list-group">
+        <li *ngFor="let dest of destinationsToView" class="list-group-item">
+          {{dest.name}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div *ngIf="!planToView">
+  <h3 class="text-center">Select an itinerary!</h3>
+</div>

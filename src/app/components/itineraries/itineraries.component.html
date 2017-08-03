@@ -1,0 +1,16 @@
+<div class="jumbotron" id="jumbo">
+  <div id="jumbo">
+    <h1>My Itineraries</h1>
+  </div>
+  <div class="row">
+    <div class="container col-sm-4">
+      <app-itinerary-list 
+      [itineraries]="userItineraries"
+      (viewUpdate)="pushToView($event)"
+      ></app-itinerary-list>
+    </div>
+    <div class="container col-sm-8">
+      <app-itinerary-view></app-itinerary-view>
+    </div>
+  </div>
+</div>

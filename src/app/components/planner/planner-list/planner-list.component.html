@@ -1,0 +1,35 @@
+<div class="card">
+  <ul class="nav nav-tabs">
+    <li *ngFor="let dp of itinerary" class="nav-item">
+      <a (click)="pushToDayPlanView(dp)" class="nav-link">{{dp.day + 1}}</a>
+    </li>
+  </ul>
+  <app-planner-dayplan 
+  [dayPlan]="dayPlanView"
+  (addDayUpdate)="addDay($event)"
+  (remDayUpdate)="remDay($event)"
+  ></app-planner-dayplan>
+</div>
+
+<div>
+  <form [formGroup]="rForm" (ngSubmit)="addOverview(rForm.value)">
+    <div class="container">
+      <div class="row columns">
+        <label for="">Title
+          <input type="text" formControlName="title">
+        </label>
+
+        <label for="">Description
+          <textarea formControlName="description"></textarea>
+        </label>
+
+        <input type="submit" class="button expanded" value="Add Itinerary" [disabled]="!rForm.valid">
+      </div>
+    </div>
+  </form>
+  <ul class="list-group">
+    <li *ngFor="let i of testArr">
+      {{i.name}}
+    </li>
+  </ul>
+</div>

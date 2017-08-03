@@ -1,0 +1,44 @@
+<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar"     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <a class="navbar-brand text-white" href="#">Travelgogo.</a>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+    <div class="nav navbar-nav">
+      <a 
+      class="nav-item nav-link" 
+      routerLinkActive="active"
+      routerLink="/home">Home</a>
+
+      <a 
+      *ngIf="(authService.userObs | async)"
+      class="nav-item nav-link" 
+      routerLinkActive="active"
+      routerLink="/planner">Planner</a>
+      
+      <a 
+      *ngIf="(authService.userObs | async)"
+      class="nav-item nav-link" 
+      routerLinkActive="active"
+      routerLink="/itineraries">Itineraries</a>
+
+      <a 
+      *ngIf="(authService.userObs | async)"
+      class="nav-item nav-link" 
+      routerLinkActive="active"
+      routerLink="/community">Community</a>
+
+    </div>
+    <div class="nav navbar-nav">
+      <a *ngIf="!(authService.userObs | async)" (click)="login()" class="nav-item nav-link">Login</a>
+      <a 
+      *ngIf="(authService.userObs | async)" 
+      (click)="logout()" 
+      routerLink="/logout"
+      class="nav-item nav-link">Logout</a>     
+    </div>
+  </div>
+
+</nav>
