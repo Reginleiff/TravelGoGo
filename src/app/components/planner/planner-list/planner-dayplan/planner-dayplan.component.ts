@@ -24,12 +24,19 @@ export class PlannerDayplanComponent implements OnChanges, OnDestroy {
     dragulaService.setOptions('day-list', {
       removeOnSpill: true
     });
+    dragulaService.removeModel.subscribe((value) => {
+      this.updateOrder();
+    });
+    dragulaService.dropModel.subscribe((value) => {
+      this.updateOrder();
+    });
   }
 
 
   ngOnChanges(changes: SimpleChanges){
     if(changes['dayPlan']){
       this.items = this.dayPlan.destinations;
+      this.updateOrder();
     }
   }
 
@@ -47,5 +54,14 @@ export class PlannerDayplanComponent implements OnChanges, OnDestroy {
 
   plotRoute(): void {
     this.plannerService.pushToRoute(this.dayPlan);
+  }
+
+  /**
+   * updates the order attribute of each item in the list
+   */
+  updateOrder(): void {
+    for(var i = 0; i < this.items.length; i++){
+      this.items[i].setOrder(i);
+    }
   }
 }

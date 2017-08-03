@@ -23,4 +23,3 @@ export function toLatLng(dest: Destination): google.maps.LatLng {
   return new google.maps.LatLng(dest.lat, dest.lng);
 }
 
-
