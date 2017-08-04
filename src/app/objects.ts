@@ -124,3 +124,34 @@ export class ItineraryOverview {
         }
     }
 }
+
+export class Colour {
+    hex: string;
+    hasBeenUsed: boolean;
+    
+    constructor(hexCode: string){
+        this.hex = hexCode;
+        this.hasBeenUsed = false;
+    }
+    
+    use(): void {
+        this.hasBeenUsed = true;
+    }
+
+    getHex(): string {
+        return this.hex;
+    }
+}
+
+export const coloursArray = [ //TODO: Choose best colours and add more
+      new Colour ('#90EE90'), // LightGreen
+      new Colour ('#FFB6C1'), // LightPink 
+      new Colour ('#20B2AA'), // LightSeaGreen 
+      new Colour ('#87CEFA'), // LightSkyBlue 
+      new Colour ('#778899'), // LightSlateGrey 
+      new Colour ('#B0C4DE'), // LightSteelBlue 
+      new Colour ('#ADD8E6'), // LightBlue 
+      new Colour ('#7B68EE'), // MediumSlateBlue 
+      new Colour ('#DB7093'), // PaleVioletRed 
+      new Colour ('#CD5C5C'), // IndianRed
+]

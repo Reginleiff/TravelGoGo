@@ -1,7 +1,7 @@
 import { Directive, AfterViewInit } from '@angular/core';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
 import { PlannerService } from './../../../services/planner.service';
-import { Destination, ItineraryDayPlan, Pair } from './../../../objects';
+import { Destination, ItineraryDayPlan, Pair, Colour, coloursArray } from './../../../objects';
 import { transitPairer, toLatLng } from './../../../functions';
 
 declare var google: any;
@@ -21,6 +21,7 @@ export class PlannerMapRouteDirective {
     private plannerService: PlannerService
   ) { 
     this.displayRendererRef = new Array<any>();
+    
     
     this.plannerService.dayPlanToRouteSubject.subscribe((data: ItineraryDayPlan) => {
       let destinations = data.destinations;
@@ -103,12 +104,30 @@ export class PlannerMapRouteDirective {
     let numRendersNeeded = destinationPairs.length - renders.length;
     if(numRendersNeeded > 0){
       for(var i = 0; i < numRendersNeeded; i++){
-        let tempRender = new google.maps.DirectionsRenderer;
+        let tempRender = new google.maps.DirectionsRenderer({
+          polylineOptions: {
+            strokeColor: this.getRandomColour()
+          },
+          suppressMarkers: true
+        });
         this.displayRendererRef.push(tempRender);
       }
     }
     for(var j = 0; j < destinationPairs.length; j++){
       this.displayRoute(destinationPairs[j], this.displayRendererRef[j]);
+    }
+  }
+
+  /**
+   * provides a random colour from colours array, but no guarantee of no repeat
+   */
+  getRandomColour(): string {
+    let colour: Colour = coloursArray[Math.floor(Math.random() * coloursArray.length)];
+    if(colour.hasBeenUsed){
+      return this.getRandomColour();
+    } else {
+      colour.use();
+      return colour.getHex();
     }
   }
 }
