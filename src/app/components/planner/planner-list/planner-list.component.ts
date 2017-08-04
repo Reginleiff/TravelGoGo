@@ -47,6 +47,7 @@ export class PlannerListComponent implements OnInit {
 
   pushToDayPlanView(dayPlan: ItineraryDayPlan){
     this.dayPlanView = dayPlan;
+    this.plannerService.updateMarkersArray(dayPlan.destinations);
   }
 
   addDay(placeholder: string): void {

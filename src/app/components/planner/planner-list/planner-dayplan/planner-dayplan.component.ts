@@ -37,6 +37,7 @@ export class PlannerDayplanComponent implements OnChanges, OnDestroy {
     if(changes['dayPlan']){
       this.items = this.dayPlan.destinations;
       this.updateOrder();
+      // this.plotRoute();
     }
   }
 

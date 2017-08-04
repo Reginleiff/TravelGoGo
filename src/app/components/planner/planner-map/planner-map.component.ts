@@ -27,8 +27,8 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
   directionsService: any;
   directionsDisplay: any;
 
-  arrOfPlaces: Array<any> = new Array<any>();
-  arrOfPlacesCount: number;
+  destinations: Array<any>;
+  destinationsCount: number;
   itinerary: Array<ItineraryDayPlan>;
 
 
@@ -44,13 +44,22 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
     this.plannerService.listToMapSubject.subscribe((data) => {
       this.itinerary = data;
     })
-    this.arrOfPlacesCount = 0;
+    this.plannerService.updMarkerSubject.subscribe((data) => {
+      this.destinations = data;
+      this.destinationsCount = data.length;
+    })
+    this.plannerService.infoToListSubject.subscribe((data) => {
+      this.destinations.push(data);
+      this.destinationsCount++;
+    })
   }
 
   ngOnInit() {//set google maps defaults
     this.zoom = 1;
     this.latitude = 1.2966;
     this.longitude = 103.7764;
+    this.destinationsCount = 0;
+    this.destinations = new Array<any>();
 
     //create search FormControl
     this.searchControl = new FormControl();
@@ -76,12 +85,10 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
           // set latitude, longitude and zoom
           // create a new destination
           let tempPlace = new Destination(place);
-          this.arrOfPlaces.push(tempPlace);
-          this.arrOfPlacesCount++;
           this.addDestination(tempPlace);
           this.latitude = place.geometry.location.lat();
           this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
+          this.zoom = 15;
         });
       });
     });

@@ -14,7 +14,6 @@ export class PlannerMapRouteDirective {
 
   displayRendererRef: Array<any>;
   directionsService: any;
-  // directionsDisplay: any;
 
   constructor(
     private googleMapsAPIWrapper: GoogleMapsAPIWrapper,
@@ -24,21 +23,25 @@ export class PlannerMapRouteDirective {
     this.displayRendererRef = new Array<any>();
     
     this.plannerService.dayPlanToRouteSubject.subscribe((data: ItineraryDayPlan) => {
-      console.log(data);
       let destinations = data.destinations;
       let numDestinations = data.numDestinations;
       let plotters = destinations.map((dest) => 
         toLatLng(dest)
       );
-      console.log(plotters);
       this.clearRoutes();
 
+      // only compute routes when there are two or more destinations
       if(numDestinations >= 2){
         let destinationPairs: Array<Pair<google.maps.LatLng>> = transitPairer(destinations);
         this.plot(destinationPairs, this.displayRendererRef);
-      }else {
+      } else {
         console.log("Insufficient destinations to plot a route!");
       }
+    })
+
+    // clear routes upon switching days
+    this.plannerService.updMarkerSubject.subscribe((data) => {
+      this.clearRoutes();
     })
   }
 
@@ -49,6 +52,11 @@ export class PlannerMapRouteDirective {
     })
   }
 
+  /**
+   * plots a route between the start and end coordinates in destPair
+   * @param destPair pairing of start and end coordinates
+   * @param directionsDisplay an instance of a DirectionsRenderer
+   */
   displayRoute(destPair: Pair<google.maps.LatLng>, directionsDisplay: any): void {
     this.googleMapsAPIWrapper.getNativeMap().then((map) => {
 
@@ -70,7 +78,9 @@ export class PlannerMapRouteDirective {
       })
     })
   }
-
+  /**
+   * clearRoutes clears each route from every renderer
+   */
   clearRoutes(){
     this.googleMapsAPIWrapper.getNativeMap().then((map) => {
       for(let display of this.displayRendererRef) {
@@ -83,6 +93,12 @@ export class PlannerMapRouteDirective {
     });
   }
 
+  /**
+   * plot takes an array of destination pairings and uses any available renderers to plot a route for each pairing
+   * a new renderer is created for every pair is there are insufficient existing renderers
+   * @param destinationPairs array of destination pairings (a, b), (b, c) ...
+   * @param renders array of renderers that have been created
+   */
   plot(destinationPairs: Array<any>, renders: Array<google.maps.DirectionsRenderer>) {
     let numRendersNeeded = destinationPairs.length - renders.length;
     if(numRendersNeeded > 0){

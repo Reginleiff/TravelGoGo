@@ -10,6 +10,7 @@ export class PlannerService {
   public listToMapSubject = new Subject<any>();
   public infoToListSubject = new Subject<any>();
   public dayPlanToRouteSubject = new Subject<any>();
+  public updMarkerSubject = new Subject<any>();
 
   constructor() { }
 
@@ -27,5 +28,9 @@ export class PlannerService {
 
   pushToRoute(idp: ItineraryDayPlan){
     this.dayPlanToRouteSubject.next(idp);
+  }
+
+  updateMarkersArray(arr: Array<any>){
+    this.updMarkerSubject.next(arr);
   }
 }
