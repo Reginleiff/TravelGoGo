@@ -29,6 +29,7 @@ import { ItineraryListComponent } from './components/itineraries/itinerary-list/
 import { PlannerListComponent } from './components/planner/planner-list/planner-list.component';
 import { PlannerMapComponent } from './components/planner/planner-map/planner-map.component';
 import { PlannerDayplanComponent } from './components/planner/planner-list/planner-dayplan/planner-dayplan.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 // Services
 import { FirebaseService } from './services/firebase.service';
@@ -40,15 +41,15 @@ import { PlannerInfoComponent } from './components/planner/planner-info/planner-
 // Directives
 import { PlannerMapRouteDirective } from './components/planner/planner-map/planner-map-route.directive';
 
-
-
 const appRoutes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'logout', redirectTo: 'home', pathMatch: 'full'},
   { path: 'home', component: HomeComponent},
   { path: 'planner', component: PlannerComponent},
   { path: 'itineraries', component: ItinerariesComponent},
-  { path: 'community', component: CommunityComponent}
+  { path: 'community', component: CommunityComponent},
+
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '**', component: PageNotFoundComponent},
 ]
 
 @NgModule({
@@ -66,6 +67,7 @@ const appRoutes: Routes = [
     PlannerDayplanComponent,
     PlannerInfoComponent,
     PlannerMapRouteDirective,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
