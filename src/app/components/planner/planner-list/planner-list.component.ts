@@ -1,11 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { FirebaseService } from './../../../services/firebase.service';
 import { AuthService } from './../../../services/auth.service';
 import { PlannerService } from './../../../services/planner.service';
+import { ItineraryService } from './../../../services/itinerary.service';
 
 import { User, ItineraryDayPlan, ItineraryOverview, Destination } from './../../../objects';
+import { arrayRem } from './../../../functions';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-planner-list',
@@ -18,7 +26,6 @@ export class PlannerListComponent implements OnInit {
   overview: ItineraryOverview;
   itinerary: ItineraryDayPlan[];
   dayPlanView: ItineraryDayPlan;
-  testArr: Array<any> = new Array<any>();
 
   rForm: FormGroup;
   post: any;
@@ -29,20 +36,44 @@ export class PlannerListComponent implements OnInit {
     private firebaseService: FirebaseService,
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private plannerService: PlannerService
-  ) { 
+    private plannerService: PlannerService,
+    private itineraryService: ItineraryService,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit() {
     this.rForm = this.formBuilder.group({
       'title': [null, Validators.required],
       'description': [null, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(500)])],
     })
-    this.instNewOverview();
+
+    if(this.itineraryService.editMode()){
+      // set itinerary to edit in planner
+      this.itineraryService.getEditItinerary();
+      this.itinerary = this.overview.itinerary
+
+      // pushing data to other components
+      this.pushToDayPlanView(this.itinerary[0]);
+      this.itineraryService.resetEditItinerary();
+
+      //setting form values
+      this.rForm = this.formBuilder.group({
+        'title': [this.overview.title, Validators.required],
+        'description': [this.overview.description, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(500)])],
+      })
+    } else {
+      this.instNewOverview(); // new plan mode
+    }
+
     this.plannerService.infoToListSubject.subscribe((data) => {
-      this.dayPlanView.addDestination(data);
+      this.addDestination(this.dayPlanView, data);
       this.plannerService.pushToMaps(this.itinerary);
     })
-  }
 
-  ngOnInit() {
+    this.plannerService.deleteFromDayPlanSubject.subscribe((data) => {
+      this.remDestination(this.dayPlanView, data);
+      this.plannerService.pushToMaps(this.itinerary);
+    })
   }
 
   pushToDayPlanView(dayPlan: ItineraryDayPlan){
@@ -51,11 +82,11 @@ export class PlannerListComponent implements OnInit {
   }
 
   addDay(placeholder: string): void {
-    this.overview.addDayPlan();
+    this.addDayPlan(this.overview);
   }
 
   remDay(idx: number): void {
-    this.overview.removeDayPlan(idx);
+    this.removeDayPlan(this.overview, idx);
   }
 
   addOverview(data): void {
@@ -68,11 +99,44 @@ export class PlannerListComponent implements OnInit {
   }
 
   instNewOverview(): void {
-    this.rForm.reset();
-    this.overview = new ItineraryOverview();
+    this.rForm.reset(); // reset form
+    this.overview = new ItineraryOverview(); //create new itinerary to view
     this.itinerary = this.overview.itinerary;
+    this.addDayPlan(this.overview); //add the first day
     this.pushToDayPlanView(this.itinerary[0]);
     this.title="";
     this.description="";
+  }
+
+
+  // Itinerary Overview Methods
+  addDayPlan(itineraryOverview: ItineraryOverview): void {
+      itineraryOverview.itinerary.push(new ItineraryDayPlan(itineraryOverview.numDays));
+      itineraryOverview.numDays++;
+  }
+
+  removeDayPlan(itineraryOverview: ItineraryOverview, idx: number): void {
+      itineraryOverview.itinerary.splice(idx, 1);
+      itineraryOverview.numDays--;
+      this.updOrder(itineraryOverview);
+  }
+
+  updOrder(itineraryOverview: ItineraryOverview): void {
+      for(let dp of itineraryOverview.itinerary){
+          dp.day = itineraryOverview.itinerary.indexOf(dp);
+      }
+  }
+
+  // Itinerary Dayplan Methods
+  
+  addDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {
+      itineraryDayPlan.destinations.push(destination);
+      itineraryDayPlan.numDestinations++;
+  }
+
+  remDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {
+      if(arrayRem(itineraryDayPlan.destinations, destination)){
+          itineraryDayPlan.numDestinations--;
+      }
   }
 }

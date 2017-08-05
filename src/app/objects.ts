@@ -47,24 +47,26 @@ export class Destination {
     openingHours?: any;
     lat: number;
     lng: number;
-    photos: any;
-    priceLevel: number;
+    // photos: any;
+    priceLevel?: number;
     openNow?: boolean;
-    rating: number;
+    rating?: number;
     website?: string;
 
     constructor(place: google.maps.places.PlaceResult) {
         this.name = place.name;
         this.lat = place.geometry.location.lat();
         this.lng = place.geometry.location.lng();
-        this.photos = place.photos;
-        this.priceLevel = place.price_level;
-        this.rating = place.rating;
-        this.website = place.website;
-    }
-
-    setOrder(idx: number){
-        this.order = idx;
+        // this.photos = place.photos;
+        if(place.price_level != null){
+            this.priceLevel = place.price_level;
+        }
+        if(place.rating != null){
+            this.rating = place.rating;
+        }
+        if(place.website != null){
+            this.website = place.website;
+        }
     }
 }
 
@@ -77,17 +79,6 @@ export class ItineraryDayPlan {
         this.destinations = new Array<Destination>();
         this.day = day;
         this.numDestinations = 0;
-    }
-
-    addDestination(destination: Destination): void {
-        this.destinations.push(destination);
-        this.numDestinations++;
-    }
-
-    remDestination(destination: Destination): void {
-        if(arrayRem(this.destinations, destination)){
-            this.numDestinations--;
-        }
     }
 }
 
@@ -104,24 +95,6 @@ export class ItineraryOverview {
     constructor(){
         this.numDays = 0;
         this.itinerary = new Array<ItineraryDayPlan>();
-        this.addDayPlan();
-    }
-
-    addDayPlan(): void {
-        this.itinerary.push(new ItineraryDayPlan(this.numDays));
-        this.numDays++;
-    }
-
-    removeDayPlan(idx: number): void {
-        this.itinerary.splice(idx, 1);
-        this.numDays--;
-        this.updOrder();
-    }
-
-    updOrder(): void {
-        for(let dp of this.itinerary){
-            dp.day = this.itinerary.indexOf(dp);
-        }
     }
 }
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { PlannerService } from './../../../services/planner.service';
 import { Destination, ItineraryDayPlan } from './../../../objects';
 
@@ -40,7 +40,10 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone,
     private plannerService: PlannerService,
     private googleMapsAPIWrapper: GoogleMapsAPIWrapper
-  ) { 
+  ) { }
+
+  ngOnInit() {
+    // data inputs
     this.plannerService.listToMapSubject.subscribe((data) => {
       this.itinerary = data;
     })
@@ -52,9 +55,8 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
       this.destinations.push(data);
       this.destinationsCount++;
     })
-  }
-
-  ngOnInit() {//set google maps defaults
+    
+    //set google maps defaults
     this.zoom = 1;
     this.latitude = 1.2966;
     this.longitude = 103.7764;

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { User, ItineraryDayPlan, ItineraryOverview, Destination } from './../../../objects';
 
 import { ItineraryService } from './../../../services/itinerary.service';
@@ -39,5 +40,9 @@ export class ItineraryViewComponent {
     this.itineraryToView = null;
     this.dayPlanToView = null;
     this.destinationsToView = null;
+  }
+
+  edit(itinerary): void {
+    this.itineraryService.setEditItinerary(itinerary);
   }
 }

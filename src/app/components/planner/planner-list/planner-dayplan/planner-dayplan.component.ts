@@ -1,5 +1,6 @@
 import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter, OnDestroy } from '@angular/core';
 import { ItineraryOverview, ItineraryDayPlan, Destination } from './../../../../objects';
+import { arrayRem } from './../../../../functions';
 
 import { PlannerService } from './../../../../services/planner.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -10,7 +11,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
   styleUrls: ['./planner-dayplan.component.css']
 })
 
-export class PlannerDayplanComponent implements OnChanges, OnDestroy {
+export class PlannerDayplanComponent implements OnChanges {
 
   @Input() dayPlan: ItineraryDayPlan;
   @Output() addDayUpdate: EventEmitter<string> = new EventEmitter<string>();
@@ -22,10 +23,7 @@ export class PlannerDayplanComponent implements OnChanges, OnDestroy {
     private plannerService: PlannerService
   ) {
     dragulaService.setOptions('day-list', {
-      removeOnSpill: true
-    });
-    dragulaService.removeModel.subscribe((value) => {
-      this.updateOrder();
+      removeOnSpill: false
     });
     dragulaService.dropModel.subscribe((value) => {
       this.updateOrder();
@@ -37,6 +35,7 @@ export class PlannerDayplanComponent implements OnChanges, OnDestroy {
     if(changes['dayPlan']){
       this.items = this.dayPlan.destinations;
       this.updateOrder();
+      console.log(this.items);
       // this.plotRoute();
     }
   }
@@ -57,12 +56,16 @@ export class PlannerDayplanComponent implements OnChanges, OnDestroy {
     this.plannerService.pushToRoute(this.dayPlan);
   }
 
+  remove(destination: Destination): void {
+    this.plannerService.deleteFromDayPlan(destination);
+  }
+
   /**
    * updates the order attribute of each item in the list
    */
   updateOrder(): void {
     for(var i = 0; i < this.items.length; i++){
-      this.items[i].setOrder(i);
+      this.items[i].order = i;
     }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PlannerService } from './../../../services/planner.service';
 import { Destination } from './../../../objects';
 
@@ -12,17 +12,16 @@ export class PlannerInfoComponent implements OnInit {
   destinationToView: Destination;
   photoURL: any;
 
-  constructor(private plannerService: PlannerService) { 
-    this.plannerService.mapToInfoSubject.subscribe((data) => {
-      this.destinationToView = data;
-      this.photoURL = this.destinationToView.photos[0].getUrl({
-        'maxWidth': 300,
-        'maxHeight': 300
-      })
-    })
-  }
+  constructor(private plannerService: PlannerService) { }
 
   ngOnInit() {
+    this.plannerService.mapToInfoSubject.subscribe((data) => {
+      this.destinationToView = data;
+      // this.photoURL = this.destinationToView.photos[0].getUrl({
+      //   'maxWidth': 300,
+      //   'maxHeight': 300
+      // })
+    })
   }
 
   addToItinerary(dest: Destination){

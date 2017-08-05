@@ -11,6 +11,7 @@ export class PlannerService {
   public infoToListSubject = new Subject<any>();
   public dayPlanToRouteSubject = new Subject<any>();
   public updMarkerSubject = new Subject<any>();
+  public deleteFromDayPlanSubject = new Subject<any>();
 
   constructor() { }
 
@@ -32,5 +33,9 @@ export class PlannerService {
 
   updateMarkersArray(arr: Array<any>){
     this.updMarkerSubject.next(arr);
+  }
+
+  deleteFromDayPlan(dest: Destination){
+    this.deleteFromDayPlanSubject.next(dest);
   }
 }

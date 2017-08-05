@@ -2,7 +2,7 @@
   <!-- <img width="400" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{latitude}},{{longitude}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk"> -->
   <div class="row">
     <div class="col-sm-4">
-      <img class="card-img-left" [src]="photoURL" height="300" width="300">
+      <img *ngIf="photoURL" class="card-img-left" [src]="photoURL" height="300" width="300">
     </div>
     <div class="col-sm-8">
       <div class="card-block">
