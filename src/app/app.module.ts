@@ -1,8 +1,10 @@
 // Angular
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+// Routing
+import { AppRoutingModule } from './modules/app-routing.module';
 
 // Firebase
 import { environment } from '../environments/environment';
@@ -18,7 +20,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
 
 // Components
-import { AppComponent } from './app.component'; // Login Webpage
+import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ItinerariesComponent } from './components/itineraries/itineraries.component';
 import { HomeComponent } from './components/home/home.component';
@@ -41,17 +43,6 @@ import { PlannerInfoComponent } from './components/planner/planner-info/planner-
 // Directives
 import { PlannerMapRouteDirective } from './components/planner/planner-map/planner-map-route.directive';
 
-const appRoutes: Routes = [
-  { path: 'logout', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent},
-  { path: 'planner', component: PlannerComponent},
-  { path: 'itineraries', component: ItinerariesComponent},
-  { path: 'community', component: CommunityComponent},
-
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: '**', component: PageNotFoundComponent},
-]
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +62,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'travelgogo'), // imports firebase/app needed for everything
