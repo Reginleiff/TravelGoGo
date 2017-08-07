@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { PlannerService } from './../../../services/planner.service';
 import { Destination, ItineraryDayPlan } from './../../../objects';
 
@@ -14,7 +14,7 @@ import {} from '@types/googlemaps';
   styleUrls: ['./planner-map.component.css']
 })
 
-export class PlannerMapComponent implements OnInit, AfterViewInit {
+export class PlannerMapComponent implements OnInit {
 
   testArr: Array<any> = new Array<any>();
 
@@ -69,18 +69,13 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
       });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
-          //get the place result
-          let result: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
+          let result: google.maps.places.PlaceResult = autocomplete.getPlace(); //get the place result
           if (result.geometry === undefined || result.geometry === null) {
-            return;
+            return; //verify result
           }
-
-          // set latitude, longitude and zoom
-          // create a new destination
-          this.addDestination(result);
-          this.latitude = result.geometry.location.lat();
+          this.searchControl = new FormControl(); // resetting form  
+          this.addDestination(result); // add destination to list
+          this.latitude = result.geometry.location.lat(); // set latitude, longitude and zoom
           this.longitude = result.geometry.location.lng();
           this.zoom = 15;
         });
@@ -88,13 +83,6 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
     });
 
     
-  }
-
-  ngAfterViewInit(){
-    this.googleMapsAPIWrapper.getNativeMap().then((map) => {
-      console.log('hi');
-      console.log('native map', map);
-    })
   }
 
   private setCurrentPosition() {
@@ -107,7 +95,7 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  addDestination(res: google.maps.places.PlaceResult){
+  private addDestination(res: google.maps.places.PlaceResult){
     this.plannerService.pushToInfo(res);
   }
 }

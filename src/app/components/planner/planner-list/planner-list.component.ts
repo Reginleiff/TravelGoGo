@@ -6,7 +6,7 @@ import { PlannerService } from './../../../services/planner.service';
 import { ItineraryService } from './../../../services/itinerary.service';
 
 import { User, ItineraryDayPlan, ItineraryOverview, Destination } from './../../../objects';
-import { arrayRem } from './../../../functions';
+import { arrayRem, updateOrder } from './../../../functions';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -129,13 +129,17 @@ export class PlannerListComponent implements OnInit {
 
   // Itinerary Dayplan Methods
   addDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {
-      itineraryDayPlan.destinations.push(destination);
-      itineraryDayPlan.numDestinations++;
+    let destinations = itineraryDayPlan.destinations;
+    destinations.push(destination);
+    updateOrder(destinations);
+    itineraryDayPlan.numDestinations++;
   }
 
   remDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {
-      if(arrayRem(itineraryDayPlan.destinations, destination)){
-          itineraryDayPlan.numDestinations--;
-      }
+    let destinations = itineraryDayPlan.destinations;
+    if(arrayRem(destinations, destination)){
+      updateOrder(destinations);
+      itineraryDayPlan.numDestinations--;
+    }
   }
 }

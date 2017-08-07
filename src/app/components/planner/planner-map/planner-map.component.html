@@ -3,7 +3,15 @@
     <span class="border-0 pull-centre">
         
       <div class="form-group" >
-        <input placeholder="Where are you heading?" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+        <input 
+          #search 
+          placeholder="Where are you heading?" 
+          autocorrect="off" 
+          autocapitalize="off" 
+          spellcheck="off" 
+          type="text" 
+          class="form-control" 
+          [formControl]="searchControl">
       </div>
         
       <agm-map 

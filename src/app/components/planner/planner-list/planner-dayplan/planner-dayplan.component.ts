@@ -1,6 +1,6 @@
 import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter, OnDestroy } from '@angular/core';
 import { ItineraryOverview, ItineraryDayPlan, Destination } from './../../../../objects';
-import { arrayRem } from './../../../../functions';
+import { arrayRem, updateOrder } from './../../../../functions';
 
 import { PlannerService } from './../../../../services/planner.service';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -25,14 +25,13 @@ export class PlannerDayplanComponent implements OnChanges {
     dragulaService.setOptions('day-list', {
       removeOnSpill: false
     });
-    dragulaService.dragend.subscribe(value => this.updateOrder());
+    dragulaService.dragend.subscribe(value => updateOrder(this.items));
   }
 
 
   ngOnChanges(changes: SimpleChanges){
     if(changes['dayPlan']){
       this.items = this.dayPlan.destinations;
-      this.updateOrder();
       // this.plotRoute();
     }
   }
@@ -59,14 +58,5 @@ export class PlannerDayplanComponent implements OnChanges {
 
   test(){
     console.log(this.items);
-  }
-
-  /**
-   * updates the order attribute of each item in the list
-   */
-  updateOrder(): void {
-    for(var i = 0; i < this.items.length; i++){
-      this.items[i].order = i;
-    }
   }
 }

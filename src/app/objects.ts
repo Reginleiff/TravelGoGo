@@ -21,7 +21,7 @@ export class Pair<E> {
 export class User {
     name: string;
     uid: string;
-    itineraries: string[];
+    itineraries: Array<string>;
 
     constructor(name: string, uid: string) {
         this.name = name;
@@ -72,7 +72,7 @@ export class Destination {
 
 export class ItineraryDayPlan {
     day: number;
-    destinations: Destination[]; 
+    destinations: Array<Destination>; 
     numDestinations: number;
 
     constructor(day: number){
@@ -90,7 +90,7 @@ export class ItineraryOverview {
     numDays: number;
     budget: number;
     rating: number;
-    itinerary: ItineraryDayPlan[];
+    itinerary: Array<ItineraryDayPlan>;
 
     constructor(){
         this.numDays = 0;
