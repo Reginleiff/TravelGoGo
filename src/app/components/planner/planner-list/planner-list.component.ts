@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FirebaseService } from './../../../services/firebase.service';
 import { AuthService } from './../../../services/auth.service';
@@ -8,8 +9,6 @@ import { ItineraryService } from './../../../services/itinerary.service';
 import { User, ItineraryDayPlan, ItineraryOverview, Destination } from './../../../objects';
 import { arrayRem, updateOrder } from './../../../functions';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
@@ -22,7 +21,6 @@ import { Observable } from 'rxjs/Observable';
 })
 export class PlannerListComponent implements OnInit {
 
-  
   overview: ItineraryOverview;
   itinerary: ItineraryDayPlan[];
   dayPlanView: ItineraryDayPlan;
@@ -37,8 +35,7 @@ export class PlannerListComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private plannerService: PlannerService,
-    private itineraryService: ItineraryService,
-    private route: ActivatedRoute
+    private itineraryService: ItineraryService
   ) { }
 
   ngOnInit() {
@@ -49,12 +46,11 @@ export class PlannerListComponent implements OnInit {
 
     if(this.itineraryService.editMode()){
       // set itinerary to edit in planner
-      this.itineraryService.getEditItinerary();
+      this.overview = this.itineraryService.getEditItinerary();
       this.itinerary = this.overview.itinerary
 
       // pushing data to other components
       this.pushToDayPlanView(this.itinerary[0]);
-      this.itineraryService.resetEditItinerary();
 
       //setting form values
       this.rForm = this.formBuilder.group({
@@ -90,11 +86,20 @@ export class PlannerListComponent implements OnInit {
   }
 
   addOverview(data): void {
-    this.overview.title = data.title;
-    this.overview.description = data.description;
-    this.overview.authorUID = this.authService.getUID();
-    this.overview.authorName = this.authService.getUserName();
-    this.firebaseService.addItinerary(this.overview);
+    if(this.itineraryService.editMode()){
+      this.overview.title = data.title;
+      this.overview.description = data.description;
+      this.overview.authorUID = this.authService.getUID();
+      this.overview.authorName = this.authService.getUserName();
+      this.firebaseService.saveItinerary(this.overview);
+      this.itineraryService.resetEditItinerary();
+    } else {
+      this.overview.title = data.title;
+      this.overview.description = data.description;
+      this.overview.authorUID = this.authService.getUID();
+      this.overview.authorName = this.authService.getUserName();
+      this.firebaseService.addItinerary(this.overview);
+    }
     this.instNewOverview();
   }
 

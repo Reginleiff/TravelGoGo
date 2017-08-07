@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { ItineraryOverview } from './../objects';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()
@@ -7,33 +8,33 @@ export class ItineraryService {
 
   public itineraryPlanSubject = new Subject<any>()
   public editItinerarySubject = new Subject<any>()
-  editItinerary;
+  editItinerary: ItineraryOverview;
   
   constructor() { 
     this.editItinerary = null;
   }
 
-  pushItineraryPlan(itineraryPlan){
+  pushItineraryPlan(itineraryPlan): void {
     this.itineraryPlanSubject.next(itineraryPlan);
   }
 
-  pushToEdit(itinerary){
+  pushToEdit(itinerary): void {
     this.editItinerarySubject.next(itinerary);
   }
 
-  setEditItinerary(itinerary){
+  setEditItinerary(itinerary): void {
     this.editItinerary = itinerary;
   }
 
-  resetEditItinerary(){
+  resetEditItinerary(): void {
     this.editItinerary = null;
   }
 
-  getEditItinerary(){
+  getEditItinerary(): ItineraryOverview {
     return this.editItinerary;
   }
 
-  editMode(){
+  editMode(): boolean {
     return this.editItinerary != null;
   }
 }

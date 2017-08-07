@@ -91,6 +91,7 @@ export class ItineraryOverview {
     budget: number;
     rating: number;
     itinerary: Array<ItineraryDayPlan>;
+    $key?: string;
 
     constructor(){
         this.numDays = 0;

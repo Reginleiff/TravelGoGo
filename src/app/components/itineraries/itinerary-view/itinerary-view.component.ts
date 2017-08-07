@@ -42,7 +42,7 @@ export class ItineraryViewComponent {
     this.destinationsToView = null;
   }
 
-  edit(itinerary): void {
+  edit(itinerary: ItineraryOverview): void {
     this.itineraryService.setEditItinerary(itinerary);
   }
 }

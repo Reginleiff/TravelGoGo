@@ -45,7 +45,6 @@ export class FirebaseService{
    * adds itinerary object to itinerary database
    */
   addItinerary(itinerary: ItineraryOverview): void {
-    console.log(itinerary);
     let refKey = this.af.database.ref('itineraries').push(itinerary).key;
     let uid = this.authService.user.uid;
     let username = this.authService.user.displayName;
@@ -56,6 +55,11 @@ export class FirebaseService{
       }
       this.addToUserItineraries(uid, refKey);
     })
+  }
+
+  saveItinerary(itinerary: ItineraryOverview): void {
+    let key = itinerary.$key;
+    this.af.database.ref('itineraries').child(key).set(itinerary);;
   }
 
   /**

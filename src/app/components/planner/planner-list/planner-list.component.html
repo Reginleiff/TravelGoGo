@@ -15,6 +15,7 @@
   <form [formGroup]="rForm" (ngSubmit)="addOverview(rForm.value)">
     <div class="container">
       <div class="row columns">
+
         <label for="">Title
           <input type="text" formControlName="title">
         </label>
@@ -23,7 +24,19 @@
           <textarea formControlName="description"></textarea>
         </label>
 
-        <input type="submit" class="button expanded" value="Add Itinerary" [disabled]="!rForm.valid">
+        <input 
+          *ngIf="!this.itineraryService.editMode()" 
+          type="submit" 
+          class="button expanded" 
+          value="Add Itinerary"
+          [disabled]="!rForm.valid">
+
+        <input 
+        *ngIf="this.itineraryService.editMode()" 
+        type="submit" 
+        class="button expanded" 
+        value="Save Itinerary" 
+        [disabled]="!rForm.valid">
       </div>
     </div>
   </form>
