@@ -25,9 +25,7 @@ export class PlannerDayplanComponent implements OnChanges {
     dragulaService.setOptions('day-list', {
       removeOnSpill: false
     });
-    dragulaService.dropModel.subscribe((value) => {
-      this.updateOrder();
-    });
+    dragulaService.dragend.subscribe(value => this.updateOrder());
   }
 
 
@@ -35,7 +33,6 @@ export class PlannerDayplanComponent implements OnChanges {
     if(changes['dayPlan']){
       this.items = this.dayPlan.destinations;
       this.updateOrder();
-      console.log(this.items);
       // this.plotRoute();
     }
   }
@@ -58,6 +55,10 @@ export class PlannerDayplanComponent implements OnChanges {
 
   remove(destination: Destination): void {
     this.plannerService.deleteFromDayPlan(destination);
+  }
+
+  test(){
+    console.log(this.items);
   }
 
   /**

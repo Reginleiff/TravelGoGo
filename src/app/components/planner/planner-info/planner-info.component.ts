@@ -15,16 +15,21 @@ export class PlannerInfoComponent implements OnInit {
   constructor(private plannerService: PlannerService) { }
 
   ngOnInit() {
-    this.plannerService.mapToInfoSubject.subscribe((data) => {
-      this.destinationToView = data;
+    this.plannerService.mapToInfoSubject.subscribe((data: google.maps.places.PlaceResult) => {
+      this.destinationToView = this.createDestination(data);
       // this.photoURL = this.destinationToView.photos[0].getUrl({
       //   'maxWidth': 300,
       //   'maxHeight': 300
       // })
     })
   }
+  
+  createDestination(googlePlace: google.maps.places.PlaceResult): Destination{
+    return new Destination(googlePlace);
+  }
 
   addToItinerary(dest: Destination){
-    this.plannerService.pushToList(dest);
+    this.plannerService.pushToList(this.destinationToView);
+    this.destinationToView = null;
   }
 }

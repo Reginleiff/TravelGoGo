@@ -128,7 +128,6 @@ export class PlannerListComponent implements OnInit {
   }
 
   // Itinerary Dayplan Methods
-  
   addDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {
       itineraryDayPlan.destinations.push(destination);
       itineraryDayPlan.numDestinations++;

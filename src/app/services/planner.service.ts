@@ -15,8 +15,8 @@ export class PlannerService {
 
   constructor() { }
 
-  pushToInfo(dest: Destination): void {
-    this.mapToInfoSubject.next(dest);
+  pushToInfo(res: google.maps.places.PlaceResult): void {
+    this.mapToInfoSubject.next(res);
   }
 
   pushToList(dest: Destination): void {

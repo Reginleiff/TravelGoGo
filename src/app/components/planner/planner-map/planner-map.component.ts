@@ -44,16 +44,9 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     // data inputs
-    this.plannerService.listToMapSubject.subscribe((data) => {
-      this.itinerary = data;
-    })
     this.plannerService.updMarkerSubject.subscribe((data) => {
       this.destinations = data;
       this.destinationsCount = data.length;
-    })
-    this.plannerService.infoToListSubject.subscribe((data) => {
-      this.destinations.push(data);
-      this.destinationsCount++;
     })
     
     //set google maps defaults
@@ -77,19 +70,18 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          let result: google.maps.places.PlaceResult = autocomplete.getPlace();
 
           //verify result
-          if (place.geometry === undefined || place.geometry === null) {
+          if (result.geometry === undefined || result.geometry === null) {
             return;
           }
 
           // set latitude, longitude and zoom
           // create a new destination
-          let tempPlace = new Destination(place);
-          this.addDestination(tempPlace);
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
+          this.addDestination(result);
+          this.latitude = result.geometry.location.lat();
+          this.longitude = result.geometry.location.lng();
           this.zoom = 15;
         });
       });
@@ -115,7 +107,7 @@ export class PlannerMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  addDestination(dest: Destination){
-    this.plannerService.pushToInfo(dest);
+  addDestination(res: google.maps.places.PlaceResult){
+    this.plannerService.pushToInfo(res);
   }
 }
