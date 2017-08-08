@@ -6,8 +6,27 @@
     <div class="comm-list col-md-3">
       <app-comm-list></app-comm-list>
     </div>
-    <div class="comm-list col-md-9">
-      <app-comm-view></app-comm-view>
+    <div class="comm-main card col-md-9">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a (click)="viewMode()" class="nav-link">View</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="reviewMode()" class="nav-link">Review</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div *ngIf="!review" class="comm-view col-md-12">
+          <app-comm-view ></app-comm-view>
+        </div>
+        <div *ngIf="review" class="comm-view col-md-12">
+          <app-comm-review></app-comm-review>
+        </div>
+      </div>
     </div>
   </div>
 </div>

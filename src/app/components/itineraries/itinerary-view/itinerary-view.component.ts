@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, ItineraryDayPlan, ItineraryOverview, Destination } from './../../../objects';
 
@@ -10,7 +10,7 @@ import { FirebaseService } from './../../../services/firebase.service';
   templateUrl: './itinerary-view.component.html',
   styleUrls: ['./itinerary-view.component.css']
 })
-export class ItineraryViewComponent {
+export class ItineraryViewComponent implements OnInit {
 
   planToView: ItineraryOverview;
   itineraryToView: ItineraryDayPlan[];
@@ -20,7 +20,9 @@ export class ItineraryViewComponent {
   constructor(
     private itineraryService: ItineraryService,
     private firebaseService: FirebaseService
-  ) {
+  ) { }
+
+  ngOnInit(){
     this.itineraryService.itineraryPlanSubject.subscribe((data) => {
       this.planToView = data;
       this.itineraryToView = data.itinerary;

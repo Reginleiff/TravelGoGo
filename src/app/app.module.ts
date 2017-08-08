@@ -32,6 +32,10 @@ import { PlannerListComponent } from './components/planner/planner-list/planner-
 import { PlannerMapComponent } from './components/planner/planner-map/planner-map.component';
 import { PlannerDayplanComponent } from './components/planner/planner-list/planner-dayplan/planner-dayplan.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { CommListComponent } from './components/community/comm-list/comm-list.component';
+import { CommViewComponent } from './components/community/comm-view/comm-view.component';
+import { CommReviewComponent } from './components/community/comm-review/comm-review.component';
+
 
 // Services
 import { FirebaseService } from './services/firebase.service';
@@ -42,8 +46,7 @@ import { PlannerInfoComponent } from './components/planner/planner-info/planner-
 
 // Directives
 import { PlannerMapRouteDirective } from './components/planner/planner-map/planner-map-route.directive';
-import { CommListComponent } from './components/community/comm-list/comm-list.component';
-import { CommViewComponent } from './components/community/comm-view/comm-view.component';
+
 
 @NgModule({
   declarations: [
@@ -63,6 +66,7 @@ import { CommViewComponent } from './components/community/comm-view/comm-view.co
     PageNotFoundComponent,
     CommListComponent,
     CommViewComponent,
+    CommReviewComponent,
   ],
   imports: [
     BrowserModule,

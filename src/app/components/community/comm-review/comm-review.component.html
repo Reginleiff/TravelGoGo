@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
+    <div class="row">
+      <label>
+        <h6>Comment (3 letters min.)</h6>
+        <textarea formControlName="text"></textarea>
+      </label>
+      <input 
+        type="submit" 
+        class="button expanded" 
+        value="Submit Review"
+        [disabled]="!reviewForm.valid">
+    </div>
+  </form>
+</div>

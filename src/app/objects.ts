@@ -91,12 +91,28 @@ export class ItineraryOverview {
     budget: number;
     rating: number;
     itinerary: Array<ItineraryDayPlan>;
+    reviews: Array<string>;
     $key?: string;
 
     constructor(){
         this.numDays = 0;
         this.itinerary = new Array<ItineraryDayPlan>();
         this.rating = 0;
+    }
+}
+
+export class Review {
+    authorUID: string;
+    authorName: string;
+    text: string;
+    rating: number;
+    comments: Array<string>
+
+    constructor(uid: string, name: string, text: string, rating: number){
+        this.authorUID = uid;
+        this.authorName = name;
+        this.text = text;
+        this.rating = rating;
     }
 }
 

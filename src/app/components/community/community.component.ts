@@ -8,10 +8,16 @@ import { CommDataService } from './../../services/comm-data.service';
   providers: [ CommDataService ]
 })
 export class CommunityComponent implements OnInit {
-
+  review: boolean;
   constructor() { }
 
   ngOnInit() {
+    this.review = false;
   }
-
+  viewMode(){
+    this.review = false;
+  }
+  reviewMode(){
+    this.review = true;
+  }
 }
