@@ -1,4 +1,4 @@
-import { Pair, Destination, ItineraryDayPlan } from './objects';
+import { Pair, Destination, ItineraryDayPlan, ItineraryOverview } from './objects';
 
 export function arrayRem(arr: Array<any>, item: any): boolean {
     var idx = arr.indexOf(item);
@@ -31,3 +31,14 @@ export function updateOrder(arr: Array<Destination>): void {
         arr[i].order = i;
     }
 }
+
+export function filter(arr: Array<ItineraryOverview>, str: string): Array<ItineraryOverview>{
+    let toReturn = new Array<ItineraryOverview>();
+    for(let i of arr){
+        // if name, description or title contains substring
+        if(i.authorName.includes(str) || i.description.includes(str) || i.title.includes(str)){
+            toReturn.push(i);
+        }
+    }
+    return toReturn;
+}  

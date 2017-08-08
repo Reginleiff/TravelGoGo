@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="form-group">
+    <input 
+          #search 
+          placeholder="Enter to Search..." 
+          autocorrect="off" 
+          autocapitalize="off" 
+          spellcheck="off" 
+          type="text" 
+          class="form-control" 
+          [formControl]="searchControl"
+          (change)="filter(this.search.value)">
+  </div>
+  
+  <div *ngIf="filteredItineraries" class="list-group">
+    <a 
+    *ngFor="let i of filteredItineraries" 
+    class="list-group-item list-group-item-action flex-column align-items-start"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{i.title}}</h5>
+        <small class="text-muted">by {{i.authorName}}</small>
+      </div>
+    </a>
+  </div>
+  <div *ngIf="!(filteredItineraries) || itineraries.length == 0">
+    <h5>There are no such itineraries :(</h5>
+  </div>
+</div>

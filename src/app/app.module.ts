@@ -42,6 +42,8 @@ import { PlannerInfoComponent } from './components/planner/planner-info/planner-
 
 // Directives
 import { PlannerMapRouteDirective } from './components/planner/planner-map/planner-map-route.directive';
+import { CommListComponent } from './components/community/comm-list/comm-list.component';
+import { CommViewComponent } from './components/community/comm-view/comm-view.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { PlannerMapRouteDirective } from './components/planner/planner-map/plann
     PlannerInfoComponent,
     PlannerMapRouteDirective,
     PageNotFoundComponent,
+    CommListComponent,
+    CommViewComponent,
   ],
   imports: [
     BrowserModule,

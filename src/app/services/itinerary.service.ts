@@ -6,8 +6,8 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class ItineraryService {
 
-  public itineraryPlanSubject = new Subject<any>()
-  public editItinerarySubject = new Subject<any>()
+  public itineraryPlanSubject = new Subject<any>();
+  public editItinerarySubject = new Subject<any>();
   editItinerary: ItineraryOverview;
   
   constructor() { 
@@ -27,7 +27,7 @@ export class ItineraryService {
   }
 
   resetEditItinerary(): void {
-    this.editItinerary = null;
+    this.editItinerary = null; //TODO: Set subject for reset
   }
 
   getEditItinerary(): ItineraryOverview {

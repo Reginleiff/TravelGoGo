@@ -35,7 +35,7 @@ export class PlannerListComponent implements OnInit {
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private plannerService: PlannerService,
-    private itineraryService: ItineraryService
+    public itineraryService: ItineraryService //TODO: Change to private
   ) { }
 
   ngOnInit() {
@@ -92,7 +92,7 @@ export class PlannerListComponent implements OnInit {
       this.overview.authorUID = this.authService.getUID();
       this.overview.authorName = this.authService.getUserName();
       this.firebaseService.saveItinerary(this.overview);
-      this.itineraryService.resetEditItinerary();
+      this.itineraryService.resetEditItinerary(); //TODO: Set subject for reset
     } else {
       this.overview.title = data.title;
       this.overview.description = data.description;
