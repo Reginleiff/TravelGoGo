@@ -3,12 +3,9 @@
     <input 
           #search 
           placeholder="Enter to Search..." 
-          autocorrect="off" 
-          autocapitalize="off" 
-          spellcheck="off" 
           type="text" 
           class="form-control" 
-          [formControl]="searchControl"
+          form="search"
           (change)="filter(this.search.value)">
   </div>
   
@@ -16,10 +13,14 @@
     <a 
     *ngFor="let i of filteredItineraries" 
     class="list-group-item list-group-item-action flex-column align-items-start"
+    (click)="pushToView(i)"
     >
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{i.title}}</h5>
         <small class="text-muted">by {{i.authorName}}</small>
+      </div>
+      <div>
+        <p class="list-item-description">{{i.description}}</p>
       </div>
     </a>
   </div>

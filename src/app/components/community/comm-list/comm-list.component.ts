@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ItineraryOverview } from './../../../objects';
 import { FirebaseService } from './../../../services/firebase.service';
+import { CommDataService } from './../../../services/comm-data.service';
 
 @Component({
   selector: 'app-comm-list',
@@ -16,6 +17,7 @@ export class CommListComponent implements OnInit {
 
   constructor(
     private fbs: FirebaseService,
+    private cds: CommDataService
   ) { }
 
   ngOnInit() {
@@ -26,7 +28,7 @@ export class CommListComponent implements OnInit {
     });
   }
 
-  filter(str: string) {
+  filter(str: string): void {
     let newList = new Array<ItineraryOverview>();
     let ss = str.toLowerCase();
     for(let i of this.itineraries){
@@ -40,5 +42,7 @@ export class CommListComponent implements OnInit {
     }
     this.filteredItineraries = newList;
   } 
-
+  pushToView(itinerary: ItineraryOverview): void {
+    this.cds.pushToView(itinerary);
+  }
 }

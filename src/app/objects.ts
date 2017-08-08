@@ -96,6 +96,7 @@ export class ItineraryOverview {
     constructor(){
         this.numDays = 0;
         this.itinerary = new Array<ItineraryDayPlan>();
+        this.rating = 0;
     }
 }
 

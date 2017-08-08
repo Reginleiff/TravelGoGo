@@ -1,3 +1,26 @@
-<p>
-  comm-view works!
-</p>
+<div *ngIf="itineraryToView">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="card-title">{{itineraryToView.title}}</h5>
+        <small class="text-muted">created by <em>{{itineraryToView.authorName}}</em></small>
+      </div>
+      <p class="card-text">{{itineraryToView.description}}</p>
+      <ul class="nav nav-tabs card-header-tabs">
+        <li *ngFor="let plan of dayplansToView, let i = index" class="nav-item">
+          <a (click)="pushToView(i)" class="nav-link">{{plan.day + 1}}</a>
+        </li>
+      </ul>
+    </div>    
+    <div class="card-block">
+      <ul class="list-group">
+        <li *ngFor="let d of destinationsToView" class="list-group-item">
+          {{d.name}}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div *ngIf="!itineraryToView">
+  <h3 class="text-center">Select an itinerary!</h3>
+</div>
