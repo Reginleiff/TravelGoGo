@@ -38,6 +38,7 @@ export class CommReviewComponent implements OnInit {
 
   submitReview(data){
     this.fbs.addReview(data, this.itinerary);
+    this.reviewForm.reset();
   }
 
   getItineraryReviews(){
