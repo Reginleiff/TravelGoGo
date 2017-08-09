@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ItineraryOverview } from './../../../objects';
 import { FirebaseService } from './../../../services/firebase.service';
@@ -10,7 +10,7 @@ import { CommDataService } from './../../../services/comm-data.service';
   styleUrls: ['./comm-list.component.css']
 })
 export class CommListComponent implements OnInit {
-
+  @Output() switchToView = new EventEmitter();
   itineraries: Array<ItineraryOverview>;
   filteredItineraries: Array<ItineraryOverview>;
   search: FormControl;
@@ -44,5 +44,6 @@ export class CommListComponent implements OnInit {
   } 
   pushToView(itinerary: ItineraryOverview): void {
     this.cds.pushToView(itinerary);
+    this.switchToView.emit();
   }
 }

@@ -1,9 +1,27 @@
-<div class="wrapper">
+<div *ngIf="itinerary" class="wrapper">
+  <div *ngIf="itinerary" class="list-group">
+    <div 
+    *ngFor="let r of reviews" 
+    class="list-group-item list-group-item-action flex-column align-items-start"
+    >
+      <div class="d-flex w-100 justify-content-between"> 
+        <p class="list-item-description">{{r.text}}</p>
+        <small class="text-muted">{{r.rating}} out of 5 stars by <em>{{r.authorName}}</em></small>
+      </div>
+    </div>
+  </div>
+
   <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
     <div class="row">
       <label>
         <h6>Comment (3 letters min.)</h6>
         <textarea formControlName="text"></textarea>
+        <select formControlName="rating">
+          <option value="" disabled>Choose a rating</option>
+          <option *ngFor="let r of ratings" [ngValue]="r">
+            {{ r }}
+          </option>
+        </select>
       </label>
       <input 
         type="submit" 
@@ -12,4 +30,9 @@
         [disabled]="!reviewForm.valid">
     </div>
   </form>
+</div>
+<div *ngIf="!itinerary">
+  <div>
+    <h3>Select an itinerary!</h3>
+  </div>
 </div>
