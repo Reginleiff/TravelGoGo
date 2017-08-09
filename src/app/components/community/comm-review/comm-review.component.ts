@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Review, ItineraryOverview } from './../../../objects';
 
 import { CommDataService } from './../../../services/comm-data.service';
@@ -30,15 +30,17 @@ export class CommReviewComponent implements OnInit {
         this.getItineraryReviews();
       }
     }
-    this.reviewForm = this.fb.group({
-      text: [null, Validators.minLength(3)],
-      rating: [null]
-    })
+    // this.reviewForm = this.fb.group({
+    //   text: [null, Validators.minLength(3)],
+    //   rating: [null]
+    // })
+    this.resetForm();
   }
 
   submitReview(data){
     this.fbs.addReview(data, this.itinerary);
-    this.reviewForm.reset();
+    // this.reviewForm.reset();
+    this.resetForm();
   }
 
   getItineraryReviews(){
@@ -50,5 +52,16 @@ export class CommReviewComponent implements OnInit {
         }) 
       })
     });
+  }
+
+  resetForm(){
+    this.reviewForm = new FormGroup({
+      'text': new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3)]),
+      'rating': new FormControl(null, [
+        Validators.required
+      ])
+    })
   }
 }
