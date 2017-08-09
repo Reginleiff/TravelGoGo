@@ -18,10 +18,23 @@ export class Pair<E> {
     }
 }
 
+export class ReviewCommentPair {
+    review: Review;
+    comments: Array<Comment>;
+    constructor(review: Review){
+        this.review = review;
+        this.comments = new Array<Comment>();
+    }
+    addComment(comment: Comment){
+        this.comments.push(comment);
+    }
+}
+
 export class User {
     name: string;
     uid: string;
     itineraries: Array<string>;
+    $key?: string;
 
     constructor(name: string, uid: string) {
         this.name = name;
@@ -52,6 +65,7 @@ export class Destination {
     openNow?: boolean;
     rating?: number;
     website?: string;
+    $key?: string;
 
     constructor(place: google.maps.places.PlaceResult) {
         this.name = place.name;
@@ -74,6 +88,7 @@ export class ItineraryDayPlan {
     day: number;
     destinations: Array<Destination>; 
     numDestinations: number;
+    $key?: string;
 
     constructor(day: number){
         this.destinations = new Array<Destination>();
@@ -106,13 +121,35 @@ export class Review {
     authorName: string;
     text: string;
     rating: number;
-    comments: Array<string>
+    date: number;
+    comments: Array<string>;
+    $key?: string;
 
     constructor(uid: string, name: string, text: string, rating: number){
         this.authorUID = uid;
         this.authorName = name;
         this.text = text;
         this.rating = rating;
+    }
+}
+
+export class Comment {
+    authorUID: string;
+    authorName: string;
+    recipientUID: string;
+    recipientName: string;
+    text: string;
+    date: number;
+    $key?: string;
+
+    constructor(auid, aname, ruid, rname, text){
+        this.authorUID = auid;
+        this.authorName = aname;
+        this.recipientUID = ruid;
+        this.recipientName = rname;
+        this.text = text;
+        this.date = Date.now();
+        console.log(this.date);
     }
 }
 

@@ -1,3 +1,9 @@
+<div *ngIf="!itinerary">
+    <div>
+      <h3>Select an itinerary!</h3>
+    </div>
+</div>
+
 <div *ngIf="itinerary" class="wrapper">
   <div class="card">
     <div class="card-block">
@@ -7,10 +13,50 @@
         class="list-group-item list-group-item-action flex-column align-items-start"
         >
           <div class="d-flex w-100 justify-content-between"> 
-            <p class="list-item-description">{{r.text}}</p>
-            <small class="text-muted">{{r.rating}} out of 5 stars by <em>{{r.authorName}}</em></small>
+            <p class="list-item-description">{{r.review.text}}</p>
+            <small class="text-muted">{{r.review.rating}} out of 5 stars by <em>{{r.review.authorName}}</em></small>
           </div>
-        </div>
+          <button 
+          *ngIf="!reply"
+            class="btn btn-success btn-sm" 
+            (click)="toggleReply()"
+            >
+            Reply
+          </button>
+          <button 
+            *ngIf="reply"
+            class="btn btn-danger btn-sm" 
+            (click)="toggleReply()"
+            >
+            Cancel
+          </button>
+          <div *ngIf="reply">
+            <div class="card card-block">
+              <form [formGroup]="replyForm" (ngSubmit)="submitComment(replyForm.value, r.review, r.review)">
+                <div class="row">
+                  <label>
+                    <h6>Reply (3 letters min.)</h6>
+                    <textarea formControlName="text"></textarea>
+                  </label>
+                  <input 
+                    type="submit" 
+                    class="button expanded" 
+                    value="Reply"
+                    [disabled]="!replyForm.valid">
+                    
+                </div>
+              </form>
+            </div>
+          </div>
+          <div 
+            *ngFor="let c of r.comments" 
+            class="list-group-item list-group-item-action flex-column align-items-start"
+            >
+            <div class="d-flex w-100 justify-content-between"> 
+              <p class="list-item-description">{{c.text}}</p>
+              <small class="text-muted"><em>@ {{c.recipientName}}</em> from <em>{{c.authorName}}</em> on {{c.date | date}}</small>
+            </div>
+          </div>
       </div>
 
       <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
@@ -34,9 +80,4 @@
       </form>
     </div>
   </div>
-</div>
-<div *ngIf="!itinerary">
-    <div>
-      <h3>Select an itinerary!</h3>
-    </div>
 </div>

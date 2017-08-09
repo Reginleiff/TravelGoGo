@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AuthService } from './auth.service';
 
-import { User, ItineraryOverview, Review } from './../objects';
+import { User, ItineraryOverview, Review, Comment } from './../objects';
 
 @Injectable()
 export class FirebaseService{
@@ -41,6 +41,15 @@ export class FirebaseService{
     return this.af.object('/reviews/' + key);
   }
 
+  getAllCommentObs(): FirebaseListObservable<any[]>{
+    let allComments = this.af.list('/comments') as FirebaseListObservable<any[]>;
+    return allComments;
+  }
+
+  getCommentObs(key: string): FirebaseObjectObservable<any>{
+    return this.af.object('/comments/' + key);
+  }
+
   /**
    * returns the keys of all user itineraries
    * precondition: keys is not empty
@@ -53,6 +62,11 @@ export class FirebaseService{
   getReviewKeysObs(itineraryKey: string): FirebaseListObservable<any[]> {
     let reviewKeys = this.af.list('/itineraries/' + itineraryKey + '/reviews') as FirebaseListObservable<any[]>;
     return reviewKeys;
+  }
+
+  getCommentKeysObs(reviewKey: string): FirebaseListObservable<any[]>{
+    let commentKeys = this.af.list('reviews/' + reviewKey + '/comments') as FirebaseListObservable<any[]>;
+    return commentKeys;
   }
 
   /**
@@ -138,5 +152,29 @@ export class FirebaseService{
 
   addToItineraryReviews(itineraryKey: string, reviewKey: string): void {
     this.af.database.ref('itineraries').child(itineraryKey).child('reviews').push(reviewKey);
+  }
+
+  addComment(data, objectToReply, review: Review): void {
+    let auid = this.authService.user.uid;
+    let aname = this.authService.user.displayName;
+    let ruid = objectToReply.authorUID;
+    let rname = objectToReply.authorName;
+    let comment = new Comment(auid, aname, ruid, rname, data.text);
+    let refKey = this.af.database.ref('comments').push(comment).key;
+    this.af.database.ref('users/' + auid).once('value').then((snapshot) => {
+      if(!snapshot.exists()){
+        this.addNewUser(auid, aname);
+      }
+      this.addToUserComments(auid, refKey);
+      this.addToReviewComments(review.$key, refKey);
+    })
+  }
+
+  addToUserComments(uid: string, commentKey: string){
+    this.af.database.ref('users/' + uid + '/comments').push(commentKey);
+  }
+
+  addToReviewComments(reviewKey: string, commentKey: string){
+    this.af.database.ref('reviews/' + reviewKey + '/comments').push(commentKey);
   }
 }

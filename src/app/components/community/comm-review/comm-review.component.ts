@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Review, ItineraryOverview } from './../../../objects';
+import { Review, Comment, ReviewCommentPair, ItineraryOverview } from './../../../objects';
 
 import { CommDataService } from './../../../services/comm-data.service';
 import { FirebaseService } from './../../../services/firebase.service';
 import { AuthService } from './../../../services/auth.service';
+
+import 'rxjs/add/operator/take'
 
 @Component({
   selector: 'app-comm-review',
@@ -13,9 +16,11 @@ import { AuthService } from './../../../services/auth.service';
 })
 export class CommReviewComponent implements OnInit {
   itinerary: ItineraryOverview;
-  reviews: Array<Review>;
+  reviews: Array<ReviewCommentPair>;
   reviewForm: FormGroup;
+  replyForm: FormGroup;
   ratings: Array<number> = [5, 4, 3, 2, 1];
+  reply: boolean = false;
   constructor(
     private fb: FormBuilder,
     private cds: CommDataService,
@@ -30,26 +35,37 @@ export class CommReviewComponent implements OnInit {
         this.getItineraryReviews();
       }
     }
-    // this.reviewForm = this.fb.group({
-    //   text: [null, Validators.minLength(3)],
-    //   rating: [null]
-    // })
     this.resetForm();
+    this.resetReplyForm();
   }
 
   submitReview(data){
     this.fbs.addReview(data, this.itinerary);
-    // this.reviewForm.reset();
     this.resetForm();
+    this.getItineraryReviews();
+  }
+
+  submitComment(data, objectToReply, review: Review){
+    this.fbs.addComment(data, objectToReply, review);
+    this.resetReplyForm();
+    this.getItineraryReviews();
   }
 
   getItineraryReviews(){
-    this.fbs.getReviewKeysObs(this.itinerary.$key).subscribe((data) => {
-      this.reviews = new Array<Review>();
+    this.reviews = new Array<ReviewCommentPair>();
+    this.fbs.getReviewKeysObs(this.itinerary.$key).take(1).subscribe((data) => {
       data.forEach((elem) => {
-        this.fbs.getReviewObs(elem.$value).subscribe((review) => {
-          this.reviews.push(review);
-        }) 
+        this.fbs.getReviewObs(elem.$value).take(1).subscribe((review) => {
+          let rcPair = new ReviewCommentPair(review);
+          this.fbs.getCommentKeysObs(review.$key).take(1).subscribe((commentKeys) => {
+            commentKeys.forEach((commentKey) => {
+              this.fbs.getCommentObs(commentKey.$value).take(1).subscribe((comment) => {
+                rcPair.addComment(comment);
+              });
+            })
+          });
+          this.reviews.push(rcPair);
+        }); 
       })
     });
   }
@@ -63,5 +79,18 @@ export class CommReviewComponent implements OnInit {
         Validators.required
       ])
     })
+  }
+
+  resetReplyForm(){
+    this.replyForm = new FormGroup({
+      'text': new FormControl(null, [
+        Validators.required,
+        Validators.minLength(3)
+      ])
+    })
+  }
+
+  toggleReply(){
+    this.reply = !this.reply;
   }
 }
