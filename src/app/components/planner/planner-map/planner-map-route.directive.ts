@@ -74,7 +74,7 @@ export class PlannerMapRouteDirective {
         if(status == 'OK') {
           directionsDisplay.setDirections(response);
         } else {
-          console.log("Directions request failed due to " + status);
+          console.log("Directions request from failed due to " + status);
         }
       })
     })
@@ -85,13 +85,15 @@ export class PlannerMapRouteDirective {
   clearRoutes(){
     this.googleMapsAPIWrapper.getNativeMap().then((map) => {
       for(let display of this.displayRendererRef) {
-        console.log("clearing map route");
         display.setMap(map);
         display.setDirections({
           routes: []
         });
       }
     });
+    for(let colour of coloursArray){
+      colour.reset();
+    }
   }
 
   /**

@@ -132,6 +132,10 @@ export class Colour {
     getHex(): string {
         return this.hex;
     }
+
+    reset(): void {
+        this.hasBeenUsed = false;
+    }
 }
 
 export const coloursArray = [ //TODO: Choose best colours and add more
