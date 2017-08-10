@@ -1,0 +1,53 @@
+<div> 
+  <div class="row">
+    <div class="container d-flex justify-content-between">
+      <p class="list-item-description">{{reviewText}}</p>
+      <small class="text-muted">{{reviewRating}} out of 5 stars by <em>{{reviewAuthor}}</em></small>
+    </div>
+  </div>
+  
+  <div class="row">
+    <button 
+      *ngIf="!reply"
+        class="btn btn-success btn-sm" 
+        (click)="toggleReply()"
+        >
+        Reply
+    </button>
+
+    <button 
+        *ngIf="reply"
+        class="btn btn-danger btn-sm" 
+        (click)="toggleReply()"
+        >
+        Cancel
+    </button>
+  </div>
+  
+  <div *ngFor="let c of comments" class="list-group-item"> 
+    <div class="row">
+      <!-- class="list-group-item list-group-item-action flex-column align-items-start" -->
+      <app-comm-comment [comment]="c" (commentUpdated)="submit($event)"></app-comm-comment>
+    </div>
+  </div>
+</div>
+
+<!-- reply block -->
+<div *ngIf="reply">
+  <div class="card card-block">
+    <form [formGroup]="replyForm" (ngSubmit)="submitComment(replyForm.value, rcPair.review, rcPair.review)">
+      <div class="row">
+        <label>
+          <h6>Comment on {{reviewAuthor}}'s review (min. 3 letters)</h6>
+          <textarea formControlName="text"></textarea>
+        </label>
+        <input 
+          type="submit" 
+          class="button expanded" 
+          value="Reply"
+          [disabled]="!replyForm.valid">
+          
+      </div>
+    </form>
+  </div>
+</div>

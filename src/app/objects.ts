@@ -138,18 +138,19 @@ export class Comment {
     authorName: string;
     recipientUID: string;
     recipientName: string;
+    prevText: string;
     text: string;
     date: number;
     $key?: string;
 
-    constructor(auid, aname, ruid, rname, text){
+    constructor(auid, aname, ruid, rname, text, prevText){
         this.authorUID = auid;
         this.authorName = aname;
         this.recipientUID = ruid;
         this.recipientName = rname;
         this.text = text;
+        this.prevText = prevText;
         this.date = Date.now();
-        console.log(this.date);
     }
 }
 

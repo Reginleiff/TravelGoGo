@@ -18,11 +18,8 @@ export class CommReviewComponent implements OnInit {
   itinerary: ItineraryOverview;
   reviews: Array<ReviewCommentPair>;
   reviewForm: FormGroup;
-  replyForm: FormGroup;
   ratings: Array<number> = [5, 4, 3, 2, 1];
-  reply: boolean = false;
   constructor(
-    private fb: FormBuilder,
     private cds: CommDataService,
     private fbs: FirebaseService,
     private as: AuthService
@@ -36,18 +33,11 @@ export class CommReviewComponent implements OnInit {
       }
     }
     this.resetForm();
-    this.resetReplyForm();
   }
 
   submitReview(data){
     this.fbs.addReview(data, this.itinerary);
     this.resetForm();
-    this.getItineraryReviews();
-  }
-
-  submitComment(data, objectToReply, review: Review){
-    this.fbs.addComment(data, objectToReply, review);
-    this.resetReplyForm();
     this.getItineraryReviews();
   }
 
@@ -81,16 +71,7 @@ export class CommReviewComponent implements OnInit {
     })
   }
 
-  resetReplyForm(){
-    this.replyForm = new FormGroup({
-      'text': new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3)
-      ])
-    })
-  }
-
-  toggleReply(){
-    this.reply = !this.reply;
+  refresh(signal: boolean){
+    this.getItineraryReviews();
   }
 }

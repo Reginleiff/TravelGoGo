@@ -6,63 +6,20 @@
 
 <div *ngIf="itinerary" class="wrapper">
   <div class="card">
-    <div class="card-block">
+     <div class="card-block"> 
       <div *ngIf="itinerary" class="list-group">
         <div 
-        *ngFor="let r of reviews" 
-        class="list-group-item list-group-item-action flex-column align-items-start"
+        *ngFor="let rcPair of reviews" 
+        class="list-group-item"
         >
-          <div class="d-flex w-100 justify-content-between"> 
-            <p class="list-item-description">{{r.review.text}}</p>
-            <small class="text-muted">{{r.review.rating}} out of 5 stars by <em>{{r.review.authorName}}</em></small>
-          </div>
-          <button 
-          *ngIf="!reply"
-            class="btn btn-success btn-sm" 
-            (click)="toggleReply()"
-            >
-            Reply
-          </button>
-          <button 
-            *ngIf="reply"
-            class="btn btn-danger btn-sm" 
-            (click)="toggleReply()"
-            >
-            Cancel
-          </button>
-          <div *ngIf="reply">
-            <div class="card card-block">
-              <form [formGroup]="replyForm" (ngSubmit)="submitComment(replyForm.value, r.review, r.review)">
-                <div class="row">
-                  <label>
-                    <h6>Reply (3 letters min.)</h6>
-                    <textarea formControlName="text"></textarea>
-                  </label>
-                  <input 
-                    type="submit" 
-                    class="button expanded" 
-                    value="Reply"
-                    [disabled]="!replyForm.valid">
-                    
-                </div>
-              </form>
-            </div>
-          </div>
-          <div 
-            *ngFor="let c of r.comments" 
-            class="list-group-item list-group-item-action flex-column align-items-start"
-            >
-            <div class="d-flex w-100 justify-content-between"> 
-              <p class="list-item-description">{{c.text}}</p>
-              <small class="text-muted"><em>@ {{c.recipientName}}</em> from <em>{{c.authorName}}</em> on {{c.date | date}}</small>
-            </div>
-          </div>
+          <app-comm-discussion [rcPair]="rcPair" (commentUpdated)="refresh($event)"></app-comm-discussion>
+        </div>
       </div>
 
       <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
         <div class="row">
           <label>
-            <h6>Comment (3 letters min.)</h6>
+            <h6>Submit your review (min. 3 letters)</h6>
             <textarea formControlName="text"></textarea>
             <select formControlName="rating">
               <option value="" disabled>Choose a rating</option>
@@ -78,6 +35,6 @@
             [disabled]="!reviewForm.valid">
         </div>
       </form>
-    </div>
+     </div> 
   </div>
 </div>

@@ -35,7 +35,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { CommListComponent } from './components/community/comm-list/comm-list.component';
 import { CommViewComponent } from './components/community/comm-view/comm-view.component';
 import { CommReviewComponent } from './components/community/comm-review/comm-review.component';
-
+import { CommDiscussionComponent } from './components/community/comm-review/comm-discussion/comm-discussion.component';
+import { CommCommentComponent } from './components/community/comm-review/comm-discussion/comm-comment/comm-comment.component';
 
 // Services
 import { FirebaseService } from './services/firebase.service';
@@ -67,6 +68,8 @@ import { PlannerMapRouteDirective } from './components/planner/planner-map/plann
     CommListComponent,
     CommViewComponent,
     CommReviewComponent,
+    CommDiscussionComponent,
+    CommCommentComponent,
   ],
   imports: [
     BrowserModule,

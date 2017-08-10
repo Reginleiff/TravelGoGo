@@ -55,8 +55,4 @@ export class PlannerDayplanComponent implements OnChanges {
   remove(destination: Destination): void {
     this.plannerService.deleteFromDayPlan(destination);
   }
-
-  test(){
-    console.log(this.items);
-  }
 }

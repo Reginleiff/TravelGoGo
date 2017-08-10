@@ -128,7 +128,6 @@ export class FirebaseService{
   // adds a new user to the database
   addNewUser(uid: string, username: string): void {
     this.af.database.ref('users/' + uid).push(new User(username, uid));
-    console.log("New User: " + username + " was added to the user database!");
   }
 
   // adds a review object to database
@@ -159,7 +158,7 @@ export class FirebaseService{
     let aname = this.authService.user.displayName;
     let ruid = objectToReply.authorUID;
     let rname = objectToReply.authorName;
-    let comment = new Comment(auid, aname, ruid, rname, data.text);
+    let comment = new Comment(auid, aname, ruid, rname, data.text, objectToReply.text);
     let refKey = this.af.database.ref('comments').push(comment).key;
     this.af.database.ref('users/' + auid).once('value').then((snapshot) => {
       if(!snapshot.exists()){
