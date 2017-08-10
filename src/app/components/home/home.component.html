@@ -1,5 +1,5 @@
 <!--Auth service injection-->
-<div *ngIf="!(authService.userObs | async)" class="jumbotron text-center">
+<div *ngIf="!(authService.userObs | async)" class="text-center">
 
   <h1 class="display-1">Plan. Travel. Share.</h1>
   <p>Sign in to get started on your holiday itinerary!</p>
@@ -8,8 +8,8 @@
 <!-- end of auth service injection-->
 
 <!-- styling ommited , will rectify upon discussion-->
-<div *ngIf="(authService.userObs | async)" class="jumbotron text-center">
-  <h1 class="display-1">Welcome!</h1>
+<div *ngIf="(authService.userObs | async)" class="text-center">
+  <h1>Welcome!</h1>
   <p>Click on the planner tab to start planning an itinerary,
   the itineraries tab to view your plans
   or the community tab to share your itineraries or view what others have done!</p>

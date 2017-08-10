@@ -1,43 +1,46 @@
-<nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse">
+<nav class="navbar navbar-toggleable navbar-transparent">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar"     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <a class="navbar-brand text-white" href="#">Travelgogo.</a>
+  <h1 class="navbar-title text-white" href="#">Travelgogo|</h1>
+<br />
+<br />
+<br />
 
   <div class="collapse navbar-collapse justify-content-between" id="navbar">
     <div class="nav navbar-nav">
-      <a 
-      class="nav-item nav-link" 
+      <a
+      class="nav-item nav-link text-white"
       routerLinkActive="active"
       routerLink="/home">Home</a>
 
-      <a 
+      <a
       *ngIf="(authService.userObs | async)"
-      class="nav-item nav-link" 
+      class="nav-item nav-link text-white"
       routerLinkActive="active"
       routerLink="/planner">Planner</a>
-      
-      <a 
+
+      <a
       *ngIf="(authService.userObs | async)"
-      class="nav-item nav-link" 
+      class="nav-item nav-link text-white"
       routerLinkActive="active"
       routerLink="/itineraries">Itineraries</a>
 
-      <a 
+      <a
       *ngIf="(authService.userObs | async)"
-      class="nav-item nav-link" 
+      class="nav-item nav-link text-white"
       routerLinkActive="active"
       routerLink="/community">Community</a>
 
     </div>
     <div class="nav navbar-nav">
-      <a *ngIf="!(authService.userObs | async)" (click)="login()" class="nav-item nav-link">Login</a>
-      <a 
-      *ngIf="(authService.userObs | async)" 
-      (click)="logout()" 
+      <a *ngIf="!(authService.userObs | async)" (click)="login()" class="nav-item nav-link text-white">Login</a>
+      <a
+      *ngIf="(authService.userObs | async)"
+      (click)="logout()"
       routerLink="/logout"
-      class="nav-item nav-link">Logout</a>     
+      class="nav-item nav-link text-white">Logout</a>
     </div>
   </div>
 
