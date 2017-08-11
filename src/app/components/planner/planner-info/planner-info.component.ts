@@ -10,6 +10,8 @@ import { Destination } from './../../../objects';
 export class PlannerInfoComponent implements OnInit {
 
   destinationToView: Destination;
+  showOpenNow: boolean;
+  openNow: boolean;
   photoURL: any;
 
   constructor(private plannerService: PlannerService) { }
@@ -17,10 +19,16 @@ export class PlannerInfoComponent implements OnInit {
   ngOnInit() {
     this.plannerService.mapToInfoSubject.subscribe((data: google.maps.places.PlaceResult) => {
       this.destinationToView = this.createDestination(data);
-      // this.photoURL = this.destinationToView.photos[0].getUrl({
-      //   'maxWidth': 300,
-      //   'maxHeight': 300
-      // })
+      this.photoURL = this.destinationToView.photos[0].getUrl({
+        'maxWidth': 300,
+        'maxHeight': 300
+      })
+      if(this.destinationToView.openNow != null){
+        this.showOpenNow = true;
+        this.openNow = this.destinationToView.openNow;
+      } else {
+        this.showOpenNow = false;
+      }
     })
   }
   

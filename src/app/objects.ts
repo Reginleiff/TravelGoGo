@@ -57,30 +57,35 @@ export class User {
 export class Destination {
     name: string;
     order: number;
-    openingHours?: any;
     lat: number;
     lng: number;
-    // photos: any;
+    openingHours?: any; // array of 
+    photos?: any;
     priceLevel?: number;
     openNow?: boolean;
     rating?: number;
     website?: string;
+    vicinity?: string;
+    address?: string;
+    phone?: string;
     $key?: string;
 
     constructor(place: google.maps.places.PlaceResult) {
         this.name = place.name;
         this.lat = place.geometry.location.lat();
         this.lng = place.geometry.location.lng();
-        // this.photos = place.photos;
-        if(place.price_level != null){
-            this.priceLevel = place.price_level;
+        if(place.opening_hours != null){
+            this.openingHours = place.opening_hours.periods;
+            this.openNow = place.opening_hours.open_now;
         }
-        if(place.rating != null){
-            this.rating = place.rating;
-        }
-        if(place.website != null){
-            this.website = place.website;
-        }
+        console.log('opening hours', this.openingHours);
+        this.photos = place.photos;
+        this.priceLevel = place.price_level;
+        this.rating = place.rating;    
+        this.website = place.website;
+        this.vicinity = place.vicinity;
+        this.address = place.formatted_address;
+        this.phone = place.international_phone_number;
     }
 }
 
