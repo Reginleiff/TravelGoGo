@@ -1,4 +1,4 @@
-import { Directive, AfterViewInit } from '@angular/core';
+import { Directive, AfterViewInit, Input, ElementRef } from '@angular/core';
 import { MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
 import { PlannerService } from './../../../services/planner.service';
 import { Destination, ItineraryDayPlan, Pair, Colour, coloursArray } from './../../../objects';
@@ -13,7 +13,10 @@ declare var google: any;
 export class PlannerMapRouteDirective {
 
   displayRendererRef: Array<any>;
+  currentDisplayNeeded: number;
   directionsService: any;
+  currentDirectionPair: number;
+  @Input()directionsElementRef: ElementRef;
 
   constructor(
     private googleMapsAPIWrapper: GoogleMapsAPIWrapper,
@@ -21,8 +24,8 @@ export class PlannerMapRouteDirective {
     private plannerService: PlannerService
   ) { 
     this.displayRendererRef = new Array<any>();
-    
-    
+    this.currentDirectionPair = 0;
+    this.directionsElementRef = this.plannerService.directionsElementRef;
     this.plannerService.dayPlanToRouteSubject.subscribe((data: ItineraryDayPlan) => {
       let destinations = data.destinations;
       let numDestinations = data.numDestinations;
@@ -86,6 +89,7 @@ export class PlannerMapRouteDirective {
     this.googleMapsAPIWrapper.getNativeMap().then((map) => {
       for(let display of this.displayRendererRef) {
         display.setMap(map);
+        display.setPanel(null);
         display.setDirections({
           routes: []
         });
@@ -104,6 +108,7 @@ export class PlannerMapRouteDirective {
    */
   plot(destinationPairs: Array<any>, renders: Array<google.maps.DirectionsRenderer>) {
     let numRendersNeeded = destinationPairs.length - renders.length;
+    this.currentDisplayNeeded = destinationPairs.length;
     if(numRendersNeeded > 0){
       for(var i = 0; i < numRendersNeeded; i++){
         let tempRender = new google.maps.DirectionsRenderer({
@@ -117,7 +122,10 @@ export class PlannerMapRouteDirective {
     }
     for(var j = 0; j < destinationPairs.length; j++){
       this.displayRoute(destinationPairs[j], this.displayRendererRef[j]);
-    }
+      if(j == destinationPairs.length - 1){
+        setTimeout(() => this.displayDirections(), 1000);
+      }
+    }   
   }
 
   /**
@@ -130,6 +138,15 @@ export class PlannerMapRouteDirective {
     } else {
       colour.use();
       return colour.getHex();
+    }
+  }
+
+  /**
+   * displays all directions from rendered onto div
+   */
+  displayDirections(): void {
+    for(var i = 0; i < this.currentDisplayNeeded; i++){
+      this.displayRendererRef[i].setPanel(this.directionsElementRef.nativeElement);
     }
   }
 }

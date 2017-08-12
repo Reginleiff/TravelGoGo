@@ -59,8 +59,8 @@ export class Destination {
     order: number;
     lat: number;
     lng: number;
-    openingHours?: any; // array of 
-    photos?: any;
+    // openingHours?: any;
+    photos?: Array<string>;
     priceLevel?: number;
     openNow?: boolean;
     rating?: number;
@@ -74,18 +74,36 @@ export class Destination {
         this.name = place.name;
         this.lat = place.geometry.location.lat();
         this.lng = place.geometry.location.lng();
-        if(place.opening_hours != null){
-            this.openingHours = place.opening_hours.periods;
-            this.openNow = place.opening_hours.open_now;
+        // if(place.opening_hours != null){
+        //     this.openingHours = place.opening_hours.periods;
+        //     this.openNow = place.opening_hours.open_now;
+        // }
+        if(place.photos != null){
+            this.photos = place.photos.map((p) => {
+                return p.getUrl({
+                    maxHeight: 300,
+                    maxWidth: 300
+                });
+            });
         }
-        console.log('opening hours', this.openingHours);
-        this.photos = place.photos;
-        this.priceLevel = place.price_level;
-        this.rating = place.rating;    
-        this.website = place.website;
-        this.vicinity = place.vicinity;
-        this.address = place.formatted_address;
-        this.phone = place.international_phone_number;
+        if(place.price_level != null){
+            this.priceLevel = place.price_level;
+        }
+        if(place.rating != null){
+            this.rating = place.rating;
+        }
+        if(place.website != null){
+            this.website = place.website;
+        }
+        if(place.vicinity != null){
+            this.vicinity = place.vicinity;
+        } 
+        if(place.formatted_address != null){
+            this.address = place.formatted_address;
+        }
+        if(place.international_phone_number != null){
+            this.phone = place.international_phone_number;
+        }
     }
 }
 

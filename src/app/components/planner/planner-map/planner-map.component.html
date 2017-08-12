@@ -19,7 +19,7 @@
           [longitude]="longitude" 
           [scrollwheel]="false" 
           [zoom]="zoom">
-        <app-planner-map-route></app-planner-map-route>
+        <app-planner-map-route [directionsElementRef]="dirList"></app-planner-map-route>
          <agm-marker 
         *ngFor="let dest of destinations" 
         [latitude]="dest.lat" 
@@ -27,8 +27,11 @@
       </agm-map>
 
     </span>
+    <div id="directions">
+      <div #directionsList class="panel panel-primary"></div>
+    </div>
     
-  </div>
+  <div></div>
 
 </div>
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   -->

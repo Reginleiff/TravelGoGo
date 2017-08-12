@@ -32,8 +32,8 @@ export class PlannerMapComponent implements OnInit {
   itinerary: Array<ItineraryDayPlan>;
 
 
- @ViewChild("search")
- public searchElementRef: ElementRef;
+ @ViewChild("search") public searchElementRef: ElementRef;
+ @ViewChild("directionsList") public dirList: ElementRef;
 
   constructor(
     private mapsAPILoader: MapsAPILoader,
@@ -48,21 +48,20 @@ export class PlannerMapComponent implements OnInit {
       this.destinations = data;
       this.destinationsCount = data.length;
     })
-    
-    //set google maps defaults
+    // set google maps defaults
     this.zoom = 1;
     this.latitude = 1.2966;
     this.longitude = 103.7764;
     this.destinationsCount = 0;
     this.destinations = new Array<any>();
 
-    //create search FormControl
+    // create search FormControl
     this.searchControl = new FormControl();
 
-    //set current position
+    // set current position
     this.setCurrentPosition();
 
-    //load Places Autocomplete
+    // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: []

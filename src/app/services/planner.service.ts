@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 
 import { Destination, ItineraryDayPlan } from './../objects';
 import { Subject } from 'rxjs/Subject';
@@ -12,6 +12,8 @@ export class PlannerService {
   public dayPlanToRouteSubject = new Subject<any>();
   public updMarkerSubject = new Subject<any>();
   public deleteFromDayPlanSubject = new Subject<any>();
+  directionsElementRef: ElementRef;
+
 
   constructor() { }
 
@@ -37,5 +39,9 @@ export class PlannerService {
 
   deleteFromDayPlan(dest: Destination){
     this.deleteFromDayPlanSubject.next(dest);
+  }
+
+  setDirectionsElementRef(er: ElementRef){
+    this.directionsElementRef = er;
   }
 }
