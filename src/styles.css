@@ -2,25 +2,22 @@
  @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
  @import "../node_modules/dragula/dist/dragula.css";
 
-
-
-
- .fullscreen-bg {
+video {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
     z-index: -100;
-
-
-
+    align-self: center;
+    transform: translateX(-50%) translateY(-50%);
+ background: url('//assets\img\load2.jpg') no-repeat;
+  background-size: cover;
+  transition: 1s opacity;
 }
 
-.fullscreen-bg__video {
-  position:relative;
-    top: 0;
-    left: 0;
-
+img{
+  align-self: center;
 }
