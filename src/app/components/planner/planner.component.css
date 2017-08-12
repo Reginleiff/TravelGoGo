@@ -1,7 +1,10 @@
-.jumbotron {
-    height: 100vh;
-}
-
-#jumbo {
-    padding: 15px;
+h1{
+  font-family:'Just Another Hand', cursive;
+  font-size-adjust: auto;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: white;
+  font-size: 3.5em;
+  text-decoration: underline;
+  
 }

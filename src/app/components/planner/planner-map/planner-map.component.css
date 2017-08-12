@@ -1,4 +1,25 @@
-agm-map {
-  height: 600px;
-  width: 750px;
+
+.iframe-container{
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+
+
+
+}
+.iframe-container > *{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  border-style: solid;
+  border-width: 5px;
+  border-color: white;
+
 }

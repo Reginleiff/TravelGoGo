@@ -48,7 +48,12 @@ export class PlannerMapComponent implements OnInit {
       this.destinations = data;
       this.destinationsCount = data.length;
     })
+<<<<<<< HEAD
     // set google maps defaults
+=======
+
+    //set google maps defaults
+>>>>>>> body-bg
     this.zoom = 1;
     this.latitude = 1.2966;
     this.longitude = 103.7764;
@@ -72,7 +77,7 @@ export class PlannerMapComponent implements OnInit {
           if (result.geometry === undefined || result.geometry === null) {
             return; //verify result
           }
-          this.searchControl = new FormControl(); // resetting form  
+          this.searchControl = new FormControl(); // resetting form
           this.addDestination(result); // add destination to list
           this.latitude = result.geometry.location.lat(); // set latitude, longitude and zoom
           this.longitude = result.geometry.location.lng();
@@ -81,7 +86,7 @@ export class PlannerMapComponent implements OnInit {
       });
     });
 
-    
+
   }
 
   private setCurrentPosition() {
