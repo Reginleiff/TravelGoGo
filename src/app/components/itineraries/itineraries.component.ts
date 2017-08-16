@@ -14,7 +14,9 @@ export class ItinerariesComponent implements OnInit {
   userItineraries: ItineraryOverview[] = new Array<ItineraryOverview>();
   itineraryPlanToView: ItineraryOverview;
   
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(
+    private firebaseService: FirebaseService
+  ) { }
 
   ngOnInit() {
     this.getUserItineraries();

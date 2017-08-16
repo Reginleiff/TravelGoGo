@@ -1,0 +1,22 @@
+<div>
+
+  <div *ngIf="itinerary" (click)="lastPlanned()" [routerLink]="'/itineraries'" class="card">
+    <div class="card-block">
+      <p>Where you last left off...</p>
+      <div class="card-header">
+        <h5 class="card-title">{{itinerary.title}}</h5>
+      </div>
+      <div class="card-text">
+        <p class="card-text">{{itinerary.description}}</p>
+      </div>
+    </div>
+  </div>  
+
+  <div *ngIf="!itinerary"  [routerLink]="'/planner'" class="card">
+    <div class="card-block">
+      <div class="card-header">
+        <h5 class="card-title">Click here to get started on an itinerary!</h5>
+      </div>
+    </div>
+  </div>
+</div>

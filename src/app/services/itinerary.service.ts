@@ -9,6 +9,7 @@ export class ItineraryService {
   public itineraryPlanSubject = new Subject<any>();
   public editItinerarySubject = new Subject<any>();
   editItinerary: ItineraryOverview;
+  jumpItineraryKey: string;
   
   constructor() { 
     this.editItinerary = null;
@@ -34,7 +35,25 @@ export class ItineraryService {
     return this.editItinerary;
   }
 
+  setJumpItineraryKey(key: string): void {
+    this.jumpItineraryKey = key;
+    console.log('jump');
+  }
+
+  resetJumpItineraryKey(): void {
+    this.jumpItineraryKey = null;
+  }
+
+  getJumpItineraryKey(): string {
+    return this.jumpItineraryKey;
+  }
+
   editMode(): boolean {
     return this.editItinerary != null;
+  }
+
+  jumpMode(): boolean {
+    console.log('jump reset');
+    return this.jumpItineraryKey != null;
   }
 }

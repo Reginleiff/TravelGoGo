@@ -23,6 +23,15 @@ export class ItineraryViewComponent implements OnInit {
   ) { }
 
   ngOnInit(){
+    if(this.itineraryService.jumpMode()){
+      this.firebaseService.getItineraryObs(this.itineraryService.getJumpItineraryKey()).take(1).subscribe((itinerary) => {
+        this.planToView = itinerary;
+        this.itineraryToView = this.planToView.itinerary;
+        this.dayPlanToView = this.planToView.itinerary[0];
+        this.destinationsToView = this.dayPlanToView.destinations;
+      })
+      this.itineraryService.resetJumpItineraryKey();
+    }
     this.itineraryService.itineraryPlanSubject.subscribe((data) => {
       this.planToView = data;
       this.itineraryToView = data.itinerary;
