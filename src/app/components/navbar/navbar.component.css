@@ -1,5 +1,6 @@
 a{
   font-family: 'Pacifico', cursive;
+  font-weight: bold;
 }
 
 h1{
@@ -9,4 +10,16 @@ h1{
   color: black;
   border-color: black;
   background-color: black;
+}
+ .navbar-brand{
+max-height: 60px;
+max-width: 60px;
+ }
+
+.nav-item{
+
+}
+
+.navbar{
+  color: white;
 }

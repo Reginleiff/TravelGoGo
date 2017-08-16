@@ -19,7 +19,13 @@
   height: 100%;
   width: 100%;
   border-style: solid;
-  border-width: 5px;
-  border-color: white;
+  border-width: 0.5px;
+  border-color: gray;
 
+}
+
+.form-group{
+  border-style: solid;
+  border-width: 0.2px;
+  border-color: gray;
 }
