@@ -47,6 +47,8 @@ import { PlannerInfoComponent } from './components/planner/planner-info/planner-
 
 // Directives
 import { PlannerMapRouteDirective } from './components/planner/planner-map/planner-map-route.directive';
+import { CommIntroComponent } from './components/community/comm-intro/comm-intro.component';
+import { HomeStartComponent } from './components/home/home-start/home-start.component';
 
 
 @NgModule({
@@ -70,6 +72,8 @@ import { PlannerMapRouteDirective } from './components/planner/planner-map/plann
     CommReviewComponent,
     CommDiscussionComponent,
     CommCommentComponent,
+    CommIntroComponent,
+    HomeStartComponent,
   ],
   imports: [
     BrowserModule,

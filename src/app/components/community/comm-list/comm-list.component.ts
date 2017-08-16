@@ -44,6 +44,7 @@ export class CommListComponent implements OnInit {
   } 
   pushToView(itinerary: ItineraryOverview): void {
     this.cds.pushToView(itinerary);
+    this.fbs.setLastViewed(this.fbs.user, itinerary.$key);
     this.switchToView.emit();
   }
 }

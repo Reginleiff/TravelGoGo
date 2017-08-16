@@ -4,18 +4,31 @@ import { AuthService } from './auth.service';
 
 import { User, ItineraryOverview, Review, Comment } from './../objects';
 
+import 'rxjs/add/operator/take';
+
 @Injectable()
 export class FirebaseService{
   userUID: string;
-
+  user: User;
   userItineraries: ItineraryOverview[] = new Array<ItineraryOverview>();
 
   constructor(
-    private af: AngularFireDatabase,
+    public af: AngularFireDatabase,
     private authService: AuthService
   ) { 
     this.authService.userObs.subscribe((user) => {
       this.userUID = user.uid;
+      // create new entry in database
+      let uid = this.authService.user.uid;
+      let username = this.authService.user.displayName;
+      this.af.database.ref('users/' + uid).once('value').then((snapshot) => {
+        if(!snapshot.exists()){
+          this.addNewUser(this.userUID, username);
+        }
+        this.getUser().subscribe((user: User) => {
+          this.user = user;
+        });
+      })
     })
   }
 
@@ -74,15 +87,12 @@ export class FirebaseService{
    */
   addItinerary(itinerary: ItineraryOverview): void {
     let refKey = this.af.database.ref('itineraries').push(itinerary).key;
-    let uid = this.authService.user.uid;
-    let username = this.authService.user.displayName;
-
-    this.af.database.ref('users/' + uid).once('value').then((snapshot) => {
-      if(!snapshot.exists()){
-        this.addNewUser(uid, username);
-      }
-      this.addToUserItineraries(uid, refKey);
+    this.setLastUploaded(refKey);
+    this.getUser().subscribe((user: User) => {
+      this.setLastPlanned(user, refKey);
     })
+    let uid = this.authService.user.uid;
+    this.addToUserItineraries(uid, refKey);
   }
 
   saveItinerary(itinerary: ItineraryOverview): void {
@@ -136,13 +146,12 @@ export class FirebaseService{
     let username = this.authService.user.displayName;
     let review = new Review(uid, username, data.text, data.rating);
     let refKey = this.af.database.ref('reviews').push(review).key;
-    this.af.database.ref('users/' + uid).once('value').then((snapshot) => {
-      if(!snapshot.exists()){
-        this.addNewUser(uid, username);
-      }
-      this.addToUserReviews(uid, refKey);
-      this.addToItineraryReviews(itinerary.$key, refKey);
-    })
+    this.addToUserReviews(uid, refKey);
+    this.addToItineraryReviews(itinerary.$key, refKey);
+
+    // update itinerary rating and top rated
+    let rating = this.addRating(itinerary, data.rating);
+    this.checkTopRated(rating);
   }
 
   addToUserReviews(uid: string, reviewKey: string): void {
@@ -160,13 +169,8 @@ export class FirebaseService{
     let rname = objectToReply.authorName;
     let comment = new Comment(auid, aname, ruid, rname, data.text, objectToReply.text);
     let refKey = this.af.database.ref('comments').push(comment).key;
-    this.af.database.ref('users/' + auid).once('value').then((snapshot) => {
-      if(!snapshot.exists()){
-        this.addNewUser(auid, aname);
-      }
-      this.addToUserComments(auid, refKey);
-      this.addToReviewComments(review.$key, refKey);
-    })
+    this.addToUserComments(auid, refKey);
+    this.addToReviewComments(review.$key, refKey);
   }
 
   addToUserComments(uid: string, commentKey: string){
@@ -175,5 +179,70 @@ export class FirebaseService{
 
   addToReviewComments(reviewKey: string, commentKey: string){
     this.af.database.ref('reviews/' + reviewKey + '/comments').push(commentKey);
+  }
+
+  getUser(): FirebaseObjectObservable<any> {
+    return this.af.object('/users/' + this.userUID) as FirebaseObjectObservable<any[]>;
+  }
+
+  setLastViewed(user: User, key: string): void {
+    user.lastViewed = key;
+    this.af.database.ref('users').child(this.userUID).set(user);
+  }
+
+  setLastPlanned(user: User, key: string): void {
+    user.lastPlanned = key;
+    this.af.database.ref('users').child(this.userUID).set(user);
+  }
+
+  setLastUploaded(key: string): void {
+    let lastUploaded = {
+      key: key
+    }
+    this.af.database.ref('lastuploaded').set(lastUploaded);
+  }
+
+  getLastUploadedObs(): FirebaseObjectObservable<any> {
+    return this.af.object('/lastuploaded') as FirebaseObjectObservable<any>;
+  }
+
+  addRating(itinerary: ItineraryOverview, addedRating: number): number {
+    if(itinerary.rating == null){
+      itinerary.rating = 0;
+    }
+    if(itinerary.totalRating == null){
+      itinerary.totalRating = 0;
+    }
+    if(itinerary.views == null){
+      itinerary.views = 0;
+    }
+    itinerary.views = itinerary.views + 1;
+    itinerary.totalRating = itinerary.totalRating + addedRating;
+    itinerary.rating = itinerary.totalRating / itinerary.views;
+    this.af.database.ref('itineraries').child(itinerary.$key).set(itinerary);
+    return itinerary.rating;
+  }
+
+  setTopRated(key: string, rating: number): void {
+    let topRated = {
+      rating: rating,
+      key: key
+    }
+    this.af.database.ref('toprated').set(topRated);
+  }
+
+  getTopRatedObs(): FirebaseObjectObservable<any> {
+    return this.af.object('/toprated') as FirebaseObjectObservable<any>;
+  }
+
+  checkTopRated(rating: number): void {
+    this.getTopRatedObs().take(1).subscribe((topRatedObj) => {
+      if(topRatedObj == null){
+        this.setTopRated('placeholder', -1);
+      }
+      if(rating > topRatedObj.rating){
+        console.log(topRatedObj);
+      }
+    })
   }
 }

@@ -52,7 +52,7 @@ export class PlannerListComponent implements OnInit {
       // pushing data to other components
       this.pushToDayPlanView(this.itinerary[0]);
 
-      //setting form values
+      // setting form values
       this.rForm = this.formBuilder.group({
         'title': [this.overview.title, Validators.required],
         'description': [this.overview.description, Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(500)])],

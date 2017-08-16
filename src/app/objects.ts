@@ -34,6 +34,8 @@ export class User {
     name: string;
     uid: string;
     itineraries: Array<string>;
+    lastViewed: string;
+    lastPlanned: string;
     $key?: string;
 
     constructor(name: string, uid: string) {
@@ -128,6 +130,8 @@ export class ItineraryOverview {
     numDays: number;
     budget: number;
     rating: number;
+    totalRating: number;
+    views: number;
     itinerary: Array<ItineraryDayPlan>;
     reviews: Array<string>;
     $key?: string;
@@ -136,6 +140,7 @@ export class ItineraryOverview {
         this.numDays = 0;
         this.itinerary = new Array<ItineraryDayPlan>();
         this.rating = 0;
+        this.views = 0;
     }
 }
 
