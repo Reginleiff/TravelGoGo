@@ -37,7 +37,6 @@ export class ItineraryService {
 
   setJumpItineraryKey(key: string): void {
     this.jumpItineraryKey = key;
-    console.log('jump');
   }
 
   resetJumpItineraryKey(): void {
@@ -53,7 +52,6 @@ export class ItineraryService {
   }
 
   jumpMode(): boolean {
-    console.log('jump reset');
     return this.jumpItineraryKey != null;
   }
 }

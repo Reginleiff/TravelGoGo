@@ -19,8 +19,8 @@ export class PlannerInfoComponent implements OnInit {
   ngOnInit() {
     this.plannerService.mapToInfoSubject.subscribe((data: google.maps.places.PlaceResult) => {
       this.destinationToView = this.createDestination(data);
-      this.photoURL = this.destinationToView.photos[0];
       if(this.destinationToView.openNow != null){
+        this.photoURL = this.destinationToView.photos[0];
         this.showOpenNow = true;
         this.openNow = this.destinationToView.openNow;
       } else {

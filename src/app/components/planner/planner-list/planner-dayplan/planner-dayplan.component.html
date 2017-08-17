@@ -1,8 +1,8 @@
 
 <div>
-  <button class="btn btn-success btn-sm align-right" (click)="addDay()">Add Day</button>
-  <button class="btn btn-danger btn-sm align-right" (click)="remDay()">Remove Day</button>
-  <button (click)="plotRoute()" class="btn btn-primary btn-sm align-right">Plot!</button>
+  <button class="btn btn-success btn-sm" (click)="addDay()" [disabled]="disableAddDay">Add Day</button>
+  <button class="btn btn-danger btn-sm" (click)="remDay()"[disabled]="disableRemoveDay">Remove Day</button>
+  <button (click)="plotRoute()" class="btn btn-primary btn-sm">Plot!</button>
 </div>
 
    <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'>

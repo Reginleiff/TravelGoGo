@@ -9,12 +9,12 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 export class AppComponent{
 
   constructor(
-    private flashMessagesService: FlashMessagesService
+    // private flashMessagesService: FlashMessagesService
   ){ }
 
-  flashMessage(message: string): void {
-    this.flashMessagesService.show(message,
-    {cssClass: 'alert-success', timeout: 8000}
-    );
-  }
+  // flashMessage(message: string): void {
+  //   this.flashMessagesService.show(message,
+  //   {cssClass: 'alert-success', timeout: 8000}
+  //   );
+  // }
 }

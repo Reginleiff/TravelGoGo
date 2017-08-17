@@ -8,18 +8,18 @@ import { AuthService } from './../../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  @Output() notify: EventEmitter<string> = new EventEmitter<string>();
+  // @Output() notify: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(public authService: AuthService) { }
 
   login() {
     this.authService.login();
-    this.notify.emit("You are logged in!");
+    // this.notify.emit("You are logged in!");
   }
 
   logout() {
     this.authService.logout();
-    this.notify.emit("You are logged out!");
+    // this.notify.emit("You are logged out!");
   }
 
   ngOnInit() {
