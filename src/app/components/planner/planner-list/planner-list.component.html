@@ -1,5 +1,15 @@
 <div class="card">
   <ul class="nav nav-tabs">
+    <li>
+      <button class="nav-item-right btn btn-success btn-sm nav-button" (click)="addDay()" [disabled]="disableAddDay">
+      Add
+      </button>
+    </li>
+    <li>
+      <button class="nav-item-right btn btn-danger btn-sm nav-button" (click)="remDay()"[disabled]="disableRemoveDay">
+      Del
+      </button>
+    </li>
     <li *ngFor="let dp of itinerary" class="nav-item">
       <a (click)="pushToDayPlanView(dp)" class="nav-link">{{dp.day + 1}}</a>
     </li>
