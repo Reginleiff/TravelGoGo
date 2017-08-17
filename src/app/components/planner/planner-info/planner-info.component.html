@@ -1,15 +1,18 @@
-<div class="card"> 
+
+<div class="container">
+<div class="card">
   <div class="row">
     <div class="col-sm-4">
       <!-- if there is no google photos, use street view-->
       <img *ngIf="photoURL && destinationToView" class="card-img-left" [src]="photoURL" height="300" width="300">
-      <img 
-        *ngIf="!photoURL && destinationToView" 
+      <img
+        *ngIf="!photoURL && destinationToView"
         height="300"
-        width="300" 
+        width="300"
+        padding="1px"
         src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{destinationToView.lat}},{{destinationToView.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-8 ">
       <div class="card-block">
         <div *ngIf="destinationToView">
           <div class="row">
@@ -21,18 +24,17 @@
             <p *ngIf="openNow">Open Now</p>
             <p *ngIf="!openNow">Closed Now</p>
           </div>
-          <div>
-            <p>{{destinationToView.vicinity}}</p> <!-- province, etc - autofull-->
-            <p>{{destinationToView.website}}</p> <!-- website -->
-            <p>{{destinationToView.address}}</p> <!-- full address -->
-            <p>{{destinationToView.phone}}</p> <!-- international number -->
+          <div class="container text-left wrap">
+            <p class="small">{{destinationToView.address}}</p> <!-- full address -->
+            <p class="small">{{destinationToView.phone}}</p> <!-- international number -->
+            <p class="small">{{destinationToView.website}}</p> <!-- website -->
           </div>
           <button (click)="addToItinerary(destinationToView)" class="btn btn-primary">Add to Itinerary</button>
         </div>
         <div *ngIf="!destinationToView">
-          <h4>Select A Destination!</h4>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
