@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnChanges, SimpleChanges, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter, OnDestroy } from '@angular/core';
 import { ItineraryOverview, ItineraryDayPlan, Destination } from './../../../../objects';
 import { arrayRem, updateOrder } from './../../../../functions';
 
@@ -11,9 +11,11 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
   styleUrls: ['./planner-dayplan.component.css']
 })
 
-export class PlannerDayplanComponent implements OnChanges {
+export class PlannerDayplanComponent implements OnChanges, OnInit {
 
   @Input() dayPlan: ItineraryDayPlan;
+  @Input() disableAddDay: boolean;
+  @Input() disableRemoveDay: boolean;
   @Output() addDayUpdate: EventEmitter<string> = new EventEmitter<string>();
   @Output() remDayUpdate: EventEmitter<number> = new EventEmitter<number>();
   items: Destination[];
@@ -21,11 +23,13 @@ export class PlannerDayplanComponent implements OnChanges {
   constructor(
     private dragulaService: DragulaService,
     private plannerService: PlannerService
-  ) {
-    dragulaService.setOptions('day-list', {
+  ) { }
+
+  ngOnInit(){
+    this.dragulaService.setOptions('day-list', {
       removeOnSpill: false
     });
-    dragulaService.dragend.subscribe(value => updateOrder(this.items));
+    this.dragulaService.dragend.subscribe(value => updateOrder(this.items));
   }
 
 

@@ -12,9 +12,11 @@
         </div>
       </div>
     </div>
+</div>
+<div class="container">
   <div>
-    <button class="btn btn-success btn-sm" (click)="addDay()">Add Day</button>
-    <button class="btn btn-danger btn-sm" (click)="remDay()">Remove Day</button>
+    <button class="btn btn-success btn-sm" (click)="addDay()" [disabled]="disableAddDay">Add Day</button>
+    <button class="btn btn-danger btn-sm" (click)="remDay()"[disabled]="disableRemoveDay">Remove Day</button>
     <button (click)="plotRoute()" class="btn btn-primary btn-sm">Plot!</button>
   </div>
 </div>

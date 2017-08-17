@@ -6,6 +6,8 @@
   </ul>
   <app-planner-dayplan 
   [dayPlan]="dayPlanView"
+  [disableAddDay]="disableAddDay"
+  [disableRemoveDay]="disableRemoveDay"
   (addDayUpdate)="addDay($event)"
   (remDayUpdate)="remDay($event)"
   ></app-planner-dayplan>

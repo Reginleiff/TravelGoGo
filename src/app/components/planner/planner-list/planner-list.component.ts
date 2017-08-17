@@ -25,6 +25,9 @@ export class PlannerListComponent implements OnInit {
   itinerary: ItineraryDayPlan[];
   dayPlanView: ItineraryDayPlan;
 
+  disableRemoveDay: boolean;
+  disableAddDay: boolean;
+
   rForm: FormGroup;
   post: any;
   title: string = "";
@@ -70,6 +73,7 @@ export class PlannerListComponent implements OnInit {
       this.remDestination(this.dayPlanView, data);
       this.plannerService.pushToMaps(this.itinerary);
     })
+    this.disableRemoveDay = true;
   }
 
   pushToDayPlanView(dayPlan: ItineraryDayPlan){
@@ -116,14 +120,27 @@ export class PlannerListComponent implements OnInit {
 
   // Itinerary Overview Methods
   addDayPlan(itineraryOverview: ItineraryOverview): void {
-      itineraryOverview.itinerary.push(new ItineraryDayPlan(itineraryOverview.numDays));
-      itineraryOverview.numDays++;
+    itineraryOverview.itinerary.push(new ItineraryDayPlan(itineraryOverview.numDays));
+    itineraryOverview.numDays++;
+    if(itineraryOverview.itinerary.length >= 15){
+      this.disableAddDay = true;
+    } else {
+      this.disableAddDay = false;
+      this.disableRemoveDay = false;
+    }
   }
 
   removeDayPlan(itineraryOverview: ItineraryOverview, idx: number): void {
       itineraryOverview.itinerary.splice(idx, 1);
       itineraryOverview.numDays--;
+      this.pushToDayPlanView(itineraryOverview.itinerary[0]);
       this.updOrder(itineraryOverview);
+      if(itineraryOverview.itinerary.length <= 1){
+        this.disableRemoveDay = true;
+      } else {
+        this.disableAddDay = false;
+        this.disableRemoveDay = false;
+      }
   }
 
   updOrder(itineraryOverview: ItineraryOverview): void {

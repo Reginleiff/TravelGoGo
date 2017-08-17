@@ -13,7 +13,8 @@
       <div class="card-block">
         <div *ngIf="destinationToView">
           <div class="row">
-            <h4 class="card-title col-sm-8">{{destinationToView.name}}</h4>
+            <h6 class="card-text col-sm-4">{{destinationToView.order}}</h6>
+            <h4 class="card-title col-sm-7">{{destinationToView.name}}</h4>
             <h6 class="col-sm-4 pull-right">{{destinationToView.rating}} Stars</h6>
           </div>
           <div *ngIf="showOpenNow">

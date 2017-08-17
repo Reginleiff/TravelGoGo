@@ -83,7 +83,7 @@ import { HomeStartComponent } from './components/home/home-start/home-start.comp
     AngularFireModule.initializeApp(environment.firebase, 'travelgogo'), // imports firebase/app needed for everything
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-    FlashMessagesModule, //imports the flash messages utility
+    // FlashMessagesModule, //imports the flash messages utility
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDzEtn8KnIJXzZKEGtlM6K5dhobsq6jHIE',
       libraries: ["places"]
