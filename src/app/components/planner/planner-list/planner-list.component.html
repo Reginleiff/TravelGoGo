@@ -28,28 +28,60 @@
     <div class="container">
       <div class="row columns">
 
-        <label for="">Title
-          <input type="text" formControlName="title">
-        </label>
 
-        <label for="">Description
-          <textarea formControlName="description"></textarea>
-        </label>
 
-        <input 
-          *ngIf="!this.itineraryService.editMode()" 
-          type="submit" 
-          class="button expanded" 
+        <div class="col-md-5 ">
+          <label for="">Title
+            <input type="text" formControlName="title">
+          </label>
+        </div>
+
+        <div class="col-md-5">
+          <label for="">Description
+            <input type="text" formControlName="description">
+          </label>
+        </div>
+
+        <div class="col-md-2">
+
+
+        <input
+          *ngIf="!this.itineraryService.editMode()"
+          type="submit"
+          class="button expanded"
           value="Add Itinerary"
           [disabled]="!rForm.valid">
 
-        <input 
-        *ngIf="this.itineraryService.editMode()" 
-        type="submit" 
-        class="button expanded" 
-        value="Save Itinerary" 
+        <input
+        *ngIf="this.itineraryService.editMode()"
+        type="submit"
+        class="button expanded"
+        value="Save Itinerary"
         [disabled]="!rForm.valid">
+
+
+      </div>
+
+
       </div>
     </div>
   </form>
-</div>
+
+  <div class="card">
+    <ul class="nav nav-tabs">
+
+      <li *ngFor="let dp of itinerary" class="nav-item">
+        <a (click)="pushToDayPlanView(dp)" class="nav-link">{{dp.day + 1}}</a>
+      </li>
+
+      <app-planner-dayplan
+      [dayPlan]="dayPlanView"
+      [disableAddDay]="disableAddDay"
+      [disableRemoveDay]="disableRemoveDay"
+      (addDayUpdate)="addDay($event)"
+      (remDayUpdate)="remDay($event)"
+      ></app-planner-dayplan>
+
+    </ul>
+
+  </div>
