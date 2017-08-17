@@ -1,20 +1,15 @@
-
-<div>
-  <button class="btn btn-success btn-sm" (click)="addDay()" [disabled]="disableAddDay">Add Day</button>
-  <button class="btn btn-danger btn-sm" (click)="remDay()"[disabled]="disableRemoveDay">Remove Day</button>
-  <button (click)="plotRoute()" class="btn btn-primary btn-sm">Plot!</button>
-</div>
-
-   <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'>
+<div class="container">
+   <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'> 
     <div *ngFor="let d of items" class="card">
-
       <div class="card-block">
-            <h6 class="text-left card-title">{{d.name}}
-              <button class="text-align"(click)="remove(d)" class="btn btn-sm btn-danger">✘</button>
-            </h6>
-            <p class="text-left card-title small">{{d.address}}</p>
-            <p class="text-left card-title small">{{d.phone}}</p>
-            <p class="text-left card-title small">{{d.website}}</p>
+        <div class="row">
+          <div class="col-sm-10">
+            <h6 class="card-title">{{d.name}}</h6>
+          </div>
+          <div class="col-sm-2">
+            <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
+          </div>
+        </div>
       </div>
     </div>
 </div>
