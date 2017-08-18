@@ -77,7 +77,7 @@ export class PlannerMapComponent implements OnInit {
           this.addDestination(result); // add destination to list
           this.latitude = result.geometry.location.lat(); // set latitude, longitude and zoom
           this.longitude = result.geometry.location.lng();
-          this.zoom = 15;
+          this.zoom = 12;
         });
       });
     });

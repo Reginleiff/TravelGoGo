@@ -1,38 +1,19 @@
-<div class="card"> 
-  <div class="row">
-    <div class="col-sm-4">
-      <!-- if there is no google photos, use street view-->
-      <img *ngIf="photoURL && destinationToView" class="card-img-left" [src]="photoURL" height="300" width="300">
-      <img 
-        *ngIf="!photoURL && destinationToView" 
-        height="300"
-        width="300" 
-        src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{destinationToView.lat}},{{destinationToView.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
-    </div>
-    <div class="col-sm-8">
-      <div class="card-block">
-        <div *ngIf="destinationToView">
-          <div class="row">
-            <h6 class="card-text col-sm-4">{{destinationToView.order}}</h6>
-            <h4 class="card-title col-sm-7">{{destinationToView.name}}</h4>
-            <h6 class="col-sm-4 pull-right">{{destinationToView.rating}} Stars</h6>
+<div class= "container-fluid">
+  <div class="card card-inverse" style="background-color:white; border-color:	#696969; border-style:solid; border-width:thin; text-align: center;">
+      <div *ngIf="destinationToView">
+        <div class="card card-inverse" style="width: 20rem;">
+          <img class="card-img-top" src="..." alt="{{destinationToView.rating}}/5 Stars">
+          <div class="card-block">
+            <h2 class="card-title">{{destinationToView.name}}<img *ngIf="photoURL && destinationToView" class="card-img-left rounded" [src]="photoURL" height="150" width="250">
+            <img *ngIf="!photoURL && destinationToView" class="rounded" height="150" width="250" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{destinationToView.lat}},{{destinationToView.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
+            </h2>
           </div>
-          <div *ngIf="showOpenNow">
-            <p *ngIf="openNow">Open Now</p>
-            <p *ngIf="!openNow">Closed Now</p>
-          </div>
-          <div>
-            <p>{{destinationToView.vicinity}}</p> <!-- province, etc - autofull-->
-            <p>{{destinationToView.website}}</p> <!-- website -->
-            <p>{{destinationToView.address}}</p> <!-- full address -->
-            <p>{{destinationToView.phone}}</p> <!-- international number -->
-          </div>
-          <button (click)="addToItinerary(destinationToView)" class="btn btn-primary">Add to Itinerary</button>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{destinationToView.phone}}</li>
+            <li class="list-group-item">{{destinationToView.address}}</li>
+            <li class="list-group-item">{{destinationToView.website}}</li>
+          </ul>
         </div>
-        <div *ngIf="!destinationToView">
-          <h4>Select A Destination!</h4>
-        </div>
-      </div>
-    </div>
+      <button (click)="addToItinerary(destinationToView)" class="btn btn-primary buttonadd">Add to Itinerary</button>
   </div>
 </div>

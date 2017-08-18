@@ -1,3 +1,55 @@
 .card {
-    width: 100%
+    width: 100%;
+}
+
+.buttonadd{
+  background-color:white;
+  text-align: center;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+  border-width: 0.1px;
+  border-color: #696969;
+  border-style:none;
+}
+
+.card{
+  color: black;
+}
+.list-group-item{
+  background-color: #333;
+  text-align: left;
+  font-family: 'Poiret One', cursive;
+  color: white;
+  font-weight: ;
+}
+
+.card-title{
+  text-align: center;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+  border-width: 1px;
+  border-color: black;
+  border-style:solid;
+
+}
+.card-img-top{
+text-decoration: underline;
+font-weight: bold;
+}
+
+.card{
+  border-width: 1px;
+  border-color: black;
+  border-style:solid;
+  align-items: center;
+
+}
+
+.btn{
+  border-width: 0.1px;
+  border-color: #696969C;
+  border-style:solid;
+  width:100%;
 }

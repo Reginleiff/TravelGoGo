@@ -1,53 +1,33 @@
-<nav class="navbar-nav navbar-toggleable-md navbar-light ">
-   <button class="navbar-toggler navbar-toggler-right navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-
-  </button>
-
-
-<img class="navbar-brand" src="assets\img\load2.jpg" alt="logo">
-
-<div class="collapse navbar-collapse" id="navbar">
-    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-      <li class="nav-item">
-        <a
-        class="nav-item nav-link" href="#"
-        routerLinkActive="active"
-        routerLink="/home">Home</a>
-      </li>
-
-      <li class="nav-item">
-        <a
-        *ngIf="(authService.userObs | async)"
-        class="nav-item nav-link" href="#"
-        routerLinkActive="active"
-        routerLink="/planner">Planner</a>
-      </li>
-
-      <li class="nav-item">
-        <a
-        *ngIf="(authService.userObs | async)"
-        class="nav-item nav-link" href="#"
-        routerLinkActive="active"
-        routerLink="/itineraries">Itineraries</a>
-      </li>
-
-      <li class="nav-item">
-        <a
-        *ngIf="(authService.userObs | async)"
-        class="nav-item nav-link" href="#"
-        routerLinkActive="active"
-        routerLink="/community">Community</a>
-      </li>
-
-    </ul>
-    <div class="nav navbar-nav">
-      <a *ngIf="!(authService.userObs | async)" (click)="login()" class="nav-item nav-link">Login</a>
-      <a
-      *ngIf="(authService.userObs | async)"
-      (click)="logout()"
-      routerLink="/logout"
-      class="nav-item nav-link">Logout</a>
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="p-4 city">
+      <div class="container">
+        <button *ngIf="(authService.userObs | async)"class="btn btn-link" href="#" type="button"
+          routerLinkActive="active"
+          routerLink="/home">Home</button>
+        <button *ngIf="(authService.userObs | async)"class="btn btn-link" href="#" type="button" routerLinkActive="active"
+        routerLink="/planner">Planner</button>
+        <button *ngIf="(authService.userObs | async)" href="#" type="button" class="btn btn-link" routerLinkActive="active"
+        routerLink="/itineraries">Itineraries</button>
+        <button *ngIf="(authService.userObs | async)" href="#" type="button" class="btn btn-link" routerLinkActive="active"
+        routerLink="/community">Community</button>
+        <button *ngIf="!(authService.userObs | async)" (click)="login()" type="button" class="btn btn-link">Login</button>
+        <button *ngIf="(authService.userObs | async)"
+        (click)="logout()"
+        routerLink="/logout" type="button" class="btn btn-link">Logout</button>
+      </div>
     </div>
   </div>
-</nav>
+  <nav class="navbar navbar-inverse bg-inverse">
+
+    <div class="container">
+
+    </div>
+      <h1>TravelGoGo
+        <button class="navbar-toggler navbar-toggler-right navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </h1>
+
+  </nav>
+</div>

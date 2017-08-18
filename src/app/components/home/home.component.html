@@ -1,23 +1,19 @@
 <!--Auth service injection-->
-<div *ngIf="!(authService.userObs | async)" class="text-center">
+<div class="container-fluid ">
+  <div *ngIf="!(authService.userObs | async)" class="text-center">
+    <h1 class="display-1">Plan. Travel. Share.</h1>
+    <p>Sign in to get started on your holiday itinerary!</p>
+  </div>
 
-  <h1 class="display-1">Plan. Travel. Share.</h1>
-  <p>Sign in to get started on your holiday itinerary!</p>
+  <div *ngIf="(authService.userObs | async)" class="text-center">
+    <h1>Welcome!</h1>
+    <p>Click on the planner tab to start planning an itinerary,
+      the itineraries tab to view your plans
+      or the community tab to share your itineraries or view what others have done!</p>
+    <app-home-start></app-home-start>
+  </div>
 
+  <div class=fullscreen-bg>
+    <img src="https://previews.123rf.com/images/ohmega1982/ohmega19821307/ohmega1982130700089/21200443-Cityscape-Vector-Illustration-Line-Sketched-Up-Stock-Vector-city-sketch-building.jpg"/>
+  </div>
 </div>
-<!-- end of auth service injection-->
-
-<!-- styling ommited , will rectify upon discussion-->
-<div *ngIf="(authService.userObs | async)" class="text-center">
-  <h1>Welcome!</h1>
-  <p>Click on the planner tab to start planning an itinerary,
-  the itineraries tab to view your plans
-  or the community tab to share your itineraries or view what others have done!</p>
-  <app-home-start></app-home-start>
-</div>
-
-<!-- <div class=fullscreen-bg>
-  <video poster="assets\img\load2.jpg" id="bgvid" playsinline autoplay muted loop>
-    <source src="assets\video\time.webm" type="video/webm">
-    <source src="assets\video\time.mp4" type="video/mp4">
-  </video> -->
