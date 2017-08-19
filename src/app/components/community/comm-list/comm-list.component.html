@@ -1,12 +1,12 @@
 <div class="wrapper">
   <div class="form-group">
     <input 
-          #search 
-          placeholder="Enter to Search..." 
-          type="text" 
-          class="form-control" 
-          form="search"
-          (change)="filter(this.search.value)">
+      #search 
+      placeholder="Enter to Search..." 
+      type="text" 
+      class="form-control" 
+      form="search"
+      (change)="filter(this.search.value)">
   </div>
   
   <div *ngIf="filteredItineraries" class="list-group">

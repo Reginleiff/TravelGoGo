@@ -12,7 +12,7 @@
         *ngFor="let rcPair of reviews" 
         class="list-group-item"
         >
-          <app-comm-discussion [rcPair]="rcPair" (commentUpdated)="refresh($event)"></app-comm-discussion>
+          <app-comm-discussion id="tile" [rcPair]="rcPair" (commentUpdated)="refresh($event)"></app-comm-discussion>
         </div>
       </div>
 

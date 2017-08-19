@@ -2,3 +2,31 @@
     position: absolute;
     right: 0px;
 }
+
+#tile{
+    width: 100%;
+}
+
+.list-item-description{
+    text-align: left;
+}
+
+#reply-block{
+    width: 100%;
+}
+
+#review-text-box{
+    float: left;
+    width: 100%;
+    height: 100px;
+}
+
+#review{
+    text-align: left;
+}
+
+#reply-button{
+    align: center;
+    float: center;
+    margin: 50px 0px 50px 0px;
+}

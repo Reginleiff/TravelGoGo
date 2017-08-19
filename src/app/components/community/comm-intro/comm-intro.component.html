@@ -1,15 +1,17 @@
 <div class="container-fluid">
   <div class="d-flex justify-content-between">
-    <div *ngIf="lastViewed" class="card" style="width: 20rem;">
+    <div *ngIf="lastViewed" class="card p-2" style="width: 20rem;">
+      <h5>Last Viewed</h5>
       <div class="card-block">
         <h4 class="card-title">{{lastViewed.title}}</h4>
-        <p class="card-text">{{lastViewed.description}}</p>
+        <p class="card-text">by <em>{{lastViewed.authorName}}</em></p>
       </div>
     </div>
     <div *ngIf="lastUploaded" class="card p-2" style="width: 20rem;">
+      <h5>Latest Upload</h5>
       <div class="card-block">
         <h4 class="card-title">{{lastUploaded.title}}</h4>
-        <p class="card-text">{{lastUploaded.description}}</p>
+        <p class="card-text">by <em>{{lastUploaded.authorName}}</em></p>
       </div>
     </div>
     <!-- <div *ngIf="topRated" class="card p-2" style="width: 20rem;">
