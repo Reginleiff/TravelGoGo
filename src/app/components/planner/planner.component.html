@@ -2,13 +2,9 @@
 <div class= "container-fluid">
   <div class="row">
     <div class="col-md-8 offset-md-1">
-      <app-planner-map></app-planner-map>
+      <app-planner-map (popUpEmitter)="handlePopUp($event)" data-toggle="modal" data-target="#myModal"></app-planner-map>
     </div>
 
-      <div class="text-center">
-        <app-planner-map (popUpEmitter)="handlePopUp($event)"></app-planner-map>
-          <app-planner-info></app-planner-info>
-      </div>
   <div class="row">
     <div class="col-md-5">
       <!-- <app-planner-list></app-planner-list> -->
@@ -34,6 +30,8 @@
 		</div><!-- modal-dialog -->
 	</div><!-- modal -->
 
-  <!-- <button type="button" class="btn btn-demo" data-toggle="modal" data-target="#myModal">
+  <button type="button" class="btn btn-demo" data-toggle="modal" data-target="#myModal">
       Left Sidebar Modal
-  </button> -->
+  </button>
+
+  
