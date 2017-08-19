@@ -4,7 +4,7 @@
   <div class="row">
     <div class="container col-md-6">
       <div class="text-center">
-        <app-planner-map></app-planner-map>
+        <app-planner-map (popUpEmitter)="handlePopUp($event)"></app-planner-map>
           <app-planner-info></app-planner-info>
       </div>
     </div>

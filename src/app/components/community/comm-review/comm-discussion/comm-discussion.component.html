@@ -26,7 +26,6 @@
   
   <div *ngFor="let c of comments" class="list-group-item"> 
     <div class="row">
-      <!-- class="list-group-item list-group-item-action flex-column align-items-start" -->
       <app-comm-comment [comment]="c" (commentUpdated)="submit($event)"></app-comm-comment>
     </div>
   </div>
