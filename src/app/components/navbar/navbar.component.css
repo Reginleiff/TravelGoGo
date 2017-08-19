@@ -1,9 +1,9 @@
-a{
+a {
   font-family: 'Pacifico', cursive;
   font-weight: bold;
 }
 
-h1{
+h1 {
   font-family: 'Pacifico', cursive;
 }
 .icon-bar {
@@ -11,12 +11,11 @@ h1{
   border-color: black;
   background-color: black;
 }
- .navbar-brand{
+
+.navbar-brand{
 max-height: 60px;
 max-width: 60px;
  }
-
-
 
 h1{
   text-align: center;
