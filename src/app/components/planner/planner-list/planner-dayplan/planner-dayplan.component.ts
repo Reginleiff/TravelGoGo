@@ -19,7 +19,7 @@ export class PlannerDayplanComponent implements OnChanges, OnInit {
   @Output() addDayUpdate: EventEmitter<string> = new EventEmitter<string>();
   @Output() remDayUpdate: EventEmitter<number> = new EventEmitter<number>();
   items: Destination[];
-  
+
   constructor(
     private dragulaService: DragulaService,
     private plannerService: PlannerService
