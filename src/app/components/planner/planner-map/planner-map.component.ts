@@ -50,7 +50,7 @@ export class PlannerMapComponent implements OnInit {
     })
 
     //set google maps defaults
-    this.zoom = 1;
+    this.zoom = 2;
     this.latitude = 1.2966;
     this.longitude = 103.7764;
     this.destinationsCount = 0;

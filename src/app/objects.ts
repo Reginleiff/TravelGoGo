@@ -12,7 +12,7 @@ export class Pair<E> {
     getLeft(): E {
         return this.left;
     }
-    
+
     getRight(): E {
         return this.right;
     }
@@ -83,8 +83,8 @@ export class Destination {
         if(place.photos != null){
             this.photos = place.photos.map((p) => {
                 return p.getUrl({
-                    maxHeight: 300,
-                    maxWidth: 300
+                    maxHeight: 400,
+                    maxWidth: 400
                 });
             });
         }
@@ -99,7 +99,7 @@ export class Destination {
         }
         if(place.vicinity != null){
             this.vicinity = place.vicinity;
-        } 
+        }
         if(place.formatted_address != null){
             this.address = place.formatted_address;
         }
@@ -111,7 +111,7 @@ export class Destination {
 
 export class ItineraryDayPlan {
     day: number;
-    destinations: Array<Destination>; 
+    destinations: Array<Destination>;
     numDestinations: number;
     $key?: string;
 
@@ -185,12 +185,12 @@ export class Comment {
 export class Colour {
     hex: string;
     hasBeenUsed: boolean;
-    
+
     constructor(hexCode: string){
         this.hex = hexCode;
         this.hasBeenUsed = false;
     }
-    
+
     use(): void {
         this.hasBeenUsed = true;
     }
@@ -206,13 +206,13 @@ export class Colour {
 
 export const coloursArray = [ //TODO: Choose best colours and add more
       new Colour ('#90EE90'), // LightGreen
-      new Colour ('#FFB6C1'), // LightPink 
-      new Colour ('#20B2AA'), // LightSeaGreen 
-      new Colour ('#87CEFA'), // LightSkyBlue 
-      new Colour ('#778899'), // LightSlateGrey 
-      new Colour ('#B0C4DE'), // LightSteelBlue 
-      new Colour ('#ADD8E6'), // LightBlue 
-      new Colour ('#7B68EE'), // MediumSlateBlue 
-      new Colour ('#DB7093'), // PaleVioletRed 
+      new Colour ('#FFB6C1'), // LightPink
+      new Colour ('#20B2AA'), // LightSeaGreen
+      new Colour ('#87CEFA'), // LightSkyBlue
+      new Colour ('#778899'), // LightSlateGrey
+      new Colour ('#B0C4DE'), // LightSteelBlue
+      new Colour ('#ADD8E6'), // LightBlue
+      new Colour ('#7B68EE'), // MediumSlateBlue
+      new Colour ('#DB7093'), // PaleVioletRed
       new Colour ('#CD5C5C'), // IndianRed
 ]

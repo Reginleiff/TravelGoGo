@@ -28,7 +28,7 @@ export class PlannerInfoComponent implements OnInit {
       }
     })
   }
-  
+
   createDestination(googlePlace: google.maps.places.PlaceResult): Destination{
     return new Destination(googlePlace);
   }

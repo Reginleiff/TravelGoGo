@@ -1,11 +1,14 @@
 <div class= "container-fluid">
-  <div class="card card-inverse" style="background-color:white; border-color:	#696969; border-style:solid; border-width:thin; text-align: center;">
+  <div class="card card-inverse" style="background-color:white; text-align: center;">
+
       <div *ngIf="destinationToView">
-        <div class="card card-inverse" style="width: 20rem;">
+        <div class="card card-inverse" style="width: 15rem;">
           <img class="card-img-top" src="..." alt="{{destinationToView.rating}}/5 Stars">
+          <img *ngIf="photoURL && destinationToView" class="card-img-left rounded" [src]="photoURL" height="150" width="250">
+          <img *ngIf="!photoURL && destinationToView" class="rounded" height="150" width="250" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{destinationToView.lat}},{{destinationToView.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
+
           <div class="card-block">
-            <h2 class="card-title">{{destinationToView.name}}<img *ngIf="photoURL && destinationToView" class="card-img-left rounded" [src]="photoURL" height="150" width="250">
-            <img *ngIf="!photoURL && destinationToView" class="rounded" height="150" width="250" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{destinationToView.lat}},{{destinationToView.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
+            <h2 class="card-title">{{destinationToView.name}}
             </h2>
           </div>
           <ul class="list-group list-group-flush">

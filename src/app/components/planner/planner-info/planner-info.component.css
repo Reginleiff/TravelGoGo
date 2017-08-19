@@ -21,7 +21,7 @@
   text-align: left;
   font-family: 'Poiret One', cursive;
   color: white;
-  font-weight: ;
+
 }
 
 .card-title{
@@ -40,7 +40,7 @@ font-weight: bold;
 }
 
 .card{
-  border-width: 1px;
+  border-width: 0.1px;
   border-color: black;
   border-style:solid;
   align-items: center;
