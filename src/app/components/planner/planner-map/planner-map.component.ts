@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild, EventEmitter, Output } from '@angular/core';
 import { PlannerService } from './../../../services/planner.service';
 import { Destination, ItineraryDayPlan } from './../../../objects';
 
@@ -16,6 +16,7 @@ import {} from '@types/googlemaps';
 
 export class PlannerMapComponent implements OnInit {
 
+  @Output() popUpEmitter = new EventEmitter<boolean>();
   testArr: Array<any> = new Array<any>();
 
   // Defines variables needed for app to function
@@ -70,6 +71,8 @@ export class PlannerMapComponent implements OnInit {
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let result: google.maps.places.PlaceResult = autocomplete.getPlace(); //get the place result
+          this.popUpEmitter.emit(true);
+
           if (result.geometry === undefined || result.geometry === null) {
             return; //verify result
           }
