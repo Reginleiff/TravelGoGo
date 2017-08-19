@@ -1,55 +1,67 @@
-<div class="card">
-  <ul class="nav nav-tabs">
-    <li>
-      <button class="nav-item-right btn btn-success btn-sm nav-button" (click)="addDay()" [disabled]="disableAddDay">
-      Add
-      </button>
-    </li>
-    <li>
-      <button class="nav-item-right btn btn-danger btn-sm nav-button" (click)="remDay()"[disabled]="disableRemoveDay">
-      Del
-      </button>
-    </li>
-    <li *ngFor="let dp of itinerary" class="nav-item">
-      <a (click)="pushToDayPlanView(dp)" class="nav-link">{{dp.day + 1}}</a>
-    </li>
-  </ul>
-  <app-planner-dayplan 
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <form [formGroup]="rForm" (ngSubmit)="addOverview(rForm.value)">
+        <br /><br />
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="input-group input-group-lg">
+                  <input type="text" formControlName="title" class="form-control" placeholder="Title" aria-describedby="sizing-addon1">
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="input-group">
+                  <textarea type="text" class="form-control" formControlName="description" placeholder="Description" rows="4" aria-describedby="sizing-addon2"></textarea>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <input
+                  *ngIf="!this.itineraryService.editMode()"
+                  type="submit"
+                  class="button expanded"
+                  value="Add Itinerary"
+                  [disabled]="!rForm.valid">
+
+                <input
+                *ngIf="this.itineraryService.editMode()"
+                name="searchbox"
+                type="submit"
+                class="button expanded"
+                value="Save Itinerary"
+                [disabled]="!rForm.valid">
+              </li>
+            </ul>
+          </div>
+    </form>
+  </div>
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        <li *ngFor="let dp of itinerary" class="nav-item">
+          <a (click)="pushToDayPlanView(dp)" class="nav-link">{{dp.day + 1}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-12">
+      <ul class="nav nav-tabs">
+        <li>
+          <button class="btn btn-link " (click)="addDay()" [disabled]="disableAddDay">
+          Add Day
+          </button>
+          <button class="btn btn-link" (click)="remDay()"[disabled]="disableRemoveDay">
+          Remove Day
+        </button>
+        <button class="btn btn-link" (click)="plotRoute()">Plot Your Route!</button>
+        </li>
+      </ul>
+    </div>
+</div>
+
+
+  <app-planner-dayplan
   [dayPlan]="dayPlanView"
   [disableAddDay]="disableAddDay"
   [disableRemoveDay]="disableRemoveDay"
   (addDayUpdate)="addDay($event)"
   (remDayUpdate)="remDay($event)"
   ></app-planner-dayplan>
-</div>
-
-<div>
-  <form [formGroup]="rForm" (ngSubmit)="addOverview(rForm.value)">
-    <div class="container">
-      <div class="row columns">
-
-        <label for="">Title
-          <input type="text" formControlName="title">
-        </label>
-
-        <label for="">Description
-          <textarea formControlName="description"></textarea>
-        </label>
-
-        <input 
-          *ngIf="!this.itineraryService.editMode()" 
-          type="submit" 
-          class="button expanded" 
-          value="Add Itinerary"
-          [disabled]="!rForm.valid">
-
-        <input 
-        *ngIf="this.itineraryService.editMode()" 
-        type="submit" 
-        class="button expanded" 
-        value="Save Itinerary" 
-        [disabled]="!rForm.valid">
-      </div>
-    </div>
-  </form>
-</div>

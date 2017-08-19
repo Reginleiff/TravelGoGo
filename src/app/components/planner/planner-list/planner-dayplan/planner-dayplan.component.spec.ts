@@ -2,6 +2,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlannerDayplanComponent } from './planner-dayplan.component';
 
+import { Destination } from './../../../../objects';
+import { PlannerService } from './../../../../services/planner.service';
+
 describe('PlannerDayplanComponent', () => {
   let component: PlannerDayplanComponent;
   let fixture: ComponentFixture<PlannerDayplanComponent>;

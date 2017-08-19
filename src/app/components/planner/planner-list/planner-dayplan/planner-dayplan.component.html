@@ -1,18 +1,30 @@
 <div class="container">
-   <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'> 
+  <div class="col-md-8 offset-md-2">
+
+  <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'>
     <div *ngFor="let d of items" class="card">
-      <div class="card-block">
-        <div class="row">
-          <div class="col-sm-10">
-            <h6 class="card-title">{{d.name}}</h6>
-          </div>
-          <div class="col-sm-2">
-            <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
-          </div>
-        </div>
+      <div class="card-header" role="tab" id="headingOne">
+        <h5 class="mb-0">
+          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <h6 class="card-title">{{d.name}}</h6>
+          </a>
+        </h5>
       </div>
-    </div>
+
+      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+       <div class="card-block">
+              <!-- <p>
+                {{destinationToView.phone}}
+              </p>
+               {{destinationToView.address}}
+               {{destinationToView.website}} -->
+
+               <!-- interpolation is not working to be solved -->
+         <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
+         </div>
+       </div>
+     </div>
+   </div>
 </div>
-<div class="container">
-  <button class="btn btn-primary btn-sm" (click)="plotRoute()">Plot!</button>
-</div>
+  </div>
+<!-- <button class="btn btn-primary btn-sm" (click)="plotRoute()">Plot!</button> -->

@@ -85,7 +85,7 @@ import { HomeStartComponent } from './components/home/home-start/home-start.comp
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
     // FlashMessagesModule, //imports the flash messages utility
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDzEtn8KnIJXzZKEGtlM6K5dhobsq6jHIE',
+      apiKey: 'AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk',
       libraries: ["places"]
     }),
     DragulaModule,
