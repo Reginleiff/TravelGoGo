@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 @Component({
   selector: 'app-planner',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./planner.component.css']
 })
 export class PlannerComponent implements OnInit {
-  popUp: boolean; // boolean to control popup
+  @ViewChild('infoModal') infoModal: ModalComponent;
 
   constructor() { }
 
@@ -14,9 +15,11 @@ export class PlannerComponent implements OnInit {
   }
 
   handlePopUp($event){
-    // $event will = true --> code the things you want to do here
-    console.log('wayne event triggered');
-    this.popUp = $event; // example this will set a pop up variable to be true (it will stay true though so you need to reset it to false)
+    this.infoModal.open();
+  }
+
+  closePopUp($event){
+    this.infoModal.close();
   }
 
 }

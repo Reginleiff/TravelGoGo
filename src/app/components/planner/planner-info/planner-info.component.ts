@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { PlannerService } from './../../../services/planner.service';
 import { Destination } from './../../../objects';
 
@@ -9,6 +9,7 @@ import { Destination } from './../../../objects';
 })
 export class PlannerInfoComponent implements OnInit {
 
+  @Output() closePopUpEmitter = new EventEmitter<boolean>();
   destinationToView: Destination;
   showOpenNow: boolean;
   openNow: boolean;
@@ -36,5 +37,6 @@ export class PlannerInfoComponent implements OnInit {
   addToItinerary(dest: Destination){
     this.plannerService.pushToList(this.destinationToView);
     this.destinationToView = null;
+    this.closePopUpEmitter.emit(true);
   }
 }

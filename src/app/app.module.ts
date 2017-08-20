@@ -18,6 +18,7 @@ import { AgmCoreModule, GoogleMapsAPIWrapper } from "@agm/core";
 // Utilities
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { DragulaModule } from 'ng2-dragula/ng2-dragula';
+import { Ng2Bs3ModalModule } from 'ng2-bs3-modal/ng2-bs3-modal';
 
 // Components
 import { AppComponent } from './app.component';
@@ -89,6 +90,7 @@ import { HomeStartComponent } from './components/home/home-start/home-start.comp
       libraries: ["places"]
     }),
     DragulaModule,
+    Ng2Bs3ModalModule
   ],
   providers: [FirebaseService, AuthService, PlannerService, ItineraryService, GoogleMapsAPIWrapper],
   bootstrap: [AppComponent]
