@@ -164,4 +164,8 @@ export class PlannerListComponent implements OnInit {
       itineraryDayPlan.numDestinations--;
     }
   }
+
+  triggerPlot(){
+    this.plannerService.triggerPlot(true);
+  }
 }

@@ -7,6 +7,10 @@
         <h5 class="mb-0">
           <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               <h6 class="card-title">{{d.name}}</h6>
+              {{d.phone}}  
+              {{d.address}}
+              {{d.website}} 
+              <!-- testing -->
           </a>
         </h5>
       </div>
@@ -14,13 +18,11 @@
       <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
        <div class="card-block">
               <p>
-                <!-- {{destinationToView.phone}}
-                {{destinationToView.address}}
-                {{destinationToView.website}} -->
-
+                {{d.phone}}  
+                {{d.address}}
+                {{d.website}} 
+                <!-- @Wayne its works, delete the above, it was a test to prove it -->
               </p>
-
-               <!-- interpolation is not working to be solved ^GET ABOVE RUNNING @junkai -->
          <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
          </div>
        </div>
@@ -28,4 +30,4 @@
    </div>
 </div>
   </div>
-<!-- <button class="btn btn-primary btn-sm" (click)="plotRoute()">Plot!</button> -->
+ <!-- <button class="btn btn-primary btn-sm" (click)="plotRoute()">Plot!</button>  -->

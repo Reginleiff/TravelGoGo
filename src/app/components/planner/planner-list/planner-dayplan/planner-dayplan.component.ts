@@ -30,6 +30,11 @@ export class PlannerDayplanComponent implements OnChanges, OnInit {
       removeOnSpill: false
     });
     this.dragulaService.dragend.subscribe(value => updateOrder(this.items));
+    this.plannerService.triggerPlotRouteSubject.subscribe((command) => {
+      if(command){
+        this.plotRoute();
+      }
+    })
   }
 
 

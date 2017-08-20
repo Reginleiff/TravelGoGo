@@ -29,6 +29,10 @@ export class PlannerMapRouteDirective {
     this.plannerService.dayPlanToRouteSubject.subscribe((data: ItineraryDayPlan) => {
       let destinations = data.destinations;
       let numDestinations = data.numDestinations;
+      if(destinations == null){
+        console.log("No destinations to plot!");
+        return;
+      }
       let plotters = destinations.map((dest) => 
         toLatLng(dest)
       );
@@ -41,6 +45,8 @@ export class PlannerMapRouteDirective {
       } else {
         console.log("Insufficient destinations to plot a route!");
       }
+    }, (err) => {
+      console.log(err);
     })
 
     // clear routes upon switching days

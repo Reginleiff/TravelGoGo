@@ -47,7 +47,11 @@ export class PlannerMapComponent implements OnInit {
     // data inputs
     this.plannerService.updMarkerSubject.subscribe((data) => {
       this.destinations = data;
-      this.destinationsCount = data.length;
+      if(data == null){
+        this.destinationsCount = 0;
+      } else {
+        this.destinationsCount = data.length;
+      } 
     })
 
     //set google maps defaults

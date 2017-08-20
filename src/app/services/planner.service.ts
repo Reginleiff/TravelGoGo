@@ -12,6 +12,7 @@ export class PlannerService {
   public dayPlanToRouteSubject = new Subject<any>();
   public updMarkerSubject = new Subject<any>();
   public deleteFromDayPlanSubject = new Subject<any>();
+  public triggerPlotRouteSubject = new Subject<any>();
   directionsElementRef: ElementRef;
 
 
@@ -43,5 +44,9 @@ export class PlannerService {
 
   setDirectionsElementRef(er: ElementRef){
     this.directionsElementRef = er;
+  }
+
+  triggerPlot(command: boolean){
+    this.triggerPlotRouteSubject.next(command);
   }
 }
