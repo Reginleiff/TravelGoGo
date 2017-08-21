@@ -1,52 +1,52 @@
-<div> 
+<div id="tile"> 
   <div class="row">
-    <div class="container d-flex justify-content-between">
+    <div class="col-md-8">
       <p class="list-item-description">{{reviewText}}</p>
-      <small class="text-muted">{{reviewRating}} out of 5 stars by <em>{{reviewAuthor}}</em></small>
     </div>
-  </div>
-  
-  <div class="row">
-    <button 
-      *ngIf="!reply"
+    <div class="col-md-2">
+      <p><small class="text-muted">{{reviewRating}} out of 5 stars by <br><em>{{reviewAuthor}}</em></small></p>
+    </div>
+    <div class="col-md-2">
+      <button 
+        *ngIf="!reply"
         class="btn btn-success btn-sm" 
         (click)="toggleReply()"
         >
-        Reply
-    </button>
-
-    <button 
+        <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+         comment
+      </button>
+  
+      <button 
         *ngIf="reply"
         class="btn btn-danger btn-sm" 
         (click)="toggleReply()"
         >
-        Cancel
-    </button>
-  </div>
-  
-  <div *ngFor="let c of comments" class="list-group-item"> 
-    <div class="row">
-      <app-comm-comment [comment]="c" (commentUpdated)="submit($event)"></app-comm-comment>
+        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+        cancel
+      </button>
     </div>
+    
   </div>
+  <hr/>
+  <app-comm-comment *ngFor="let c of comments"[comment]="c" (commentUpdated)="submit($event)"></app-comm-comment>
 </div>
 
 <!-- reply block -->
-<div *ngIf="reply">
-  <div class="card card-block">
-    <form [formGroup]="replyForm" (ngSubmit)="submitComment(replyForm.value, rcPair.review, rcPair.review)">
-      <div class="row">
-        <label>
-          <h6>Comment on {{reviewAuthor}}'s review (min. 3 letters)</h6>
-          <textarea formControlName="text"></textarea>
-        </label>
+<div class="reply-block" *ngIf="reply">
+  <form [formGroup]="replyForm" (ngSubmit)="submitComment(replyForm.value, rcPair.review, rcPair.review)">
+    <div class="row">
+      <div class="col-md-11">
+        <h6 id="review">Comment on {{reviewAuthor}}'s review (min. 3 letters)</h6>
+        <textarea id="review-text-box" formControlName="text"></textarea>
+      </div>
+      <div class="col-md-1">
         <input 
+          id="reply-button"
           type="submit" 
-          class="button expanded" 
+          class="btn btn-warning btn-sm" 
           value="Reply"
           [disabled]="!replyForm.valid">
-          
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

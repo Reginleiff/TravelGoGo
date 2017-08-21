@@ -1,33 +1,36 @@
-<div>
-  <div>
-    <blockquote *ngIf="originalText" class="blockquote">
-      <div class="d-flex justify-content-between">
-        <p class="list-item-description">{{originalText}}</p>
-        <small><em>{{recipientName}}</em></small>
-      </div>
-    </blockquote>
-  </div>
-  <div class="d-flex justify-content-between">
-    <p class="list-item-description">{{commentText}}</p>
-    <small class="text-muted"><em>{{authorName}}</em> on {{postDate | date}}</small>
-  </div>
+<div class="d-flex justify-content-between">
+  <p>
+    <small class="text-muted">
+      >> 
+    </small>
+
+    {{commentText}} -  
+    
+    <small class="text-muted">
+      {{authorName}} 
+      <em>
+        {{postDate | date}}
+      </em>
+    </small>
+  </p>
 </div>
+<hr/>
+
+<!-- <button 
+  *ngIf="!reply"
+    class="btn btn-success btn-sm" 
+    (click)="toggleReply()"
+    >
+    add a comment
+</button>
 
 <button 
-    *ngIf="!reply"
-      class="btn btn-success btn-sm" 
-      (click)="toggleReply()"
-      >
-      Reply
-  </button>
-
-  <button 
-      *ngIf="reply"
-      class="btn btn-danger btn-sm" 
-      (click)="toggleReply()"
-      >
-      Cancel
-  </button>
+    *ngIf="reply"
+    class="btn btn-danger btn-sm" 
+    (click)="toggleReply()"
+    >
+    Cancel
+</button> -->
 
   <!-- reply block -->
 <div *ngIf="reply">
@@ -43,7 +46,6 @@
           class="button expanded" 
           value="Reply"
           [disabled]="!replyForm.valid">
-          
       </div>
     </form>
   </div>
