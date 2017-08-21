@@ -128,6 +128,7 @@ export class FirebaseService{
       resolve();
     })).then((result) => {
       this.updateTopRated();
+      this.updateLastCreated();
     });
   }
 
@@ -136,9 +137,7 @@ export class FirebaseService{
    * pre-condition: user already exists in database
    */
   addToUserItineraries(uid: string, itineraryKey: string): void {
-    console.log('7');
     this.af.database.ref('users/' + uid + '/itineraries').push(itineraryKey);
-    console.log('8');
   }
 
   // adds a new user to the database
@@ -242,7 +241,7 @@ export class FirebaseService{
 
   updateTopRated(){
     const updTopRated = new Promise(resolve => {
-      this.getAllItineraryObs().subscribe(itineraryArr => {
+      this.getAllItineraryObs().take(1).subscribe(itineraryArr => {
         resolve(itineraryArr);
       })
     }).then((result: Array<ItineraryOverview>) => new Promise(resolve => {
@@ -269,5 +268,11 @@ export class FirebaseService{
     })).then((res: ItineraryOverview) => {
       this.setTopRated(res);
     });
+  }
+
+  updateLastCreated(){
+    this.getAllItineraryObs().take(1).subscribe((itineraryArr: Array<ItineraryOverview>) => {
+      this.setLastUploaded(itineraryArr[itineraryArr.length - 1].$key);
+    })
   }
 }
