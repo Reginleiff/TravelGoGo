@@ -4,7 +4,7 @@
     *ngIf="lastViewed"
     (click)="pushToView(lastViewed)" 
     class="card">
-      <div class="card-block">
+      <div *ngIf="lastViewed" class="card-block">
         <h4 class="card-title">{{lastViewed.title}}</h4>
         <p class="card-text">{{lastViewed.description}}</p>
       </div>

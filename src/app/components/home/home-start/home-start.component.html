@@ -1,5 +1,5 @@
 <div>
-  <div *ngIf="itinerary" (click)="lastPlanned()" [routerLink]="'/itineraries'" class="card">
+  <div *ngIf="itinerary != null" (click)="lastPlanned()" [routerLink]="'/itineraries'" class="card">
     <div class="card-block">
       <p>Where you last left off...</p>
       <div class="card-header">

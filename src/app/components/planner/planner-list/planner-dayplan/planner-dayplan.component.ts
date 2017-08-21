@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, OnChanges, SimpleChanges, EventEmitter, OnDestroy, DoCheck } from '@angular/core';
 import { ItineraryOverview, ItineraryDayPlan, Destination } from './../../../../objects';
 import { arrayRem, updateOrder } from './../../../../functions';
 
@@ -11,7 +11,7 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
   styleUrls: ['./planner-dayplan.component.css']
 })
 
-export class PlannerDayplanComponent implements OnChanges, OnInit {
+export class PlannerDayplanComponent implements OnChanges, OnInit, DoCheck {
 
   @Input() dayPlan: ItineraryDayPlan;
   @Input() disableAddDay: boolean;
@@ -45,6 +45,12 @@ export class PlannerDayplanComponent implements OnChanges, OnInit {
     }
   }
 
+  ngDoCheck(){
+    if(this.items !== this.dayPlan.destinations){
+      this.items = this.dayPlan.destinations;
+    }
+  }
+
   ngOnDestroy(){
     this.dragulaService.destroy('day-list');
   }
@@ -59,9 +65,5 @@ export class PlannerDayplanComponent implements OnChanges, OnInit {
 
   plotRoute(): void {
     this.plannerService.pushToRoute(this.dayPlan);
-  }
-
-  remove(destination: Destination): void {
-    this.plannerService.deleteFromDayPlan(destination);
   }
 }

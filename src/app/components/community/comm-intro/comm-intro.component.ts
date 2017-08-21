@@ -23,7 +23,7 @@ export class CommIntroComponent implements OnInit {
 
   ngOnInit() {
     this.fbs.getUser().subscribe((user: User) => {
-      this.fbs.af.object('/itineraries/' + this.fbs.user.lastViewed).take(1).subscribe(itinerary => {
+      this.fbs.af.object('/itineraries/' + user.lastViewed).take(1).subscribe(itinerary => {
         this.lastViewed = itinerary;
       });
     })

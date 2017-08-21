@@ -151,10 +151,17 @@ export class PlannerListComponent implements OnInit {
 
   // Itinerary Dayplan Methods
   addDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {
-    let destinations = itineraryDayPlan.destinations;
+    let destinations;
+    if(itineraryDayPlan.destinations == null){
+      destinations = new Array<Destination>();
+      itineraryDayPlan.destinations = destinations;
+    } else {
+      destinations = itineraryDayPlan.destinations;
+    }
     destinations.push(destination);
     updateOrder(destinations);
     itineraryDayPlan.numDestinations++;
+    this.pushToDayPlanView(itineraryDayPlan);
   }
 
   remDestination(itineraryDayPlan: ItineraryDayPlan, destination: Destination): void {

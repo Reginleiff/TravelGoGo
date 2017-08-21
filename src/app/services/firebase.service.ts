@@ -129,6 +129,7 @@ export class FirebaseService{
     })).then((result) => {
       this.updateTopRated();
       this.updateLastCreated();
+      this.updateLastPlanned();
     });
   }
 
@@ -197,6 +198,16 @@ export class FirebaseService{
   setLastPlanned(user: User, key: string): void {
     user.lastPlanned = key;
     this.af.database.ref('users').child(this.userUID).set(user);
+  }
+
+  updateLastPlanned(){
+    this.getKeysObs().take(1).subscribe((keysArr: Array<any>) => {
+      this.getUser().take(1).subscribe((user: User) => {
+        console.log(user);
+        console.log(keysArr[keysArr.length - 1]);
+        this.setLastPlanned(user, keysArr[keysArr.length - 1].$value);
+      })
+    })
   }
 
   setLastUploaded(key: string): void {

@@ -38,6 +38,7 @@ import { CommViewComponent } from './components/community/comm-view/comm-view.co
 import { CommReviewComponent } from './components/community/comm-review/comm-review.component';
 import { CommDiscussionComponent } from './components/community/comm-review/comm-discussion/comm-discussion.component';
 import { CommCommentComponent } from './components/community/comm-review/comm-discussion/comm-comment/comm-comment.component';
+import { PlannerItemComponent } from './components/planner/planner-list/planner-dayplan/planner-item/planner-item.component';
 
 // Services
 import { FirebaseService } from './services/firebase.service';
@@ -50,6 +51,7 @@ import { PlannerInfoComponent } from './components/planner/planner-info/planner-
 import { PlannerMapRouteDirective } from './components/planner/planner-map/planner-map-route.directive';
 import { CommIntroComponent } from './components/community/comm-intro/comm-intro.component';
 import { HomeStartComponent } from './components/home/home-start/home-start.component';
+
 
 
 @NgModule({
@@ -75,6 +77,7 @@ import { HomeStartComponent } from './components/home/home-start/home-start.comp
     CommCommentComponent,
     CommIntroComponent,
     HomeStartComponent,
+    PlannerItemComponent,
   ],
   imports: [
     BrowserModule,
