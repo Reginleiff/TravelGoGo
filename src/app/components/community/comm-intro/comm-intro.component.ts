@@ -1,5 +1,6 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from './../../../services/firebase.service';
+import { CommDataService } from'./../../../services/comm-data.service';
 import { ItineraryOverview, User } from './../../../objects';
 
 @Component({
@@ -7,17 +8,23 @@ import { ItineraryOverview, User } from './../../../objects';
   templateUrl: './comm-intro.component.html',
   styleUrls: ['./comm-intro.component.css']
 })
-export class CommIntroComponent implements AfterViewInit {
+export class CommIntroComponent implements OnInit {
 
+  @Output() hideIntroEmit = new EventEmitter<boolean>();
   lastViewed: ItineraryOverview;
   lastUploaded: ItineraryOverview;
   topRated: ItineraryOverview;
+  user: User;
 
-  constructor(private fbs: FirebaseService) { }
+  constructor(
+    private fbs: FirebaseService,
+    private cds: CommDataService
+  ) { }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.fbs.getUser().subscribe((user: User) => {
-      this.fbs.af.object('/itineraries/' + user.lastViewed).subscribe(itinerary => {
+      this.fbs.af.object('/itineraries/' + this.fbs.user.lastViewed).subscribe(itinerary => {
+        console.log('last viewed', itinerary);
         this.lastViewed = itinerary;
       });
     })
@@ -28,8 +35,18 @@ export class CommIntroComponent implements AfterViewInit {
     })
     this.fbs.getTopRatedObs().subscribe((itineraryStringObj) => {
       this.fbs.af.object('/itineraries/'+ itineraryStringObj.key).subscribe((itinerary) => {
+        console.log('top rated', itinerary);
         this.topRated = itinerary;
       })
     })
+  }
+
+  pushToView(itinerary: ItineraryOverview){
+    this.cds.pushToView(itinerary);
+    this.hideIntro();
+  }
+
+  hideIntro(){
+    // this.hideIntroEmit.emit(true);
   }
 }

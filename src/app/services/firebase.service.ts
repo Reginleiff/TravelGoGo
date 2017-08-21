@@ -30,6 +30,7 @@ export class FirebaseService{
         });
       })
     })
+    this.getUser().subscribe((user: User) => this.user = user);
   }
 
   /**
@@ -151,7 +152,7 @@ export class FirebaseService{
 
     // update itinerary rating and top rated
     let rating = this.addRating(itinerary, data.rating);
-    this.checkTopRated(rating);
+    this.checkTopRated(itinerary);
   }
 
   addToUserReviews(uid: string, reviewKey: string): void {
@@ -223,10 +224,11 @@ export class FirebaseService{
     return itinerary.rating;
   }
 
-  setTopRated(key: string, rating: number): void {
+  setTopRated(key: string, rating: number, reviews: number): void {
     let topRated = {
       rating: rating,
-      key: key
+      key: key,
+      reviews: reviews
     }
     this.af.database.ref('toprated').set(topRated);
   }
@@ -235,13 +237,18 @@ export class FirebaseService{
     return this.af.object('/toprated') as FirebaseObjectObservable<any>;
   }
 
-  checkTopRated(rating: number): void {
+  checkTopRated(itinerary: ItineraryOverview): void {
     this.getTopRatedObs().take(1).subscribe((topRatedObj) => {
-      if(topRatedObj == null){
-        this.setTopRated('placeholder', -1);
+      if(topRatedObj.$value == null){
+        this.setTopRated('placeholder', -1, 0);
       }
-      if(rating > topRatedObj.rating){
-        console.log(topRatedObj);
+
+      if(itinerary.rating > topRatedObj.rating){
+        this.setTopRated(itinerary.$key, itinerary.rating, itinerary.views);
+      }
+      
+      if(itinerary.rating == topRatedObj.rating && itinerary.views > topRatedObj.views){
+        this.setTopRated(itinerary.$key, itinerary.rating, itinerary.views);
       }
     })
   }
