@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { ItineraryOverview, ItineraryDayPlan, Destination } from './../../../objects'
+import { ItineraryOverview, ItineraryDayPlan, Destination, User } from './../../../objects'
 import { CommDataService } from './../../../services/comm-data.service';
+import { FirebaseService } from './../../../services/firebase.service';
+import { AuthService } from './../../../services/auth.service';
 
 @Component({
   selector: 'app-comm-view',
@@ -13,7 +15,11 @@ export class CommViewComponent implements OnInit {
   dayplansToView: Array<ItineraryDayPlan>;
   destinationsToView: Array<Destination>;
 
-  constructor(private cds: CommDataService) { }
+  constructor(
+    private cds: CommDataService,
+    private fbs: FirebaseService,
+    private ats: AuthService
+  ) { }
 
   ngOnInit() {
     if(this.cds.accessed){
@@ -30,5 +36,11 @@ export class CommViewComponent implements OnInit {
 
   pushToView(idx: number): void {
     this.destinationsToView = this.dayplansToView[idx].destinations;
+  }
+
+  add(i: ItineraryOverview){
+    i.authorName = this.ats.userName;
+    i.authorUID = this.ats.uid;
+    this.fbs.addItinerary(i);
   }
 }

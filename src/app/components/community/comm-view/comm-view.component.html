@@ -5,7 +5,10 @@
         <h5 class="card-title">{{itineraryToView.title}}</h5>
         <small class="text-muted">created by <em>{{itineraryToView.authorName}}</em></small>
       </div>
-      <p class="card-text">{{itineraryToView.description}}</p>
+      <div class="card-body">
+        <p class="card-text">{{itineraryToView.description}}</p>
+      </div>
+      <button (click)="add(itineraryToView)"class="btn btn-sm btn-primary">Steal!</button>
       <ul class="nav nav-tabs card-header-tabs">
         <li *ngFor="let plan of dayplansToView, let i = index" class="nav-item">
           <a (click)="pushToView(i)" class="nav-link">{{plan.day + 1}}</a>

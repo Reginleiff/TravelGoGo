@@ -23,6 +23,8 @@ export class AuthService {
       if(user) {
         this.isLoggedIn = true;
         this.user = afAuth.auth.currentUser;
+        this.uid = afAuth.auth.currentUser.uid;
+        this.userName = afAuth.auth.currentUser.displayName;
       } else {
         this.isLoggedIn = false;
         this.user = null
