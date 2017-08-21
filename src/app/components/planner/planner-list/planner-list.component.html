@@ -56,13 +56,14 @@
         </li>
       </ul>
     </div>
+  </div>
+  <div class="col-md-12">
+      <app-planner-dayplan
+      [dayPlan]="dayPlanView"
+      [disableAddDay]="disableAddDay"
+      [disableRemoveDay]="disableRemoveDay"
+      (addDayUpdate)="addDay($event)"
+      (remDayUpdate)="remDay($event)"
+      ></app-planner-dayplan>
+  </div>
 </div>
-
-
-  <app-planner-dayplan
-  [dayPlan]="dayPlanView"
-  [disableAddDay]="disableAddDay"
-  [disableRemoveDay]="disableRemoveDay"
-  (addDayUpdate)="addDay($event)"
-  (remDayUpdate)="remDay($event)"
-  ></app-planner-dayplan>

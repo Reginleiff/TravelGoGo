@@ -1,34 +1,27 @@
 <div class="container">
-  <div class="col-md-8 offset-md-2">
+    <div class="col-md-12">
+      <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'>
+        <div *ngFor="let d of items" class="card">
+          <div class="card-header" role="tab" id="headingOne">
+            <h5 class="mb-0">
+              <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <h4 class="card-title">{{d.name}}</h4>
+              </a>
+            </h5>
+          </div>
 
-  <div class="wrapper" [dragula]='"day-list"' [dragulaModel]='items'>
-    <div *ngFor="let d of items" class="card">
-      <div class="card-header" role="tab" id="headingOne">
-        <h5 class="mb-0">
-          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <h6 class="card-title">{{d.name}}</h6>
-              {{d.phone}}  
-              {{d.address}}
-              {{d.website}} 
-              <!-- testing -->
-              <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
-          </a>
-        </h5>
+          <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-block">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item pulL-left">{{d.address}}</li>
+                <li class="list-group-item pulL-left">{{d.phone}}</li>
+                <li class="list-group-item pulL-left">{{d.website}}</li>
+                <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-       <div class="card-block">
-              <p>
-                {{d.phone}}  
-                {{d.address}}
-                {{d.website}} 
-                <!-- @Wayne its works, delete the above, it was a test to prove it -->
-              </p>
-         <button (click)="remove(d)" class="btn btn-sm btn-danger">Remove</button>
-         </div>
-       </div>
-     </div>
-   </div>
+    </div>
 </div>
-  </div>
  <!-- <button class="btn btn-primary btn-sm" (click)="plotRoute()">Plot!</button>  -->

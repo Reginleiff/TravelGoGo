@@ -2,3 +2,27 @@
   color: black;
 
 }
+
+li{
+  text-align: left;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+
+}
+
+a{
+  text-align: center;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+}
+
+button {
+  text-align: center;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+  background-color: none;
+  
+}

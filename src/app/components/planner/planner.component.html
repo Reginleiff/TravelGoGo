@@ -3,15 +3,16 @@
   <div class="row">
     <div class="col-md-8">
       <!-- <app-planner-map></app-planner-map> -->
-      <app-planner-map (popUpEmitter)="handlePopUp($event)"></app-planner-map> 
+      <app-planner-map (popUpEmitter)="handlePopUp($event)"></app-planner-map>
     </div>
     <div class="col-md-4">
       <app-planner-list></app-planner-list>
     </div>
 </div>
 
-
-<modal #infoModal class="modal hide left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <modal #infoModal class="modal hide left fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
 		 <!-- <div class="modal-dialog" role="document">
 
@@ -27,8 +28,9 @@
 				</div>
 
       </div>
-      
+
     </div> -->
     <app-planner-info (closePopUpEmitter)="closePopUp()"></app-planner-info>
-	</modal><!-- modal -->
+    </modal><!-- modal -->
+  </div>
 </div>
