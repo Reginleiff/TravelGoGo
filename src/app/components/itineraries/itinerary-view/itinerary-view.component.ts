@@ -46,7 +46,7 @@ export class ItineraryViewComponent implements OnInit {
   }
 
   delete(itinerary): void {
-    this.firebaseService.deleteItinerary(itinerary.$key);
+    this.firebaseService.deleteItinerary(itinerary);
     this.planToView = null;
     this.itineraryToView = null;
     this.dayPlanToView = null;
@@ -55,5 +55,13 @@ export class ItineraryViewComponent implements OnInit {
 
   edit(itinerary: ItineraryOverview): void {
     this.itineraryService.setEditItinerary(itinerary);
+  }
+
+  postItinerary(i: ItineraryOverview){
+    this.firebaseService.postItinerary(i);
+  }
+
+  takeDownItinerary(i: ItineraryOverview){
+    this.firebaseService.takeDownItinerary(i);
   }
 }

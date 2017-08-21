@@ -4,6 +4,14 @@
       <h3 class="card-title">{{planToView.title}}</h3>
       <p class="card-text">{{planToView.description}}</p>
       <button (click)="delete(planToView)" class="btn btn-primary btn-sm">Delete Itinerary</button>
+      <button 
+        *ngIf="!planToView.post || planToView.post == null" 
+        (click)="postItinerary(planToView)" 
+        class="btn btn-success btn-sm">Post Itinerary</button>
+      <button 
+        *ngIf="planToView.post" 
+        (click)="takeDownItinerary(planToView)" 
+        class="btn btn-danger btn-sm">Take Down Itinerary</button>
       <button [routerLink]="'/planner'" (click)="edit(planToView)" class="btn btn-info btn-sm">Edit Itinerary</button>
       <ul *ngIf="planToView" class="nav nav-tabs card-header-tabs">
         <li *ngFor="let dayPlan of itineraryToView, let i = index" class="nav-item">

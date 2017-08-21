@@ -134,6 +134,8 @@ export class ItineraryOverview {
     views: number;
     itinerary: Array<ItineraryDayPlan>;
     reviews: Array<string>;
+    post: boolean;
+    delPostKey?: any;
     $key?: string;
 
     constructor(){
@@ -141,6 +143,7 @@ export class ItineraryOverview {
         this.itinerary = new Array<ItineraryDayPlan>();
         this.rating = 0;
         this.views = 0;
+        this.post = false;
     }
 }
 

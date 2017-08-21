@@ -73,6 +73,11 @@ export class FirebaseService{
     return userItineraryKeys;
   }
 
+  getAllPostItinerariesKeysObs(): FirebaseListObservable<any[]>{
+    let keys = this.af.list('/posted-itineraries') as FirebaseListObservable<any[]>;
+    return keys;
+  }
+
   getReviewKeysObs(itineraryKey: string): FirebaseListObservable<any[]> {
     let reviewKeys = this.af.list('/itineraries/' + itineraryKey + '/reviews') as FirebaseListObservable<any[]>;
     return reviewKeys;
@@ -88,7 +93,6 @@ export class FirebaseService{
    */
   addItinerary(itinerary: ItineraryOverview): void {
     let refKey = this.af.database.ref('itineraries').push(itinerary).key;
-    this.setLastUploaded(refKey);
     this.getUser().take(1).subscribe((user: User) => {
       this.setLastPlanned(user, refKey);
     })
@@ -98,15 +102,23 @@ export class FirebaseService{
 
   saveItinerary(itinerary: ItineraryOverview): void {
     let key = itinerary.$key;
+    this.getUser().take(1).subscribe((user: User) => {
+      this.setLastPlanned(user, key);
+    })
     this.af.database.ref('itineraries').child(key).set(itinerary);;
   }
 
   /**
    * delete itinerary from database
    */
-  deleteItinerary(key: string): void {
-    this.af.database.ref('itineraries').child(key).remove();
-    this.deleteUserItinerary(key);
+  deleteItinerary(i: ItineraryOverview): void {
+    const del = new Promise(resolve => {
+      this.af.database.ref('posted-itineraries/' + i.delPostKey).remove(); //i.delPostKey is undefined
+      resolve();
+    }).then(() => {
+      this.af.database.ref('itineraries').child(i.$key).remove();
+      this.deleteUserItinerary(i.$key);
+    })
   }
 
   /**
@@ -128,7 +140,7 @@ export class FirebaseService{
       resolve();
     })).then((result) => {
       this.updateTopRated();
-      this.updateLastCreated();
+      this.updateLastPosted();
       this.updateLastPlanned();
     });
   }
@@ -139,6 +151,24 @@ export class FirebaseService{
    */
   addToUserItineraries(uid: string, itineraryKey: string): void {
     this.af.database.ref('users/' + uid + '/itineraries').push(itineraryKey);
+  }
+
+  postItinerary(itinerary: ItineraryOverview): void {
+    let delPostKey = this.af.database.ref('/posted-itineraries').push(itinerary.$key).key;
+    itinerary.post = true;
+    itinerary.delPostKey = delPostKey;
+    this.af.database.ref('itineraries').child(itinerary.$key).set(itinerary);
+    this.setLastUploaded(itinerary.$key);
+    this.updateTopRated();
+  }
+
+  takeDownItinerary(itinerary: ItineraryOverview): void {
+    this.af.database.ref('/posted-itineraries').child(itinerary.delPostKey).remove();
+    itinerary.delPostKey = null;
+    itinerary.post = false;
+    this.af.database.ref('itineraries').child(itinerary.$key).set(itinerary);
+    this.updateLastPosted();
+    this.updateTopRated();
   }
 
   // adds a new user to the database
@@ -203,8 +233,6 @@ export class FirebaseService{
   updateLastPlanned(){
     this.getKeysObs().take(1).subscribe((keysArr: Array<any>) => {
       this.getUser().take(1).subscribe((user: User) => {
-        console.log(user);
-        console.log(keysArr[keysArr.length - 1]);
         this.setLastPlanned(user, keysArr[keysArr.length - 1].$value);
       })
     })
@@ -255,21 +283,24 @@ export class FirebaseService{
       this.getAllItineraryObs().take(1).subscribe(itineraryArr => {
         resolve(itineraryArr);
       })
-    }).then((result: Array<ItineraryOverview>) => new Promise(resolve => {
+    })
+    .then((result: Array<ItineraryOverview>) => new Promise(resolve => {
       if(result != null){
-        let topRating = result[0].rating;
-        let views = result[0].views;
-        let topRated = result[0];
+        let topRating = -1;
+        let views = -1;
+        let topRated = null;
         for(let i of result){
-          if(i.rating > topRating){
-            topRating = i.rating;
-            views = i.views;
-            topRated = i;
-          } else if(i.rating == topRating){
-            if(i.views > views){
+          if(i.post){
+            if(i.rating > topRating){
               topRating = i.rating;
               views = i.views;
               topRated = i;
+            } else if(i.rating == topRating){
+              if(i.views > views){
+                topRating = i.rating;
+                views = i.views;
+                topRated = i;
+              }
             }
           }
         }
@@ -281,9 +312,9 @@ export class FirebaseService{
     });
   }
 
-  updateLastCreated(){
-    this.getAllItineraryObs().take(1).subscribe((itineraryArr: Array<ItineraryOverview>) => {
-      this.setLastUploaded(itineraryArr[itineraryArr.length - 1].$key);
+  updateLastPosted(){
+    this.getAllPostItinerariesKeysObs().take(1).subscribe((keysArr: Array<any>) => {
+      this.setLastUploaded(keysArr[keysArr.length - 1].$value);
     })
   }
 }

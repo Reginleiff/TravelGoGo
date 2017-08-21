@@ -23,10 +23,10 @@ export class ItinerariesComponent implements OnInit {
   }
 
   getUserItineraries(){
-    this.firebaseService.getKeysObs().subscribe((data) => {
+    this.firebaseService.getKeysObs().take(1).subscribe((data) => {
       this.userItineraries = new Array<ItineraryOverview>();
       data.forEach((elem) => {
-        this.firebaseService.getItineraryObs(elem.$value).subscribe((itinerary) => {
+        this.firebaseService.getItineraryObs(elem.$value).take(1).subscribe((itinerary) => {
           this.userItineraries.push(itinerary);
           if(this.userItineraries.length !== 0){
             this.pushToView(this.userItineraries[0]);

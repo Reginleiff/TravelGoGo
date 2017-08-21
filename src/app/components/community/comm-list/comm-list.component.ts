@@ -22,9 +22,21 @@ export class CommListComponent implements OnInit {
 
   ngOnInit() {
     this.search = new FormControl();
-    this.fbs.getAllItineraryObs().subscribe(data => {
-      this.itineraries = data
-      this.filteredItineraries = this.itineraries;
+    this.getPostedItineraries();
+    this.filteredItineraries = this.itineraries;
+  }
+
+  getPostedItineraries(){
+    this.fbs.getAllPostItinerariesKeysObs().subscribe((data) => {
+      this.itineraries = new Array<ItineraryOverview>();
+      data.forEach((elem) => {
+        this.fbs.getItineraryObs(elem.$value).take(1).subscribe((itinerary) => {
+          this.itineraries.push(itinerary);
+          if(this.itineraries.length !== 0){
+            this.pushToView(this.itineraries[0]);
+          }
+        }) 
+      })
     });
   }
 
