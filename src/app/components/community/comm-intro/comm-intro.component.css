@@ -1,9 +1,15 @@
 .card{
     width: 25rem;
 }
+
 .card-body{
     text-align: left;
 }
+
 .p-2{
     width: 100%;
+}
+
+.container-fluid {
+    margin-bottom: 20px;
 }

@@ -11,6 +11,8 @@ import { ItineraryOverview, User } from './../../../objects';
 export class CommIntroComponent implements OnInit {
 
   @Output() hideIntroEmit = new EventEmitter<boolean>();
+  load: number;
+  loadPercent: number;
   lastViewed: ItineraryOverview;
   lastUploaded: ItineraryOverview;
   topRated: ItineraryOverview;
@@ -19,24 +21,39 @@ export class CommIntroComponent implements OnInit {
   constructor(
     private fbs: FirebaseService,
     private cds: CommDataService
-  ) { }
+  ) { 
+    this.loadPercent = 0;
+    this.load = 0;
+  }
 
   ngOnInit() {
-    this.fbs.getUser().subscribe((user: User) => {
+    this.fbs.getUser().take(1).subscribe((user: User) => {
       this.fbs.af.object('/itineraries/' + user.lastViewed).take(1).subscribe(itinerary => {
         this.lastViewed = itinerary;
+        // this.componentLoaded();
       });
     })
-    this.fbs.getLastUploadedObs().subscribe((itineraryStringObj) => {
+    this.fbs.getLastUploadedObs().take(1).subscribe((itineraryStringObj) => {
       this.fbs.af.object('/itineraries/' + itineraryStringObj.key).take(1).subscribe(itinerary => {
         this.lastUploaded = itinerary;
+        // this.componentLoaded();
       });
     })
-    this.fbs.getTopRatedObs().subscribe((itineraryStringObj) => {
+    this.fbs.getTopRatedObs().take(1).subscribe((itineraryStringObj) => {
       this.fbs.af.object('/itineraries/'+ itineraryStringObj.key).take(1).subscribe((itinerary) => {
         this.topRated = itinerary;
+        // this.componentLoaded();
       })
     })
+  }
+
+  componentLoaded(){
+    this.load++;
+    this.updateLoadPercent();
+  }
+
+  updateLoadPercent(){
+    this.loadPercent = Math.floor(this.load / 3 * 100);
   }
 
   pushToView(itinerary: ItineraryOverview){
