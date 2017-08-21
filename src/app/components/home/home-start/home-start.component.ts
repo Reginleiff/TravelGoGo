@@ -30,12 +30,4 @@ export class HomeStartComponent implements OnInit {
   lastPlanned(){
     this.its.setJumpItineraryKey(this.itinerary.$key);
   }
-
-  test(){
-    console.log(this.itinerary);
-  }
-
-  test2(){
-    console.log('jumpmode', this.its.jumpMode());
-  }
 }

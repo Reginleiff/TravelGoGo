@@ -6,6 +6,7 @@ import { User, ItineraryOverview, Review, Comment } from './../objects';
 
 import 'rxjs/add/operator/take';
 
+
 @Injectable()
 export class FirebaseService{
   userUID: string;
@@ -30,7 +31,6 @@ export class FirebaseService{
         });
       })
     })
-    this.getUser().subscribe((user: User) => this.user = user);
   }
 
   /**
@@ -89,7 +89,7 @@ export class FirebaseService{
   addItinerary(itinerary: ItineraryOverview): void {
     let refKey = this.af.database.ref('itineraries').push(itinerary).key;
     this.setLastUploaded(refKey);
-    this.getUser().subscribe((user: User) => {
+    this.getUser().take(1).subscribe((user: User) => {
       this.setLastPlanned(user, refKey);
     })
     let uid = this.authService.user.uid;
@@ -123,8 +123,11 @@ export class FirebaseService{
           resolve(result[i].$key);
         }
       }
-    })).then((result: string) => {
+    })).then((result: string) => new Promise(resolve => {
       this.af.database.ref('users').child(this.userUID).child('itineraries').child(result).remove();
+      resolve();
+    })).then((result) => {
+      this.updateTopRated();
     });
   }
 
@@ -133,7 +136,9 @@ export class FirebaseService{
    * pre-condition: user already exists in database
    */
   addToUserItineraries(uid: string, itineraryKey: string): void {
+    console.log('7');
     this.af.database.ref('users/' + uid + '/itineraries').push(itineraryKey);
+    console.log('8');
   }
 
   // adds a new user to the database
@@ -145,14 +150,13 @@ export class FirebaseService{
   addReview(data, itinerary: ItineraryOverview): void {
     let uid = this.authService.user.uid;
     let username = this.authService.user.displayName;
+    // update itinerary rating and top rated
     let review = new Review(uid, username, data.text, data.rating);
+    let rating = this.addRating(itinerary, data.rating);
     let refKey = this.af.database.ref('reviews').push(review).key;
     this.addToUserReviews(uid, refKey);
     this.addToItineraryReviews(itinerary.$key, refKey);
-
-    // update itinerary rating and top rated
-    let rating = this.addRating(itinerary, data.rating);
-    this.checkTopRated(itinerary);
+    this.updateTopRated();
   }
 
   addToUserReviews(uid: string, reviewKey: string): void {
@@ -207,7 +211,7 @@ export class FirebaseService{
     return this.af.object('/lastuploaded') as FirebaseObjectObservable<any>;
   }
 
-  addRating(itinerary: ItineraryOverview, addedRating: number): number {
+  addRating(itinerary: ItineraryOverview, addedRating: number): void {
     if(itinerary.rating == null){
       itinerary.rating = 0;
     }
@@ -221,14 +225,13 @@ export class FirebaseService{
     itinerary.totalRating = itinerary.totalRating + addedRating;
     itinerary.rating = itinerary.totalRating / itinerary.views;
     this.af.database.ref('itineraries').child(itinerary.$key).set(itinerary);
-    return itinerary.rating;
   }
 
-  setTopRated(key: string, rating: number, reviews: number): void {
+  setTopRated(itinerary: ItineraryOverview): void {
     let topRated = {
-      rating: rating,
-      key: key,
-      reviews: reviews
+      rating: itinerary.rating,
+      key: itinerary.$key,
+      views: itinerary.views
     }
     this.af.database.ref('toprated').set(topRated);
   }
@@ -237,19 +240,34 @@ export class FirebaseService{
     return this.af.object('/toprated') as FirebaseObjectObservable<any>;
   }
 
-  checkTopRated(itinerary: ItineraryOverview): void {
-    this.getTopRatedObs().take(1).subscribe((topRatedObj) => {
-      if(topRatedObj.$value == null){
-        this.setTopRated('placeholder', -1, 0);
+  updateTopRated(){
+    const updTopRated = new Promise(resolve => {
+      this.getAllItineraryObs().subscribe(itineraryArr => {
+        resolve(itineraryArr);
+      })
+    }).then((result: Array<ItineraryOverview>) => new Promise(resolve => {
+      if(result != null){
+        let topRating = result[0].rating;
+        let views = result[0].views;
+        let topRated = result[0];
+        for(let i of result){
+          if(i.rating > topRating){
+            topRating = i.rating;
+            views = i.views;
+            topRated = i;
+          } else if(i.rating == topRating){
+            if(i.views > views){
+              topRating = i.rating;
+              views = i.views;
+              topRated = i;
+            }
+          }
+        }
+        resolve(topRated);
       }
-
-      if(itinerary.rating > topRatedObj.rating){
-        this.setTopRated(itinerary.$key, itinerary.rating, itinerary.views);
-      }
-      
-      if(itinerary.rating == topRatedObj.rating && itinerary.views > topRatedObj.views){
-        this.setTopRated(itinerary.$key, itinerary.rating, itinerary.views);
-      }
-    })
+      resolve(null);
+    })).then((res: ItineraryOverview) => {
+      this.setTopRated(res);
+    });
   }
 }
