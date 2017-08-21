@@ -1,6 +1,9 @@
 .card{
-    width: 25em;
+    width: 25rem;
 }
-#top-rated-body{
+.card-body{
     text-align: left;
+}
+.p-2{
+    width: 100%;
 }
