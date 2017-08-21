@@ -8,9 +8,11 @@ export class CommDataService {
   public storedItinerary: ItineraryOverview;
   public accessed: boolean = false;
   constructor() { }
+
   pushToView(itinerary: ItineraryOverview): void {
     this.listToViewSubject.next(itinerary);
     this.storedItinerary = itinerary;
     this.accessed = true;
   }
+  
 }

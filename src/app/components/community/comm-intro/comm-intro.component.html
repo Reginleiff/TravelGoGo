@@ -1,23 +1,39 @@
 <div class="container-fluid">
   <div class="d-flex justify-content-between">
-    <div *ngIf="lastViewed" class="card" style="width: 20rem;">
+    <div 
+    *ngIf="lastViewed"
+    (click)="pushToView(lastViewed)" 
+    class="card">
       <div class="card-block">
         <h4 class="card-title">{{lastViewed.title}}</h4>
         <p class="card-text">{{lastViewed.description}}</p>
       </div>
     </div>
-    <div *ngIf="lastUploaded" class="card p-2" style="width: 20rem;">
+
+    <div 
+      *ngIf="lastUploaded" 
+      (click)="pushToView(lastUploaded)"
+      class="card p-2">
       <div class="card-block">
         <h4 class="card-title">{{lastUploaded.title}}</h4>
         <p class="card-text">{{lastUploaded.description}}</p>
       </div>
     </div>
-    <!-- <div *ngIf="topRated" class="card p-2" style="width: 20rem;">
+    <div 
+      *ngIf="topRated" 
+      class="card p-2"
+      (click)="pushToView(topRated)">
       <div class="card-block">
-        <h4 class="card-title">{{topRated.title}}</h4>
-        <p class="card-text">{{topRated.description}}</p>
-        <p class="card-text">{{topRated.rating}}</p>
+        <div class="d-flex justify-content-between">
+          <h4 class="card-title">{{topRated.title}} </h4>
+          <small>by <em>{{topRated.authorName}}</em></small>
+        </div>
+        <div id="top-rated-body">
+          <p class="card-text">{{topRated.description}}</p>
+          <p class="card-text"><em>Average rating of {{topRated.rating}}/5 stars</em></p>
+          <p class="card-text"><em>{{topRated.views}} review(s)</em></p>
+        </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </div>

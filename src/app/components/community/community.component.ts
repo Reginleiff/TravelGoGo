@@ -9,15 +9,20 @@ import { CommDataService } from './../../services/comm-data.service';
 })
 export class CommunityComponent implements OnInit {
   review: boolean;
+  showIntro: boolean;
   constructor() { }
 
   ngOnInit() {
     this.review = false;
+    this.showIntro = true;
   }
   viewMode(){
     this.review = false;
   }
   reviewMode(){
     this.review = true;
+  }
+  hideIntro($event){
+    this.showIntro = false;
   }
 }

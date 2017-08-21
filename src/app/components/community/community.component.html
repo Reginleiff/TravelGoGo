@@ -3,7 +3,7 @@
     <h1 class="display-4">Share and Discover</h1>
   </div>
   <div class="row">
-    <app-comm-intro></app-comm-intro>
+    <app-comm-intro *ngIf="showIntro" (hideIntroEmit)="hideIntro($event)"></app-comm-intro>
   </div>
   <div class="row">
     <div class="comm-list col-md-3">
