@@ -1,40 +1,41 @@
 <div *ngIf="!itinerary">
-    <div>
-      <h3>Select an itinerary!</h3>
+    <div class="container">
+      <img src="assets\img\effeitower.jpg" />
     </div>
 </div>
 
 <div *ngIf="itinerary" class="wrapper">
   <div class="card">
-     <div class="card-block"> 
+     <div class="card-block">
       <div *ngIf="itinerary" class="list-group">
-        <div 
-        *ngFor="let rcPair of reviews" 
+        <div
+        *ngFor="let rcPair of reviews"
         class="list-group-item"
         >
           <app-comm-discussion id="tile" [rcPair]="rcPair" (commentUpdated)="refresh($event)"></app-comm-discussion>
         </div>
       </div>
 
-      <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
-        <div class="row">
-          <label>
-            <h6>Submit your review (min. 3 letters)</h6>
-            <textarea formControlName="text"></textarea>
-            <select formControlName="rating">
-              <option value="" disabled>Choose a rating</option>
-              <option *ngFor="let r of ratings" [ngValue]="r">
-                {{ r }}
-              </option>
-            </select>
-          </label>
-          <input 
-            type="submit" 
-            class="button expanded" 
-            value="Submit Review"
-            [disabled]="!reviewForm.valid">
-        </div>
-      </form>
-     </div> 
+
+            <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
+              <div class="row">
+                <label>
+                  <textarea class="form-control" formControlName="text"></textarea>
+                  <select formControlName="rating">
+                    <option value="" disabled>Choose a rating</option>
+                    <option *ngFor="let r of ratings" [ngValue]="r">
+                      {{ r }}
+                    </option>
+                  </select>
+                </label>
+                <input
+                  type="submit"
+                  class="button expanded"
+                  value="Submit Review"
+                  [disabled]="!reviewForm.valid">
+              </div>
+            </form>
+
+     </div>
   </div>
 </div>

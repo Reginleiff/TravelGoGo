@@ -13,3 +13,19 @@
 .container-fluid {
     margin-bottom: 20px;
 }
+
+.card-text,.card-title{
+  font-family: 'Cousine', monospace;
+  color: black;
+}
+.card-title{
+    font-weight: bold;
+    text-transform: capitalize;
+}
+.card-block,.card-title{
+  border-radius: 5px;
+}
+.header{
+  padding: 20px;
+  border-style: solid;
+}

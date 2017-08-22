@@ -6,9 +6,10 @@
 .list-group-item
 {
   margin: -10px;
-
 }
-
+.title  {
+  text-transform: capitalize;
+}
 
  .button{
    width: 100%;
@@ -30,7 +31,7 @@
 .form-control {
     border: 0;
     text-align: center;
-    font-family: 'jumbotron', cursive;
+    font-family: 'Cousine', monospace;
     font-weight: bold;
 }
 
@@ -48,4 +49,8 @@
   font-family: 'Poiret One', cursive;
   font-weight: bold;
   color: white;
+}
+
+.disabled{
+
 }

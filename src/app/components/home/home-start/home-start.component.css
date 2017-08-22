@@ -1,0 +1,16 @@
+h2{
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+}
+
+.card-title,.card-text{
+  font-family: 'Cousine', monospace;
+  color: black;
+  font-weight: bold;
+}
+
+.card{
+  border-style: solid;
+  border-color: black;
+}

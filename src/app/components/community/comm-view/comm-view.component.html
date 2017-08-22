@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex w-100 justify-content-between">
-        <h5 class="card-title">{{itineraryToView.title}}</h5>
+        <h2 class="card-title">{{itineraryToView.title}}</h2>
         <small class="text-muted">created by <em>{{itineraryToView.authorName}}</em></small>
       </div>
       <div class="card-body">
@@ -11,22 +11,36 @@
       <button *ngIf="!timeout" (click)="add(itineraryToView)"class="btn btn-sm btn-primary">Copy to my Itineraries</button>
       <button *ngIf="timeout" (click)="add(itineraryToView)"class="btn btn-sm btn-success disabled">Copied!</button>
       <ul class="nav nav-tabs card-header-tabs">
-        <li *ngFor="let plan of dayplansToView, let i = index" class="nav-item">
+        <li *ngFor="let plan of dayplansToView, let i = index" class="nav-item ">
           <a (click)="pushToView(i)" class="nav-link">{{plan.day + 1}}</a>
         </li>
       </ul>
-    </div>    
+    </div>
     <div class="card-block">
-      <ul class="list-group">
-        <li *ngFor="let d of destinationsToView" class="list-group-item">
-          {{d.name}}
-        </li>
-      </ul>
+      <div  *ngFor="let dest of destinationsToView" class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <img class="card-img-left" align="right" class="rounded" height="200em" width="300em" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{dest.lat}},{{dest.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
+          </div>
+          <div class="col-md-8">
+              <div class="card" style="width: 100%;">
+                <div class="card-block card-inverse" style="background-color: #333; border-color: #333;">
+                  <h4 class="card-title" align="right" >{{dest.name}}</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{dest.address}}</li>
+                  <li class="list-group-item">{{dest.phone}}</li>
+                  <li class="list-group-item">{{dest.website}}</li>
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 <div *ngIf="!itineraryToView">
   <div>
-    <h3>Select an itinerary!</h3>
+    <img src="assets\img\effeitower.jpg" />
   </div>
 </div>

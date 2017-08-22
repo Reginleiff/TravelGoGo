@@ -1,3 +1,12 @@
 .list-item-description {
     font-size: 20px;
 }
+
+.form-control{
+  font-family: 'Cousine', monospace;
+  color: black;
+  font-weight: bold;
+}
+.mb-1{
+  text-transform: capitalize;
+}

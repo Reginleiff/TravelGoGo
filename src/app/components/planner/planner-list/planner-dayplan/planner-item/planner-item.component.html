@@ -1,13 +1,16 @@
-<div class="card">
+<div class="card" style="background-color: white;">
 
-  <div class="card-header" role="tab">
+  <div class="card-header" role="tab" style="background-color: white; border-color: white;">
     <h5 class="mb-0">
       <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#{{id}}">
-          <h4 class="card-title">{{dest.name}}</h4>
+        <div class="card" style="width: 20rem; background-color: white; border-color: white;">
+          <img class="card-img-top" style="background-color: white; border-color: white;" align="middle" class="rounded" height="150" width="340" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{dest.lat}},{{dest.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
+          <br />{{dest.name}}
+        </div>
       </a>
     </h5>
   </div>
-  
+
   <div id="{{id}}" class="collapse" role="tabpanel">
     <div class="card-block">
       <ul class="list-group list-group-flush">
@@ -18,6 +21,5 @@
       </ul>
     </div>
   </div>
-  
-</div> 
- 
+
+</div>

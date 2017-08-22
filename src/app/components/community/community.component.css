@@ -9,3 +9,8 @@
 #intro{
     width: 100%;
 }
+.nav-link{
+  font-family: 'Cousine', monospace;
+  color: black;
+  font-weight: bold;
+}

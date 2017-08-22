@@ -1,0 +1,22 @@
+.card{
+  align-items: center;
+}
+a{
+  color: black;
+  font-family: 'Cousine', monospace;
+
+
+}
+
+.card{
+  background-color: white;
+  min-width: 100%;
+}
+
+.card-header{
+  border-style: none;
+}
+
+.list-group-item{
+  min-width: 100%;
+}

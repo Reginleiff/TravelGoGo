@@ -32,7 +32,7 @@ export class PlannerListComponent implements OnInit {
   post: any;
   title: string = "";
   description: string = "";
-  
+
   constructor(
     private firebaseService: FirebaseService,
     private authService: AuthService,
@@ -122,7 +122,7 @@ export class PlannerListComponent implements OnInit {
   addDayPlan(itineraryOverview: ItineraryOverview): void {
     itineraryOverview.itinerary.push(new ItineraryDayPlan(itineraryOverview.numDays));
     itineraryOverview.numDays++;
-    if(itineraryOverview.itinerary.length >= 15){
+    if(itineraryOverview.itinerary.length >= 10){
       this.disableAddDay = true;
     } else {
       this.disableAddDay = false;

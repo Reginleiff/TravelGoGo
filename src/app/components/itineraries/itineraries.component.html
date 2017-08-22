@@ -1,10 +1,10 @@
-<div class="jumbotron" id="jumbo">
+
   <div id="jumbo">
     <h1 class="display-4">My Itineraries</h1>
   </div>
   <div class="row">
     <div class="container col-sm-4">
-      <app-itinerary-list 
+      <app-itinerary-list
       [itineraries]="userItineraries"
       (viewUpdate)="pushToView($event)"
       ></app-itinerary-list>
@@ -13,4 +13,3 @@
       <app-itinerary-view (deleteItineraryEventEmitter)="refresh($event)"></app-itinerary-view>
     </div>
   </div>
-</div>

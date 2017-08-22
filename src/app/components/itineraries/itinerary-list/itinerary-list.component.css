@@ -1,3 +1,14 @@
 .card{
     height: 100vh;
 }
+
+.mb-1{
+    font-family: 'Cousine', monospace;
+}
+h5{
+  text-transform: capitalize;
+}
+
+.default{
+  font-family: 'Cousine', monospace;
+}

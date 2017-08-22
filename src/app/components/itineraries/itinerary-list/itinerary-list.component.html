@@ -1,6 +1,6 @@
 <div *ngIf="itineraries" class="list-group">
-  <a 
-  *ngFor="let plan of itineraries" 
+  <a
+  *ngFor="let plan of itineraries"
   class="list-group-item list-group-item-action flex-column align-items-start"
   (click)="pushToView(plan)">
     <div class="d-flex w-100 justify-content-between">
@@ -12,6 +12,6 @@
     <small>{{plan.budget | currency}}</small>
   </a>
 </div>
-<div *ngIf="!(itineraries) || itineraries.length == 0">
-  <h5>You have no itineraries</h5>
+<div *ngIf="!(itineraries) || itineraries.length == 0" class="default">
+  <h5>Dont have an Itinerary? <br />Head to Planner to get started! </h5>
 </div>

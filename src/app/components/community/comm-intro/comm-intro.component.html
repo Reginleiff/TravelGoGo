@@ -1,11 +1,11 @@
 <!-- <div class="container-fluid">
   <div class="progress">
-    <div 
-      class="progress-bar progress-bar-striped progress-bar-animated" 
-      role="progressbar" 
-      style="width: 100%;" 
-      attr.aria-valuenow="{{loadPercent}}" 
-      aria-valuemin="0" 
+    <div
+      class="progress-bar progress-bar-striped progress-bar-animated"
+      role="progressbar"
+      style="width: 100%;"
+      attr.aria-valuenow="{{loadPercent}}"
+      aria-valuemin="0"
       aria-valuemax="100">{{loadPercent}}%</div>
   </div>
 </div> -->
@@ -27,33 +27,32 @@
     </div> -->
 
     <div *ngIf="lastUploaded" class="card p-2" (click)="pushToView(lastUploaded)">
-      <div class="card-block">
+      <div class="card-title header">
         <h5>Last Posted</h5>
-        <hr/>
+      </div>
+      <div class="card-block">
         <div class="d-flex justify-content-between">
-          <h4 class="card-title">{{lastUploaded.title}} </h4>
+          <h3 class="card-title">{{lastUploaded.title}} </h3>
           <small>by <em>{{lastUploaded.authorName}}</em></small>
         </div>
         <div class="card-body">
           <p class="card-text">{{lastUploaded.description}}</p>
+          <p class="card-text"></p>
         </div>
       </div>
     </div>
-    <div 
-      *ngIf="topRated" 
-      class="card p-2"
-      (click)="pushToView(topRated)">
-      <div class="card-block">
+    <div *ngIf="topRated" class="card p-2" (click)="pushToView(topRated)">
+      <div class="card-title header">
         <h5>Top Rated</h5>
-        <hr/>
+      </div>
+      <div class="card-block">
         <div class="d-flex justify-content-between">
-          <h4 class="card-title">{{topRated.title}} </h4>
+          <h3 class="card-title">{{topRated.title}} </h3>
           <small>by <em>{{topRated.authorName}}</em></small>
         </div>
         <div class="card-body">
           <p class="card-text">{{topRated.description}}</p>
           <p class="card-text"><em>Average rating of {{topRated.rating | number:'1.1-1'}}/5 stars with {{topRated.views}} review(s)</em></p>
-        </div>
       </div>
     </div>
   </div>
