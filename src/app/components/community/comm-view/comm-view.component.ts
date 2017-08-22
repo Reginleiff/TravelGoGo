@@ -14,6 +14,7 @@ export class CommViewComponent implements OnInit {
   itineraryToView: ItineraryOverview;
   dayplansToView: Array<ItineraryDayPlan>;
   destinationsToView: Array<Destination>;
+  timeout: boolean;
 
   constructor(
     private cds: CommDataService,
@@ -39,8 +40,22 @@ export class CommViewComponent implements OnInit {
   }
 
   add(i: ItineraryOverview){
-    i.authorName = this.ats.userName;
-    i.authorUID = this.ats.uid;
-    this.fbs.addItinerary(i);
+    this.preventCopyAbuse();
+    let newItinerary = new ItineraryOverview();
+    newItinerary.authorName = this.ats.userName;
+    newItinerary.authorUID = this.ats.uid;
+    newItinerary.post = false;
+    newItinerary.delPostKey = null;
+    newItinerary.itinerary = i.itinerary;
+    newItinerary.description = i.description + " ";
+    newItinerary.title = i.title + " (copied from " + i.authorName + ")";
+    this.fbs.addItinerary(newItinerary);
+  }
+
+  preventCopyAbuse(){
+    this.timeout = true;
+    setTimeout(() => {
+      this.timeout = false;
+    }, 5000);
   }
 }

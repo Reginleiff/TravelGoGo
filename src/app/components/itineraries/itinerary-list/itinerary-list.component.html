@@ -5,7 +5,8 @@
   (click)="pushToView(plan)">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{plan.title}}</h5>
-      <small>{{plan.rating}} Stars</small>
+      <small *ngIf="plan.rating != 0">{{plan.rating}} Stars</small>
+      <small *ngIf="plan.rating == 0">Unrated</small>
     </div>
     <p class="mb-1">{{plan.description}}</p>
     <small>{{plan.budget | currency}}</small>
