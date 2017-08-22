@@ -1,6 +1,4 @@
-.card {
-    width: 100%;
-}
+
 
 .buttonadd{
   background-color:white;
@@ -13,15 +11,10 @@
   border-style:none;
 }
 
-.card{
-  color: black;
-}
-.list-group-item{
-  background-color: #333;
-  text-align: left;
+.card-header{
   font-family: 'Poiret One', cursive;
-  color: white;
-
+  color: black;
+  font-weight: bold;
 }
 
 .card-title{
@@ -34,22 +27,31 @@
   border-style:solid;
 
 }
-.card-img-top{
-text-decoration: underline;
-font-weight: bold;
-}
 
-.card{
-  border-width: 0.1px;
-  border-color: black;
-  border-style:solid;
-  align-items: center;
 
+.card-text{
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+  font-size: 1.4em;
 }
 
 .btn{
-  border-width: 0.1px;
+  border-width: 0.0px;
   border-color: #696969C;
   border-style:solid;
   width:100%;
+}
+
+.list-group-item{
+  text-align: left;
+  font-family: 'Poiret One', cursive;
+  color: black;
+  font-weight: bold;
+}
+
+.container{
+  border: 0px;
+  padding: 0px;
+  align-self:   center;
 }

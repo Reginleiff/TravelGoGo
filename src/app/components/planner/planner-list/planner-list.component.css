@@ -8,7 +8,9 @@
   margin: -10px;
 
 }
- input, label{
+
+
+ .button{
    width: 100%;
    text-align: center;
    font-family: 'Poiret One', cursive;
@@ -19,11 +21,7 @@
    border: 0px;
    color: black;
  }
-textarea{
-  text-align: center;
-  font-family: 'Poiret One', cursive;
-  font-weight: bold;
-}
+
 .container{
   background-color: #333;
   border-style: none;
@@ -31,19 +29,19 @@ textarea{
 }
 .form-control {
     border: 0;
+    text-align: center;
+    font-family: 'jumbotron', cursive;
+    font-weight: bold;
 }
 
 .nav{
   background-color: none;
-  border-style: none;
+
   color: white;
   width:100%;
-  
-}
-
-.row{
 
 }
+
 
 .btn-link{
   text-align: center;
