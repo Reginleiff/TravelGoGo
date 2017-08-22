@@ -23,21 +23,19 @@ export class CommListComponent implements OnInit {
   ngOnInit() {
     this.search = new FormControl();
     this.getPostedItineraries();
-    this.filteredItineraries = this.itineraries;
+    
   }
 
   getPostedItineraries(){
-    this.fbs.getAllPostItinerariesKeysObs().subscribe((data) => {
+    this.fbs.getAllItineraryObs().take(1).subscribe((data : Array<ItineraryOverview>) => {
       this.itineraries = new Array<ItineraryOverview>();
-      data.forEach((elem) => {
-        this.fbs.getItineraryObs(elem.$value).take(1).subscribe((itinerary) => {
-          this.itineraries.push(itinerary);
-          if(this.itineraries.length !== 0){
-            this.pushToView(this.itineraries[0]);
-          }
-        }) 
+      data.forEach((i : ItineraryOverview) => {
+        if(i.post){
+          this.itineraries.push(i);
+        }
       })
-    });
+      this.filteredItineraries = this.itineraries;
+    })
   }
 
   filter(str: string): void {
@@ -56,7 +54,7 @@ export class CommListComponent implements OnInit {
   } 
   pushToView(itinerary: ItineraryOverview): void {
     this.cds.pushToView(itinerary);
-    this.fbs.setLastViewed(this.fbs.user, itinerary.$key);
+    // this.fbs.setLastViewed(this.fbs.user, itinerary.$key);
     this.switchToView.emit();
   }
 }

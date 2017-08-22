@@ -8,7 +8,8 @@
       <div class="card-body">
         <p class="card-text">{{itineraryToView.description}}</p>
       </div>
-      <button (click)="add(itineraryToView)"class="btn btn-sm btn-primary">Steal!</button>
+      <button *ngIf="!timeout" (click)="add(itineraryToView)"class="btn btn-sm btn-primary">Copy to my Itineraries</button>
+      <button *ngIf="timeout" (click)="add(itineraryToView)"class="btn btn-sm btn-success disabled">Copied!</button>
       <ul class="nav nav-tabs card-header-tabs">
         <li *ngFor="let plan of dayplansToView, let i = index" class="nav-item">
           <a (click)="pushToView(i)" class="nav-link">{{plan.day + 1}}</a>

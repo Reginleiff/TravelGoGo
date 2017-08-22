@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { FirebaseService } from './../../../services/firebase.service';
 import { CommDataService } from'./../../../services/comm-data.service';
 import { ItineraryOverview, User } from './../../../objects';
@@ -13,7 +14,7 @@ export class CommIntroComponent implements OnInit {
   @Output() hideIntroEmit = new EventEmitter<boolean>();
   load: number;
   loadPercent: number;
-  lastViewed: ItineraryOverview;
+  // lastViewed: ItineraryOverview;
   lastUploaded: ItineraryOverview;
   topRated: ItineraryOverview;
   user: User;
@@ -27,12 +28,12 @@ export class CommIntroComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.fbs.getUser().take(1).subscribe((user: User) => {
-      this.fbs.af.object('/itineraries/' + user.lastViewed).take(1).subscribe(itinerary => {
-        this.lastViewed = itinerary;
-        // this.componentLoaded();
-      });
-    })
+    // this.fbs.getUser().take(1).subscribe((user: User) => {
+    //   this.fbs.af.object('/itineraries/' + user.lastViewed).take(1).subscribe(itinerary => {
+    //     this.lastViewed = itinerary;
+    //     // this.componentLoaded();
+    //   });
+    // })
     this.fbs.getLastUploadedObs().take(1).subscribe((itineraryStringObj) => {
       this.fbs.af.object('/itineraries/' + itineraryStringObj.key).take(1).subscribe(itinerary => {
         this.lastUploaded = itinerary;

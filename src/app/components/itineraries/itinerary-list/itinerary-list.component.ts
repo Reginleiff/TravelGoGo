@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { ItineraryOverview, ItineraryDayPlan, Destination }from './../../../objects';
 import { ItineraryService } from './../../../services/itinerary.service';
 

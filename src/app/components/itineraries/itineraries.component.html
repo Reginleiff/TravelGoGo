@@ -10,7 +10,7 @@
       ></app-itinerary-list>
     </div>
     <div class="container col-sm-8">
-      <app-itinerary-view></app-itinerary-view>
+      <app-itinerary-view (deleteItineraryEventEmitter)="refresh($event)"></app-itinerary-view>
     </div>
   </div>
 </div>

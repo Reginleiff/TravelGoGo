@@ -15,6 +15,7 @@ export class CommDiscussionComponent implements OnInit {
   reviewText: string;
   reviewRating: number;
   reviewAuthor: string;
+  reviewDate: number;
   comments: Array<Comment>;
   replyForm: FormGroup;
   reply: boolean;
@@ -27,6 +28,7 @@ export class CommDiscussionComponent implements OnInit {
     this.reviewRating = this.rcPair.review.rating;
     this.reviewAuthor = this.rcPair.review.authorName;
     this.comments = this.rcPair.comments;
+    this.reviewDate = this.rcPair.review.date;
     this.resetReplyForm();
   }
 

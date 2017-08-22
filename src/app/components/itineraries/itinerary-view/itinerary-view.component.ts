@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, ItineraryDayPlan, ItineraryOverview, Destination } from './../../../objects';
 
@@ -12,6 +12,7 @@ import { FirebaseService } from './../../../services/firebase.service';
 })
 export class ItineraryViewComponent implements OnInit {
 
+  @Output() deleteItineraryEventEmitter = new EventEmitter<boolean>();
   planToView: ItineraryOverview;
   itineraryToView: ItineraryDayPlan[];
   dayPlanToView: ItineraryDayPlan;
@@ -51,6 +52,7 @@ export class ItineraryViewComponent implements OnInit {
     this.itineraryToView = null;
     this.dayPlanToView = null;
     this.destinationsToView = null;
+    this.deleteItineraryEventEmitter.emit(true);
   }
 
   edit(itinerary: ItineraryOverview): void {
@@ -64,4 +66,6 @@ export class ItineraryViewComponent implements OnInit {
   takeDownItinerary(i: ItineraryOverview){
     this.firebaseService.takeDownItinerary(i);
   }
+
+  
 }

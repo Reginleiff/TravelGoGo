@@ -19,7 +19,9 @@ export class ItinerariesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getUserItineraries();
+    setTimeout(() => {
+      this.getUserItineraries();
+    }, 0);
   }
 
   getUserItineraries(){
@@ -38,5 +40,11 @@ export class ItinerariesComponent implements OnInit {
 
   pushToView(plan: ItineraryOverview): void {
     this.itineraryPlanToView = plan;
+  }
+
+  refresh($event){
+    setTimeout(() => {
+      this.getUserItineraries();
+    }, 0);
   }
 }
