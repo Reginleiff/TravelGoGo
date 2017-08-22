@@ -160,6 +160,7 @@ export class Review {
         this.authorUID = uid;
         this.authorName = name;
         this.text = text;
+        this.date = Date.now();
         this.rating = rating;
     }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 import { FirebaseService } from './../../../services/firebase.service';
 import { CommDataService } from'./../../../services/comm-data.service';
 import { ItineraryOverview, User } from './../../../objects';
