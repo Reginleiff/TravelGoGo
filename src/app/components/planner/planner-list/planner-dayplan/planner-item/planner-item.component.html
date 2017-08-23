@@ -14,9 +14,9 @@
   <div id="{{id}}" class="collapse" role="tabpanel">
     <div class="card-block">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item pulL-left">{{dest.address}}</li>
-        <li class="list-group-item pulL-left">{{dest.phone}}</li>
-        <li class="list-group-item pulL-left">{{dest.website}}</li>
+        <li *ngIf="dest.address" class="list-group-item pulL-left">{{dest.address}}</li>
+        <li *ngIf="dest.phone" class="list-group-item pulL-left">{{dest.phone}}</li>
+        <li *ngIf="dest.website" class="list-group-item pulL-left">{{dest.website}}</li>
         <button (click)="remove()" class="btn btn-sm btn-danger">Remove</button>
       </ul>
     </div>

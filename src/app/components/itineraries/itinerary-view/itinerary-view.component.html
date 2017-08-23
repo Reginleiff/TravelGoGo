@@ -21,7 +21,7 @@
     </div>
 
       <div  *ngFor="let dest of destinationsToView" class="container">
-        <div class="row">
+        <div class="row" id="location">
           <div class="col-md-4">
             <img class="card-img-left" align="right" class="rounded" height="200em" width="300em" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{dest.lat}},{{dest.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
           </div>
@@ -31,9 +31,9 @@
                   <h4 class="card-title" align="right" >{{dest.name}}</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">{{dest.address}}</li>
-                  <li class="list-group-item">{{dest.phone}}</li>
-                  <li class="list-group-item">{{dest.website}}</li>
+                  <li *ngIf="dest.address" class="list-group-item">{{dest.address}}</li>
+                  <li *ngIf="dest.phone" class="list-group-item">{{dest.phone}}</li>
+                  <li *ngIf="dest.website" class="list-group-item">{{dest.website}}</li>
                 </ul>
               </div>
           </div>

@@ -83,8 +83,8 @@ export class Destination {
         if(place.photos != null){
             this.photos = place.photos.map((p) => {
                 return p.getUrl({
-                    maxHeight: 400,
-                    maxWidth: 400
+                    maxHeight: 300,
+                    maxWidth: 500
                 });
             });
         }

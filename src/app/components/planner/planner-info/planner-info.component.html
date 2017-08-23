@@ -4,16 +4,16 @@
       <div class="card-header">
         {{destinationToView.rating}}/5 Stars
       </div>
-      <img class="card-img-top" *ngIf="photoURL && destinationToView" class="card-img-left rounded" [src]="photoURL" height="150" width="250">
+      <img class="card-img-top" *ngIf="photoURL && destinationToView" class="card-img-left rounded" src="photoURL" height="300" width="500">
       <img class="card-img-top" *ngIf="!photoURL && destinationToView" class="rounded" height="300" width="500" src="https://maps.googleapis.com/maps/api/streetview?size=400x300&location={{destinationToView.lat}},{{destinationToView.lng}}&fov=90&heading=235&pitch=10&key=AIzaSyCplejDBYJ13CLHfA7jLx-E-xw5sTuzHwk">
       <div class="card-block">
         <h4 class="card-title">  <button (click)="addToItinerary(destinationToView)" class="btn btn-primary buttonadd">Add to Itinerary</button></h4>
         <p class="card-text">{{destinationToView.name}}</p>
       </div>
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{destinationToView.address}}</li>
-        <li class="list-group-item">{{destinationToView.phone}}</li>
-        <li class="list-group-item">{{destinationToView.website}}</li>
+        <li *ngIf="destinationToView.address" class="list-group-item">{{destinationToView.address}}</li>
+        <li *ngIf="destinationToView.phone" class="list-group-item">{{destinationToView.phone}}</li>
+        <li *ngIf="destinationToView.website" class="list-group-item">{{destinationToView.website}}</li>
       </ul>
   </div>
 </div>
