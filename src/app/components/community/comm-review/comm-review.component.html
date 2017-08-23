@@ -8,34 +8,35 @@
   <div class="card">
      <div class="card-block">
       <div *ngIf="itinerary" class="list-group">
-        <div
-        *ngFor="let rcPair of reviews"
-        class="list-group-item"
-        >
+        <div *ngFor="let rcPair of reviews" class="list-group-item">
           <app-comm-discussion id="tile" [rcPair]="rcPair" (commentUpdated)="refresh($event)"></app-comm-discussion>
         </div>
       </div>
+    </div>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
+      <div class="form-group love" align="left" placeholder="Rate me!">
+        <select class="form-control rater" formControlName="rating" align="center" >
+          <option value="" disabled>Choose a rating</option>
+          <option *ngFor="let r of ratings" [ngValue]="r" >
+            {{ r }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group" align="center">
+          <textarea class="form-control comment" placeholder="Comment here!" formControlName="text" rows="4"></textarea>
+      </div>
+      <div class="form-group">
+        <input
+          type="submit"
+          class="button expanded btn btn-primary"
+          value="Submit Review"
+          [disabled]="!reviewForm.valid">
+      </div>
+    </form>
 
 
-            <form [formGroup]="reviewForm" (ngSubmit)="submitReview(reviewForm.value)">
-              <div class="row">
-                <label>
-                  <textarea class="form-control" formControlName="text"></textarea>
-                  <select formControlName="rating">
-                    <option value="" disabled>Choose a rating</option>
-                    <option *ngFor="let r of ratings" [ngValue]="r">
-                      {{ r }}
-                    </option>
-                  </select>
-                </label>
-                <input
-                  type="submit"
-                  class="button expanded"
-                  value="Submit Review"
-                  [disabled]="!reviewForm.valid">
-              </div>
-            </form>
 
-     </div>
+
   </div>
 </div>
